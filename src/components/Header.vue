@@ -31,15 +31,20 @@
 			</template>
 
 		</v-toolbar>
-		<v-window v-model="tab">
+
+		<v-window
+			:modelValue="tab"
+			update:modelValue="update($event)"
+		>
 			<v-window-item
-				v-for="item in items"
+				v-for="item, i in items"
 				:key="item"
 				:value="item"
 			>
 				<v-card flat>
 					Hellol
-					<v-card-text v-text="text"></v-card-text>
+					<v-card-text v-text="text[i]"></v-card-text>
+					<Notes/>
 				</v-card>
 			</v-window-item>
 		</v-window>
@@ -54,19 +59,38 @@
 				</v-window-item>
 			</v-window> -->
 
-		{{ tab }}
+		The tab is{{ tab }}
+		<!-- The test is {{ test }} -->
 	</v-card>
 </template>
 
 <script>
 import { ref, reactive, computed } from 'vue'
+import { useStore } from 'vuex'
+import Notes from './Notes.vue'
+
 export default {
+		components: {
+		Notes,
+	},
 	setup() {
-		const tab = ref(null)
+		const store = useStore()
+
+		const test = store.getters['notes/test']
+		const tab = ref('Заметки')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
-		const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+		const text = [
+			'Заметки. Текст для заметок',
+			'Задачи. Текст для Задач',
+			'Цели. Текст для Целей'
+		]
+
+		const update = ($event) => {
+			console.log('event', $event)
+
+		}
 
 
 
@@ -74,18 +98,17 @@ export default {
 		return {
 			items,
 			text,
-			tab
+			tab,
+			test,
+			update
 		}
 	}
 }
 </script>
 
 <style>
-
-
 /* ниже рабоатет для выделенного таба */
-	/* .v-tab--selected {
+/* .v-tab--selected {
 		font-weight: 700;
 	} */
-
 </style>
