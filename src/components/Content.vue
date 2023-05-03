@@ -1,6 +1,6 @@
 <template>
 	<Header />
-	<v-row>
+	<!-- <v-row>
 		<Notes />
 		<Notes />
 		<Notes />
@@ -8,16 +8,16 @@
 		<Notes />
 		<Notes />
 		<Notes />
-	</v-row>
+	</v-row> -->
 </template>
 
 <script>
 import { ref, reactive, computed } from 'vue'
-import Notes from './Notes.vue'
+// import Notes from './Notes.vue'
 import Header from './Header.vue'
 export default {
 	components: {
-		Notes,
+		// Notes,
 		Header
 	},
 	setup() {

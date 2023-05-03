@@ -1,22 +1,22 @@
 <template>
 	<v-col
 		cols="12"
-		md="3"
+		md="4"
 	>
+	<!-- max-width="344" -->
 		<v-card
-			max-width="344"
 			variant="outlined"
 		>
 			<v-card-item>
 				<div>
 					<div class="text-overline mb-1">
-						заметки
+						{{ subTitle }}
 					</div>
 					<div class="text-h6 mb-1">
-						Карта заметок
+						{{ title }}
 					</div>
 					<div class="text-caption">
-						Greyhound divisely hello coldly fonwderfully</div>
+						{{ text }}</div>
 				</div>
 			</v-card-item>
 			<v-card-actions>
@@ -33,10 +33,34 @@
 
 <script>
 import { ref, reactive, computed } from 'vue'
+// import { props } from 'vue'
 export default {
-	setup() {
+	props: {
+		subTitle: {
+			type: String,
+			required: true
+		},
+		title: {
+			type: String,
+			required: true
+		},
+		text: {
+			type: String,
+			required: true
+		},
+
+	},
+	setup(props) {
+		console.log('props:', props);
+		console.log('props.subTitle', props.subTitle);
+
+		return {
+			// subTitle
+		}
 
 	}
+
+	
 }
 </script>
 

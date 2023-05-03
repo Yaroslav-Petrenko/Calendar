@@ -12,6 +12,7 @@
 			</v-btn>
 
 			<template v-slot:extension>
+				<!-- Хочу заменить цикл на статику -->
 				<v-tabs
 					v-model="tab"
 					align-tabs="title"
@@ -19,34 +20,105 @@
 					selected-class="red"
 				>
 					<v-tab
-						v-for="item in items"
-						:key="item"
-						:value="item"
+						value="Заметки"
 						variant="plain"
 					>
-						{{ item }}
+						Заметки
 					</v-tab>
-					<!-- <v-tab>One</v-tab> -->
+					<v-tab
+						value="Задачи"
+						variant="plain"
+					>
+						Задачи
+					</v-tab>
+					<v-tab
+						value="Цели"
+						variant="plain"
+					>
+						Цели
+					</v-tab>
+					<!-- Ниже цикл -->
+					<!-- <v-tab
+						v-for="item in notes"
+						:key="item.category"
+						:value="item.category"
+						variant="plain"
+					>
+						{{ item.category }}
+					</v-tab> -->
+					<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
 				</v-tabs>
 			</template>
-
 		</v-toolbar>
 
+
+		<!-- Хочу заменить цикл на статику -->
 		<v-window
 			:modelValue="tab"
 			update:modelValue="update($event)"
 		>
+			<v-window-item value="Заметки">
+				<v-row>
+					<!-- <v-card v-for="item in allCards" flat> -->
+					<!-- <v-card-text v-text="text"></v-card-text> -->
+					<Notes
+						v-for="item in allNotes"
+						subTitle="Заметки"
+						:title="item.title"
+						:text="item.text"
+					/>
+					<!-- </v-card> -->
+				</v-row>
+			</v-window-item>
+
+			<v-window-item value="Задачи">
+				<v-row>
+					<Notes
+						v-for="item in allTasks"
+						subTitle="Задачи"
+						:title="item.title"
+						:text="item.text"
+					/>
+				</v-row>
+			</v-window-item>
+
+			<v-window-item value="Цели">
+				<v-row>
+					<Notes
+						v-for="item in allGoals"
+						subTitle="Цели"
+						:title="item.title"
+						:text="item.text"
+					/>
+				</v-row>
+			</v-window-item>
+			<!-- Ниже цикл -->
+			<!-- <v-window
+			:modelValue="tab"
+			update:modelValue="update($event)"
+		>
 			<v-window-item
-				v-for="item, i in items"
+				v-for="item, i in notes.cards"
 				:key="item"
 				:value="item"
 			>
+				Before card
 				<v-card flat>
 					Hellol
 					<v-card-text v-text="text[i]"></v-card-text>
-					<Notes/>
+					<Notes
+						subTitle="Заметки"
+						title="Заметки title"
+						text="Заметки lorem ipsum"
+					/>
 				</v-card>
-			</v-window-item>
+			</v-window-item> -->
+
+			<!-- <v-window-item>
+					<v-card flat>
+						<v-card-text >Lorem</v-card-text>
+					</v-card>
+				</v-window-item> -->
 		</v-window>
 
 		<!-- <v-window v-model="One">
@@ -59,8 +131,8 @@
 				</v-window-item>
 			</v-window> -->
 
-		The tab is{{ tab }}
-		<!-- The test is {{ test }} -->
+		<!-- The tab is {{ tab }} -->
+		<!-- allTasks {{ allTasks }} -->
 	</v-card>
 </template>
 
@@ -70,14 +142,63 @@ import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 
 export default {
-		components: {
+	components: {
 		Notes,
 	},
 	setup() {
+
+		const notes = [
+			{
+				category: 'Заметки',
+				cards: {
+					'100': { id: '100', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
+
+					'101': { id: '101', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
+
+					'102': { id: '102', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
+
+					'103': { id: '103', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
+
+					'104': { id: '104', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" }
+				}
+			},
+			{
+				category: 'Задачи',
+				cards: {
+					'100': { id: '100', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
+
+					'101': { id: '101', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
+
+					'102': { id: '102', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
+
+					'103': { id: '103', title: 'Задачии title', subTitle: 'Задачи subTitle', text: "Заметки lorem ipsum" },
+
+					'104': { id: '104', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" }
+				}
+			},
+			{
+				category: 'Цели',
+				cards: {
+					'100': { id: '100', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
+
+					'101': { id: '101', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
+
+					'102': { id: '102', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
+
+					'103': { id: '103', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
+
+					'104': { id: '104', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" }
+				}
+			}
+		]
+
 		const store = useStore()
 
+		// notes.forEach(item => console.log(Object.keys(item)))
+		// console.log(Object.keys(notes))
+
 		const test = store.getters['notes/test']
-		const tab = ref('Заметки')
+		const tab = ref(null)
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -92,6 +213,10 @@ export default {
 
 		}
 
+		const allNotes = computed(() => store.getters['notes/allNotes'])
+		const allTasks = computed(() => store.getters['tasks/allTasks'])
+		const allGoals = computed(() => store.getters['goals/allGoals'])
+		console.log('allTasks', allTasks)
 
 
 
@@ -100,7 +225,11 @@ export default {
 			text,
 			tab,
 			test,
-			update
+			update,
+			notes,
+			allNotes,
+			allTasks,
+			allGoals
 		}
 	}
 }
