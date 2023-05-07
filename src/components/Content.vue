@@ -1,5 +1,6 @@
 <template>
 	<Header />
+	<!-- <Search /> -->
 	<!-- <v-row>
 		<Notes />
 		<Notes />
@@ -15,10 +16,12 @@
 import { ref, reactive, computed } from 'vue'
 // import Notes from './Notes.vue'
 import Header from './Header.vue'
+import Search from './Search.vue'
 export default {
 	components: {
 		// Notes,
-		Header
+		Header,
+		Search
 	},
 	setup() {
 

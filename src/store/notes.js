@@ -2,6 +2,7 @@ export default {
 	namespaced: true,
 	state: {
 		category: 'Заметки',
+		searchField: 'чет',
 		cards: [
 			{
 				id: '100',
@@ -39,13 +40,19 @@ export default {
 		notesFindEl: state => id => {
 			return state.notes.id
 		},
-		allNotes: state => state.cards
+		allNotes: state => state.cards,
+		filteredNotes: state => conditions => state.cards.filter(item => {
+			// if (conditions) return 
+			// console.log(Object.values(item))
+			// console.log('Синий кит'.indexOf('ний') !== -1); // true
+			return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
+		})
 	},
 	mutations: {
 
 	},
 	actions: {
-
+		
 	},
 }
 

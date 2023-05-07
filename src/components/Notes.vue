@@ -3,10 +3,8 @@
 		cols="12"
 		md="4"
 	>
-	<!-- max-width="344" -->
-		<v-card
-			variant="outlined"
-		>
+		<!-- max-width="344" -->
+		<v-card variant="outlined">
 			<v-card-item>
 				<div>
 					<div class="text-overline mb-1">
@@ -50,9 +48,9 @@ export default {
 		},
 
 	},
-	setup(props) {
-		console.log('props:', props);
-		console.log('props.subTitle', props.subTitle);
+	setup() {
+		// console.log('props:', props);
+		// console.log('props.subTitle', props.subTitle);
 
 		return {
 			// subTitle
@@ -60,7 +58,7 @@ export default {
 
 	}
 
-	
+
 }
 </script>
 

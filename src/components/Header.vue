@@ -48,8 +48,17 @@
 					</v-tab> -->
 					<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
 				</v-tabs>
+				<!-- <Search/> -->
 			</template>
+
 		</v-toolbar>
+		<Search :tab="tab" />
+
+		<!-- <v-data-table
+			:headers="headers"
+			:items="desserts"
+			:search="search"
+		></v-data-table> -->
 
 
 		<!-- Хочу заменить цикл на статику -->
@@ -62,7 +71,7 @@
 					<!-- <v-card v-for="item in allCards" flat> -->
 					<!-- <v-card-text v-text="text"></v-card-text> -->
 					<Notes
-						v-for="item in allNotes"
+						v-for="item in filteredNotes('чет')"
 						subTitle="Заметки"
 						:title="item.title"
 						:text="item.text"
@@ -140,10 +149,12 @@
 import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
+import Search from './Search.vue'
 
 export default {
 	components: {
 		Notes,
+		Search
 	},
 	setup() {
 
@@ -198,7 +209,7 @@ export default {
 		// console.log(Object.keys(notes))
 
 		const test = store.getters['notes/test']
-		const tab = ref(null)
+		const tab = ref('Заметки')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -209,14 +220,15 @@ export default {
 		]
 
 		const update = ($event) => {
-			console.log('event', $event)
+			// console.log('event', $event)
 
 		}
 
 		const allNotes = computed(() => store.getters['notes/allNotes'])
+		const filteredNotes = computed(() => store.getters['notes/filteredNotes'])
 		const allTasks = computed(() => store.getters['tasks/allTasks'])
 		const allGoals = computed(() => store.getters['goals/allGoals'])
-		console.log('allTasks', allTasks)
+		console.log('filteredNotes', filteredNotes.value(''))
 
 
 
@@ -229,7 +241,8 @@ export default {
 			notes,
 			allNotes,
 			allTasks,
-			allGoals
+			allGoals,
+			filteredNotes
 		}
 	}
 }
