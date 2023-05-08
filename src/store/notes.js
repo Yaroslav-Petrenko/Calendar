@@ -2,31 +2,31 @@ export default {
 	namespaced: true,
 	state: {
 		category: 'Заметки',
-		searchField: 'чет',
+		// searchField: 'чет',
 		cards: [
 			{
 				id: '100',
 				title: 'Заметки title',
 				subTitle: 'Заметки subTitle',
-				text: "Текст первой заметки"
+				text: "Текст первой заметки первая-третья"
 			},
 			{
 				id: '101',
 				title: 'Заметки title',
 				subTitle: 'Заметки subTitle',
-				text: "Текст второй заметки"
+				text: "Текст второй заметки вторая-четвертая"
 			},
 			{
 				id: '102',
 				title: 'Заметки title',
 				subTitle: 'Заметки subTitle',
-				text: "Текст третьей заметки"
+				text: "Текст третьей заметки первая-третья"
 			},
 			{
 				id: '103',
 				title: 'Заметки title',
 				subTitle: 'Заметки subTitle',
-				text: "Текст четвертой заметки"
+				text: "Текст четвертой заметки вторая-четвертая"
 			},
 			{
 				id: '104',

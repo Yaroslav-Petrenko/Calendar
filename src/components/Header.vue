@@ -52,7 +52,10 @@
 			</template>
 
 		</v-toolbar>
-		<Search :tab="tab" />
+		<Search
+			:tab="tab"
+			@emitSearchValue="setSearch($event)"
+		/>
 
 		<!-- <v-data-table
 			:headers="headers"
@@ -71,7 +74,7 @@
 					<!-- <v-card v-for="item in allCards" flat> -->
 					<!-- <v-card-text v-text="text"></v-card-text> -->
 					<Notes
-						v-for="item in filteredNotes('чет')"
+						v-for="item in filteredNotes(search.value)"
 						subTitle="Заметки"
 						:title="item.title"
 						:text="item.text"
@@ -146,7 +149,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
@@ -205,9 +208,6 @@ export default {
 
 		const store = useStore()
 
-		// notes.forEach(item => console.log(Object.keys(item)))
-		// console.log(Object.keys(notes))
-
 		const test = store.getters['notes/test']
 		const tab = ref('Заметки')
 		const items = [
@@ -218,6 +218,21 @@ export default {
 			'Задачи. Текст для Задач',
 			'Цели. Текст для Целей'
 		]
+
+		// notes.forEach(item => console.log(Object.keys(item)))
+		// console.log(Object.keys(notes))
+		const search = reactive({ value: '' })
+		const setSearch = (e) => {
+			search.value = e.value
+			// console.log(obj)
+		}
+		watch(tab, () => {
+			search.value = ''
+		});
+
+
+
+
 
 		const update = ($event) => {
 			// console.log('event', $event)
@@ -242,7 +257,9 @@ export default {
 			allNotes,
 			allTasks,
 			allGoals,
-			filteredNotes
+			filteredNotes,
+			setSearch,
+			search
 		}
 	}
 }

@@ -5,6 +5,8 @@
 			<v-spacer></v-spacer>
 			<v-text-field
 				v-model="search"
+				@input="emitSearchValue($event)"
+				
 				append-icon="mdi-magnify"
 				:label="`Поиск по ${notesType}`"
 				single-line
@@ -33,7 +35,7 @@ export default {
 			required: true
 		}
 	},
-	setup(props) {
+	setup(props, { emit }) {
 		const store = useStore()
 		const { tab } = toRefs(props)
 		const allNotes = computed(() => store.getters['notes/allNotes'])
@@ -41,7 +43,7 @@ export default {
 
 
 		// console.log('tab', tab.value)
-		let search = ref('')
+		const search = ref('')
 		const headers = reactive([
 			{
 				align: 'start',
@@ -138,6 +140,16 @@ export default {
 			},
 		])
 
+		const emitSearchValue = ($event) => {
+			// console.log($event.target.value)
+			emit('emitSearchValue', { value: $event.target.value })
+		}
+		// const clearSearch = () => {
+		// 	console.log('blur work')
+		// 	search.value = ''
+		// }
+
+
 		const notesType = computed(() => {
 			switch (tab.value) {
 				case 'Заметки':
@@ -157,7 +169,9 @@ export default {
 			headers,
 			desserts,
 			notesType,
-			allNotes
+			allNotes,
+			emitSearchValue,
+			// clearSearch
 		}
 
 	}
