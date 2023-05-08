@@ -16,6 +16,7 @@
 					<div class="text-caption">
 						{{ text }}</div>
 				</div>
+				
 			</v-card-item>
 			<v-card-actions>
 				<v-btn variant="outlined">

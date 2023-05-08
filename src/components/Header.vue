@@ -86,7 +86,7 @@
 			<v-window-item value="Задачи">
 				<v-row>
 					<Notes
-						v-for="item in allTasks"
+						v-for="item in filteredTasks(search.value)"
 						subTitle="Задачи"
 						:title="item.title"
 						:text="item.text"
@@ -97,7 +97,7 @@
 			<v-window-item value="Цели">
 				<v-row>
 					<Notes
-						v-for="item in allGoals"
+						v-for="item in filteredGoals(search.value)"
 						subTitle="Цели"
 						:title="item.title"
 						:text="item.text"
@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
@@ -226,9 +226,9 @@ export default {
 			search.value = e.value
 			// console.log(obj)
 		}
-		watch(tab, () => {
-			search.value = ''
-		});
+		// watch(tab, () => {
+		// 	search.value = ''
+		// });
 
 
 
@@ -239,10 +239,12 @@ export default {
 
 		}
 
-		const allNotes = computed(() => store.getters['notes/allNotes'])
+		// const allNotes = computed(() => store.getters['notes/allNotes'])
 		const filteredNotes = computed(() => store.getters['notes/filteredNotes'])
-		const allTasks = computed(() => store.getters['tasks/allTasks'])
-		const allGoals = computed(() => store.getters['goals/allGoals'])
+		// const allTasks = computed(() => store.getters['tasks/allTasks'])
+		const filteredTasks = computed(() => store.getters['tasks/filteredTasks'])
+		// const allGoals = computed(() => store.getters['goals/allGoals'])
+		const filteredGoals = computed(() => store.getters['goals/filteredGoals'])
 		console.log('filteredNotes', filteredNotes.value(''))
 
 
@@ -254,10 +256,12 @@ export default {
 			test,
 			update,
 			notes,
-			allNotes,
-			allTasks,
-			allGoals,
+			// allNotes,
+			// allTasks,
+			// allGoals,
 			filteredNotes,
+			filteredTasks,
+			filteredGoals,
 			setSearch,
 			search
 		}

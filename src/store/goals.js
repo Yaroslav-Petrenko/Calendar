@@ -39,7 +39,13 @@ export default {
 		goalsFindEl: state => id => {
 			return state.notes.id
 		},
-		allGoals: state => state.cards
+		// allGoals: state => state.cards,
+		filteredGoals: state => conditions => state.cards.filter(item => {
+			// if (conditions) return 
+			// console.log(Object.values(item))
+			// console.log('Синий кит'.indexOf('ний') !== -1); // true
+			return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
+		})
 	},
 	mutations: {
 

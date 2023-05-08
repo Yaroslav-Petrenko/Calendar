@@ -40,7 +40,7 @@ export default {
 		notesFindEl: state => id => {
 			return state.notes.id
 		},
-		allNotes: state => state.cards,
+		// allNotes: state => state.cards,
 		filteredNotes: state => conditions => state.cards.filter(item => {
 			// if (conditions) return 
 			// console.log(Object.values(item))
