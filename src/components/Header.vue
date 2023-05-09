@@ -2,7 +2,7 @@
 	<v-card>
 		<v-toolbar color="grey-darken-3">
 			<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-			<v-toolbar-title>Calendar</v-toolbar-title>
+			<v-toolbar-title class="app-title">Calendar</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn icon>
 				<v-icon>mdi-magnify</v-icon>

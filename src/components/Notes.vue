@@ -4,19 +4,26 @@
 		md="4"
 	>
 		<!-- max-width="344" -->
-		<v-card variant="outlined">
-			<v-card-item>
-				<div>
-					<div class="text-overline mb-1">
-						{{ subTitle }}
+		<v-card variant="outlined" >
+			<v-card-item class="pa-2">
+				<div class="d-flex">
+					<div class="card-body flex-grow-1">
+						<div class="text-overline mb-1">
+							{{ subTitle }}
+						</div>
+						<div class="text-h6 mb-1">
+							{{ title }}
+						</div>
+						<div class="text-caption">
+							{{ text }}</div>
 					</div>
-					<div class="text-h6 mb-1">
-						{{ title }}
+					<div class="icon">
+						<img
+							:src="getRandomIco"
+							alt=""
+						/>
 					</div>
-					<div class="text-caption">
-						{{ text }}</div>
 				</div>
-				
 			</v-card-item>
 			<v-card-actions>
 				<v-btn variant="outlined">
@@ -25,6 +32,7 @@
 				<v-btn variant="outlined">
 					15 MIN
 				</v-btn>
+				Random id {{ getRandomIco }}
 			</v-card-actions>
 		</v-card>
 	</v-col>
@@ -52,9 +60,16 @@ export default {
 	setup() {
 		// console.log('props:', props);
 		// console.log('props.subTitle', props.subTitle);
+		const getRandomIco = computed(() => {
+			const randomNumber = Math.floor(Math.random() * 10 + 1)
+			const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
+			console.log(res)
+			// return `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
+			return "09.webp";
+		})
 
 		return {
-			// subTitle
+			getRandomIco
 		}
 
 	}
@@ -63,4 +78,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.card-body {}
+
+.icon {
+	/* background: url('../icons/01.png') 100% 0 / cover no-repeat; */
+	position: relative;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+	width: 64px;
+	height: 64px;
+}
+</style>
