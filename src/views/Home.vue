@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <!-- <div class="container"> -->
 		<Content />
-	</div>
+	<!-- </div> -->
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@
 
 <style>
 .container {
-	width: 1200px;
+	width: 1300px;
 	margin: 0 auto;
 }
 </style>

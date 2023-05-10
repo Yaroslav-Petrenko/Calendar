@@ -1,23 +1,39 @@
 <template>
-	<v-card color="grey-darken-3">
-		<v-card-title>
+	<v-card
+		color="#27272f"
+		class="pa-4"
+	>
+		<v-card-title class="d-flex align-center">
 			<!-- Nutrition -->
-			<v-spacer></v-spacer>
+			<!-- <v-spacer></v-spacer> -->
 			<v-text-field
 				v-model="search"
-				append-icon="mdi-magnify"
+		
+				variant="outlined"
+				density="comfortable"
+				bg-color="#1d1d24"
 				:label="`Поиск по ${notesType}`"
 				single-line
 				hide-details
-			></v-text-field>
+			>
+			<!-- {{ `Поиск по ${notesType}` }} -->
+			</v-text-field>
+			<v-btn
+				class="ml-3"
+				size="large"
+				color="#465af7"
+			>
+				Добавить заметку
+			</v-btn>
+
 		</v-card-title>
 		<!-- <v-data-table
 			:headers="headers"
 			:items="desserts"
 			:search="search"
 		></v-data-table> -->
-		seacrh is {{ search }}
-		tab is {{ tab }}
+		<!-- seacrh is {{ search }}
+		tab is {{ tab }} -->
 		<!-- <pre>desserts is {{ desserts }}</pre> -->
 	</v-card>
 </template>

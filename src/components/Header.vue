@@ -1,70 +1,71 @@
 <template>
-	<v-card>
-		<v-toolbar color="grey-darken-3">
-			<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-			<v-toolbar-title class="app-title">Calendar</v-toolbar-title>
-			<v-spacer></v-spacer>
-			<v-btn icon>
-				<v-icon>mdi-magnify</v-icon>
-			</v-btn>
-			<v-btn icon>
-				<v-icon>mdi-dots-vertical</v-icon>
-			</v-btn>
-
-			<template v-slot:extension>
-				<!-- Хочу заменить цикл на статику -->
-				<v-tabs
-					v-model="tab"
-					align-tabs="title"
-					bg-color="grey-darken-3"
-					selected-class="red"
-				>
-					<v-tab
-						value="Заметки"
-						variant="plain"
+	<v-card >
+		<v-toolbar color="#27272f">
+			
+				<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+				<v-toolbar-title>Calendar</v-toolbar-title>
+				<v-spacer></v-spacer>
+				<v-btn icon>
+					<v-icon>mdi-magnify</v-icon>
+				</v-btn>
+				<v-btn icon>
+					<v-icon>mdi-dots-vertical</v-icon>
+				</v-btn>
+			
+				<template v-slot:extension>
+					<!-- <div class="container"> -->
+					<!-- Хочу заменить цикл на статику -->
+					<v-tabs
+						v-model="tab"
+						align-tabs="title"
+						selected-class="red"
 					>
-						Заметки
-					</v-tab>
-					<v-tab
-						value="Задачи"
-						variant="plain"
-					>
-						Задачи
-					</v-tab>
-					<v-tab
-						value="Цели"
-						variant="plain"
-					>
-						Цели
-					</v-tab>
-					<!-- Ниже цикл -->
-					<!-- <v-tab
-						v-for="item in notes"
-						:key="item.category"
-						:value="item.category"
-						variant="plain"
-					>
-						{{ item.category }}
-					</v-tab> -->
-					<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
-				</v-tabs>
-				<!-- <Search/> -->
-			</template>
-
+						<v-tab
+							value="Заметки"
+							variant="plain"
+						>
+							Заметки
+						</v-tab>
+						<v-tab
+							value="Задачи"
+							variant="plain"
+						>
+							Задачи
+						</v-tab>
+						<v-tab
+							value="Цели"
+							variant="plain"
+						>
+							Цели
+						</v-tab>
+						<!-- Ниже цикл -->
+						<!-- <v-tab
+								v-for="item in notes"
+								:key="item.category"
+								:value="item.category"
+								variant="plain"
+							>
+								{{ item.category }}
+							</v-tab> -->
+						<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
+					</v-tabs>
+					<!-- <Search/> -->
+						<!-- </div> -->
+				</template>
+			
 		</v-toolbar>
 		<Search
 			:tab="tab"
 			@emitSearchValue="setSearch($event)"
 		/>
-
 		<!-- <v-data-table
-			:headers="headers"
-			:items="desserts"
-			:search="search"
-		></v-data-table> -->
-
-
+				:headers="headers"
+				:items="desserts"
+				:search="search"
+			></v-data-table> -->
 		<!-- Хочу заменить цикл на статику -->
+		<div class="pa-3 d-flex justify-center">
+		</div>
 		<v-window
 			:modelValue="tab"
 			update:modelValue="update($event)"
@@ -82,7 +83,6 @@
 					<!-- </v-card> -->
 				</v-row>
 			</v-window-item>
-
 			<v-window-item value="Задачи">
 				<v-row>
 					<Notes
@@ -93,7 +93,6 @@
 					/>
 				</v-row>
 			</v-window-item>
-
 			<v-window-item value="Цели">
 				<v-row>
 					<Notes
@@ -106,43 +105,40 @@
 			</v-window-item>
 			<!-- Ниже цикл -->
 			<!-- <v-window
-			:modelValue="tab"
-			update:modelValue="update($event)"
-		>
-			<v-window-item
-				v-for="item, i in notes.cards"
-				:key="item"
-				:value="item"
+				:modelValue="tab"
+				update:modelValue="update($event)"
 			>
-				Before card
-				<v-card flat>
-					Hellol
-					<v-card-text v-text="text[i]"></v-card-text>
-					<Notes
-						subTitle="Заметки"
-						title="Заметки title"
-						text="Заметки lorem ipsum"
-					/>
-				</v-card>
-			</v-window-item> -->
-
-			<!-- <v-window-item>
+				<v-window-item
+					v-for="item, i in notes.cards"
+					:key="item"
+					:value="item"
+				>
+					Before card
 					<v-card flat>
-						<v-card-text >Lorem</v-card-text>
+						Hellol
+						<v-card-text v-text="text[i]"></v-card-text>
+						<Notes
+							subTitle="Заметки"
+							title="Заметки title"
+							text="Заметки lorem ipsum"
+						/>
 					</v-card>
 				</v-window-item> -->
+			<!-- <v-window-item>
+						<v-card flat>
+							<v-card-text >Lorem</v-card-text>
+						</v-card>
+					</v-window-item> -->
 		</v-window>
-
 		<!-- <v-window v-model="One">
-				<v-window-item
-					value="One"
-				>
-					<v-card flat>
-						<v-card-text>Personal item text</v-card-text>
-					</v-card>
-				</v-window-item>
-			</v-window> -->
-
+					<v-window-item
+						value="One"
+					>
+						<v-card flat>
+							<v-card-text>Personal item text</v-card-text>
+						</v-card>
+					</v-window-item>
+				</v-window> -->
 		<!-- The tab is {{ tab }} -->
 		<!-- allTasks {{ allTasks }} -->
 	</v-card>
@@ -270,6 +266,9 @@ export default {
 </script>
 
 <style>
+/* .app-title {
+	font-size: 40px;
+} */
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
