@@ -6,33 +6,33 @@ export default {
 		cards: [
 			{
 				id: '100',
-				title: 'Заметки title',
-				subTitle: 'Заметки subTitle',
-				text: "Текст первой заметки первая-третья"
+				// title: 'Reminder of App Project And Design',
+				// subTitle: 'Заметки subTitle',
+				text: "Calendify always allows you to set the reminder to optimize task management roles and jobs."
 			},
 			{
 				id: '101',
-				title: 'Заметки title',
-				subTitle: 'Заметки subTitle',
-				text: "Текст второй заметки вторая-четвертая"
+				// title: 'Email Signature for Support Team',
+				// subTitle: 'Заметки subTitle',
+				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups."
 			},
 			{
 				id: '102',
-				title: 'Заметки title',
-				subTitle: 'Заметки subTitle',
-				text: "Текст третьей заметки первая-третья"
+				// title: 'Plugins & Team Review Meeting',
+				// subTitle: 'Заметки subTitle',
+				text: "Calendify lets you to simplify and prioritize your calendar and your team’s calendar with review."
 			},
 			{
 				id: '103',
-				title: 'Заметки title',
-				subTitle: 'Заметки subTitle',
-				text: "Текст четвертой заметки вторая-четвертая"
+				// title: 'New Year Iqonic Design Campaigns',
+				// subTitle: 'Заметки subTitle',
+				text: "Quickly schedule and set the event type to manage all your marketing and management campaigns."
 			},
 			{
 				id: '104',
-				title: 'Заметки title',
-				subTitle: 'Заметки subTitle',
-				text: "Текст пятой заметки"
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked."
 			}
 		]
 	},

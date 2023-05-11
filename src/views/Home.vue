@@ -12,5 +12,8 @@
 .container {
 	width: 1300px;
 	margin: 0 auto;
+		/* font-family: 'Work Sans';
+	font-weight: 500; */
 }
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<v-card >
+	<v-card class="content">
 		<v-toolbar color="#27272f">
 			
 				<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
@@ -76,7 +76,6 @@
 					<!-- <v-card-text v-text="text"></v-card-text> -->
 					<Notes
 						v-for="item in filteredNotes(search.value)"
-						subTitle="Заметки"
 						:title="item.title"
 						:text="item.text"
 					/>
@@ -87,7 +86,6 @@
 				<v-row>
 					<Notes
 						v-for="item in filteredTasks(search.value)"
-						subTitle="Задачи"
 						:title="item.title"
 						:text="item.text"
 					/>
@@ -97,7 +95,6 @@
 				<v-row>
 					<Notes
 						v-for="item in filteredGoals(search.value)"
-						subTitle="Цели"
 						:title="item.title"
 						:text="item.text"
 					/>
@@ -266,6 +263,12 @@ export default {
 </script>
 
 <style>
+.content {
+	font-family: 'Work Sans', sans-serif;
+	color:#fff;
+	/* font-weight: 500; */
+	 /* font-size: 16px; */
+}
 /* .app-title {
 	font-size: 40px;
 } */

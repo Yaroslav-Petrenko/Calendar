@@ -1,0 +1,10 @@
+@use 'vuetify/settings' with (
+  
+$card-border-color: settings.$border-color-root,
+$card-border-radius: settings.$border-radius-root,
+$card-border-style: settings.$border-style-root,
+$card-border-thin-width: thin,
+$card-border-width: 0,
+
+  // $button-height: 40px,
+);
