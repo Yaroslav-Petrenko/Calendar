@@ -92,7 +92,7 @@
 				</v-row>
 			</v-window-item>
 			<v-window-item value="Цели">
-				<v-row>
+				<v-row >
 					<Notes
 						v-for="item in filteredGoals(search.value)"
 						:title="item.title"
@@ -265,7 +265,8 @@ export default {
 <style>
 .content {
 	font-family: 'Work Sans', sans-serif;
-	color:#fff;
+	/* color:#fff; */
+	background-color:  #1d1d24;
 	/* font-weight: 500; */
 	 /* font-size: 16px; */
 }

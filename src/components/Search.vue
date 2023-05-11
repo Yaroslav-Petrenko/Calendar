@@ -8,7 +8,6 @@
 			<!-- <v-spacer></v-spacer> -->
 			<v-text-field
 				v-model="search"
-		
 				variant="outlined"
 				density="comfortable"
 				bg-color="#1d1d24"
@@ -16,15 +15,12 @@
 				single-line
 				hide-details
 			>
-			<!-- {{ `Поиск по ${notesType}` }} -->
+				<!-- {{ `Поиск по ${notesType}` }} -->
 			</v-text-field>
-			<v-btn
-				class="ml-3"
-				size="large"
-				color="#465af7"
-			>
-				Добавить заметку
-			</v-btn>
+
+
+			<AddNote/>
+
 
 		</v-card-title>
 		<!-- <v-data-table
@@ -42,8 +38,12 @@
 <script>
 import { ref, reactive, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
+import AddNote from './AddNote.vue'
 // import { props } from 'vue'
 export default {
+	components: {
+		AddNote,
+	},
 	props: {
 		tab: {
 			type: String,
