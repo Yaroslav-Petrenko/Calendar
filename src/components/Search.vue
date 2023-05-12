@@ -19,7 +19,11 @@
 			</v-text-field>
 
 
-			<AddNote/>
+			<Modal>
+				<template v-slot:modal-content>
+					 <NoteForm/>
+				</template>
+			</Modal>
 
 
 		</v-card-title>
@@ -38,11 +42,13 @@
 <script>
 import { ref, reactive, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
-import AddNote from './AddNote.vue'
+import Modal from './Modal.vue'
+import NoteForm from './NoteForm.vue'
 // import { props } from 'vue'
 export default {
 	components: {
-		AddNote,
+		Modal,
+		NoteForm
 	},
 	props: {
 		tab: {

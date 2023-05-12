@@ -1,5 +1,5 @@
 <template>
-	<v-row >
+	<v-row>
 		<v-col cols="auto">
 			<v-dialog
 				transition="dialog-top-transition"
@@ -16,21 +16,20 @@
 				<template v-slot:default="{ isActive }">
 					<v-card>
 						<v-toolbar
-								color="#7858d7"
+							color="#7858d7"
 							title="Добавьте свою заметку"
 						></v-toolbar>
 						<v-card-text>
-							<div class="text-h2 pa-12">Hello world!</div>
+							<slot name="modal-content"></slot>
 						</v-card-text>
 						<v-card-actions class="justify-end">
-							<v-btn
+							<!-- <v-btn
 								variant="text"
 								@click="isActive.value = false"
-							>Закрыть</v-btn>
+							>Закрыть</v-btn> -->
 						</v-card-actions>
 					</v-card>
 				</template>
 			</v-dialog>
-		</v-col>
-	</v-row>
-</template>
+	</v-col>
+</v-row></template>
