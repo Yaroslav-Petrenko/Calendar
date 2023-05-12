@@ -6,20 +6,19 @@
 	>
 		<!-- max-width="344" -->
 		<v-card
-			id="card"
-			class="pa-3 d-flex flex-column "
+			:class="`pa-3 d-flex flex-column note ${getRandomColor}`"
 			color="#27272f"
 		>
 			<v-card-item class="pa-1 flex-1-0 align-content-space-between">
 				<div class="">
-					<div class="card-body d-flex">
+					<div class="note-body d-flex">
 						<!-- <div class="text-overline mb-1 text-h1">
 							<span class="sub-title">{{ subTitle }}</span>
 						</div> -->
 						<!-- <div class="card-title-text align-self-stretch">
 							{{ title }}
 						</div> -->
-						<div class="card-text">{{ text }}</div>
+						<div class="note-text">{{ text }}</div>
 						<div class="icon">
 							<img
 								src="./09.webp"
@@ -45,12 +44,13 @@
 				</v-btn>
 				<!-- Random id {{ getRandomIco }} -->
 			</v-card-actions>
+			<!-- getRandomColor {{ getRandomColor }} -->
 		</v-card>
 	</v-col>
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 // import { props } from 'vue'
 export default {
 	props: {
@@ -69,6 +69,15 @@ export default {
 
 	},
 	setup() {
+		// const vCard = ref(null)
+		// onMounted(() => {
+		// 	note.value.style.border = `8px solid ${getRandomColor}`
+		// })
+
+		const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
+		const getRandomColor = computed(() => {
+			return colorPalete[Math.floor(Math.random() * colorPalete.length)]
+		})
 		// console.log('props:', props);
 		// console.log('props.subTitle', props.subTitle);
 		const getRandomIco = computed(() => {
@@ -80,7 +89,9 @@ export default {
 		})
 
 		return {
-			getRandomIco
+			getRandomIco,
+			getRandomColor,
+			// vCard
 		}
 
 	}
@@ -90,15 +101,11 @@ export default {
 </script>
 
 <style lang="scss">
-#card {
-	border-bottom: 8px solid #7858d7;
-}
-
 .sub-title {
 	/* font-size: 23px; */
 }
 
-.card-title-text {
+.note-title-text {
 	/* font-family: 'Open Sans', sans-serif; */
 	font-weight: 500;
 	font-size: 1.44rem;
@@ -106,13 +113,12 @@ export default {
 	// color:#fff;
 }
 
-.card-text {
+.note-text {
 	color: #fff;
 	padding: 10px;
-
 }
 
-.card-body {}
+.note-body {}
 
 .icon {
 	/* background: url('../icons/01.png') 100% 0 / cover no-repeat; */
@@ -123,5 +129,52 @@ export default {
 	width: 64px;
 	height: 64px;
 	margin-left: 20px;
+}
+
+.v-card.note {
+	border: 2px solid transparent;
+	border-bottom: 8px solid transparent;
+	transition: all .225s ease-in-out;
+}
+
+.v-card.purple {
+	border-bottom-color: #7858d7;
+
+	&:hover {
+		border-color: #7858d7;
+	}
+}
+
+.v-card.green {
+	border-bottom-color: #5baa73;
+
+	&:hover {
+		border-color: #5baa73;
+	}
+}
+
+.v-card.blue {
+	border-bottom-color: #465af7;
+
+	&:hover {
+		border-color: #465af7;
+	}
+
+}
+
+.v-card.orange {
+	border-bottom-color: #f4a965;
+
+	&:hover {
+		border-color: #f4a965;
+	}
+}
+
+.v-card.grey {
+	border-bottom-color: #7E7E7E;
+
+	&:hover {
+		border-color: #7E7E7E;
+	}
 }
 </style>

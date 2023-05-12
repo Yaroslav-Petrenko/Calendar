@@ -110,16 +110,16 @@ export default {
 		right: 4px;
 }
 #textarea {
-	&::before {
-		content: 'Hello';
-		background: url('../icons/modal/social-engagement.webp') 0 0 / 100% no-repeat;
-		;
-		width: 64px;
-		height: 64px;
-		position: relative;
+	// &::before {
+	// 	content: 'Hello';
+	// 	background: url('../icons/modal/social-engagement.webp') 0 0 / 100% no-repeat;
+	// 	;
+	// 	width: 64px;
+	// 	height: 64px;
+	// 	position: relative;
 		// top: 0;
 		// left: 0;
 		// z-index: 999;
-	}
+	// }
 }
 </style>

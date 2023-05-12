@@ -238,7 +238,7 @@ export default {
 		const filteredTasks = computed(() => store.getters['tasks/filteredTasks'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		const filteredGoals = computed(() => store.getters['goals/filteredGoals'])
-		console.log('filteredNotes', filteredNotes.value(''))
+		// console.log('filteredNotes', filteredNotes.value(''))
 
 
 

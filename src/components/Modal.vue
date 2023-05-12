@@ -17,7 +17,7 @@
 					<v-card>
 						<v-toolbar
 							color="#7858d7"
-							title="Добавьте свою заметку"
+							title="Добавьте заметку"
 						></v-toolbar>
 						<v-card-text>
 							<slot name="modal-content"></slot>
