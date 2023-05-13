@@ -64,53 +64,37 @@
 </template>
 
 <script>
-import { ref, nextTick } from 'vue'
-
 export default {
-	setup() {
-		const form = ref(null)
-
-		const valid = ref(true)
-		const text = ref('')
-		const select = ref(null)
-		const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
-		const checkbox = ref(true)
-
-		const textRules = [
+	data: () => ({
+		valid: true,
+		text: '',
+		textRules: [
 			v => !!v || 'Текст обязателен',
 			v => (v && v.length <= 300) || 'Не более 300 символов',
-		]
+		],
+		select: null,
+		items: [
+			'Item 1',
+			'Item 2',
+			'Item 3',
+			'Item 4',
+		],
+		checkbox: true,
+	}),
 
-		const validate = async () => {
-			// await nextTick()
-			const { valid } = await form.value.validate()
+	methods: {
+		async validate() {
+			const { valid } = await this.$refs.form.validate()
+
 			if (valid) alert('Form is valid')
-		}
-
-		const reset = async () => {
-	
-			// await nextTick()
-			console.log('form.value.reset()', form.value.reset)
-			form.value.reset()
-		}
-
-		// function resetValidation() {
-		//   formRef.value.resetValidation()
-		// }
-
-		return {
-			form,
-			valid,
-			text,
-			textRules,
-			select,
-			items,
-			checkbox,
-			validate,
-			reset,
-			// resetValidation,
-		}
-	}
+		},
+		reset() {
+			this.$refs.form.reset()
+		},
+		resetValidation() {
+			this.$refs.form.resetValidation()
+		},
+	},
 }
 </script>
 

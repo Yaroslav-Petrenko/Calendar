@@ -76,7 +76,7 @@
 					<!-- <v-card-text v-text="text"></v-card-text> -->
 					<Notes
 						v-for="item in filteredNotes(search.value)"
-						:title="item.title"
+						:color="item.color"
 						:text="item.text"
 					/>
 					<!-- </v-card> -->

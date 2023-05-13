@@ -6,7 +6,7 @@
 	>
 		<!-- max-width="344" -->
 		<v-card
-			:class="`pa-3 d-flex flex-column note ${getRandomColor}`"
+			:class="`pa-3 d-flex flex-column note ${color}`"
 			color="#27272f"
 		>
 			<v-card-item class="pa-1 flex-1-0 align-content-space-between">
@@ -58,7 +58,7 @@ export default {
 		// 	type: String,
 		// 	required: true
 		// },
-		title: {
+		color: {
 			type: String,
 			// required: true
 		},
