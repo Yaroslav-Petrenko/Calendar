@@ -20,7 +20,7 @@
 
 
 			<Modal>
-				<template v-slot:modal-content>
+				<template v-slot:modal-content="{ isActive }" >
 					 <NoteForm/>
 				</template>
 			</Modal>
@@ -56,7 +56,11 @@ export default {
 			required: true
 		}
 	},
-	setup(props, { emit }) {
+	setup(props, context) {
+		
+		const isActive = ref(false); // Создаем реактивную переменную
+		console.log('isActive', isActive.value)
+		
 		const store = useStore()
 		const { tab } = toRefs(props)
 		const allNotes = computed(() => store.getters['notes/allNotes'])
@@ -193,6 +197,7 @@ export default {
 			// desserts,
 			notesType,
 			allNotes,
+			isActive
 			// clearSearch
 		}
 

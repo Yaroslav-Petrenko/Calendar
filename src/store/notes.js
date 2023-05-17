@@ -1,9 +1,11 @@
+import store from "./index"
+
 export default {
 	namespaced: true,
 	state: {
 		category: 'Заметки',
 		// searchField: 'чет',
-		cards: [
+		notes: [
 			{
 				id: '100',
 				// title: 'Reminder of App Project And Design',
@@ -46,7 +48,7 @@ export default {
 			return state.notes.id
 		},
 		// allNotes: state => state.cards,
-		filteredNotes: state => conditions => state.cards.filter(item => {
+		filteredNotes: state => conditions => state.notes.filter(item => {
 			// if (conditions) return 
 			// console.log(Object.values(item))
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
@@ -54,10 +56,30 @@ export default {
 		})
 	},
 	mutations: {
+		addNote({ notes }, { text, inFirstPlace, color }) {
+			const item = {
+				id: (parseInt(notes[notes.length - 1].id) + 1).toString(),
+				text,
+				color
+			}
+			inFirstPlace ? notes.unshift(item) : notes.push(item)
+		
+			// console.log('inFirstPlace', inFirstPlace)
+			// notes.push({
+			// 	id: (parseInt(notes[notes.length - 1].id) + 1).toString(),
+			// 	// title: 'Project And Task Management Roles',
+			// 	// subTitle: 'Заметки subTitle',
+			// 	text,
+			// 	color: 'orange'
+			// })
+		}
 
 	},
 	actions: {
-		
+		createNote(store, obj) {
+			// console.log('obj', obj)
+			store.commit('addNote', obj)
+		}
 	},
 }
 

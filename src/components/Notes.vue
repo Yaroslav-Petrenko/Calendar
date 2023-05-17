@@ -1,15 +1,15 @@
 <template>
 	<v-col
 		cols="12"
-		md="4"
+		md="3"
 		class="d-flex"
 	>
 		<!-- max-width="344" -->
 		<v-card
-			:class="`pa-3 d-flex flex-column note ${color}`"
+			:class="`flex-grow-1 pa-2 d-flex flex-column note ${color}`"
 			color="#27272f"
 		>
-			<v-card-item class="pa-1 flex-1-0 align-content-space-between">
+			<v-card-item class="pa-1 flex-grow-1 align-content-space-between">
 				<div class="">
 					<div class="note-body d-flex">
 						<!-- <div class="text-overline mb-1 text-h1">
@@ -18,10 +18,10 @@
 						<!-- <div class="card-title-text align-self-stretch">
 							{{ title }}
 						</div> -->
-						<div class="note-text">{{ text }}</div>
+						<div class="flex-1-1 note-text">{{ text }}</div>
 						<div class="icon">
 							<img
-								src="./09.webp"
+								src="../icons/viking-icons-48px/31.webp"
 								alt=""
 							/>
 						</div>
@@ -74,23 +74,23 @@ export default {
 		// 	note.value.style.border = `8px solid ${getRandomColor}`
 		// })
 
-		const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
-		const getRandomColor = computed(() => {
-			return colorPalete[Math.floor(Math.random() * colorPalete.length)]
-		})
+		// const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
+		// const getRandomColor = computed(() => {
+		// 	return colorPalete[Math.floor(Math.random() * colorPalete.length)]
+		// })
 		// console.log('props:', props);
 		// console.log('props.subTitle', props.subTitle);
 		const getRandomIco = computed(() => {
 			const randomNumber = Math.floor(Math.random() * 10 + 1)
 			const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
-			console.log(res)
+			// console.log(res)
 			// return `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
 			return "09.webp";
 		})
 
 		return {
 			getRandomIco,
-			getRandomColor,
+			// getRandomColor,
 			// vCard
 		}
 
@@ -126,8 +126,8 @@ export default {
 	left: 0px;
 	top: 0px;
 	// overflow: hidden;
-	width: 64px;
-	height: 64px;
+	width: 48px;
+	height: 48px;
 	margin-left: 20px;
 }
 
@@ -135,6 +135,7 @@ export default {
 	border: 2px solid transparent;
 	border-bottom: 8px solid transparent;
 	transition: all .225s ease-in-out;
+	// padding: 8px;
 }
 
 .v-card.purple {

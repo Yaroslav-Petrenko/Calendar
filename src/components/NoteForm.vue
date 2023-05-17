@@ -18,7 +18,6 @@
 				variant="solo-filled"
 				v-model="text"
 				:counter="300"
-				:rules="textRules"
 				required
 			></v-textarea>
 			<div class="modal-icon">
@@ -36,7 +35,7 @@
 			></v-select> -->
 
 			<v-checkbox
-				v-model="checkbox"
+				v-model="inFirstPlace"
 				label="Поместить в начало"
 			></v-checkbox>
 
@@ -45,7 +44,7 @@
 					color="success"
 					class="mt-4"
 					block
-					@click="validate"
+					@click="createNote(), changeActive()"
 				>
 					Добавить
 				</v-btn>
@@ -61,36 +60,85 @@
 			</div>
 		</v-form>
 	</v-sheet>
+	<!-- <pre>someValue {{ someValue }}</pre> -->
+	<!-- <pre>form {{ form }}</pre> -->
 </template>
 
 <script>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed, reactive } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
 	setup() {
+		const store = useStore()
+
+		const createNote = () => {
+			if (text.value.length < 5) return
+			// определяю геттер внутри функции, чтобы избежать кеширования его результата
+			const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
+			const getRandomColor = computed(() => {
+				return colorPalete[Math.floor(Math.random() * colorPalete.length)]
+			})
+
+			store.dispatch('notes/createNote',
+				{
+					text: text.value,
+					inFirstPlace: inFirstPlace.value,
+					color: getRandomColor.value
+				})
+			text.value = ''
+		}
+
+		const setActive = reactive({
+			value: false
+		})
+		const changeActive = () => {
+			setActive.value = false
+		}
+
 		const form = ref(null)
 
 		const valid = ref(true)
 		const text = ref('')
 		const select = ref(null)
-		const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
-		const checkbox = ref(true)
+		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
+		const inFirstPlace = ref(true)
 
-		const textRules = [
-			v => !!v || 'Текст обязателен',
-			v => (v && v.length <= 300) || 'Не более 300 символов',
-		]
+		// const textRules = [
+		// 	v => !!v || 'Текст обязателен',
+		// 	v => (v && v.length <= 300) || 'Не более 300 символов',
+		// 	v => (v.length >= 5) || 'Минимум 5 символов для заметки',
+		// ]
 
-		const validate = async () => {
-			// await nextTick()
-			const { valid } = await form.value.validate()
-			if (valid) alert('Form is valid')
-		}
+
+		// const validate = () => {
+		// 	// form.value.items[0].errorMessages.push("Минимум 5 символов для заметки")
+		// 	console.log('text.value', text.value)
+		// 	const inputId = form.value.items[0].id
+		// 	const error = {
+		// 		"id": inputId,
+
+		// 	}
+		// 	if (text.value.length < 5) {
+		// 		console.log('here if')
+		// 		// error.errorMessages = [
+		// 		// 	"Минимум 5 символов для заметки"
+		// 		// ]
+		// 		// form.value.errors.unshift(error)
+		// 		form.value.items[0].errorMessages = ["Минимум 5 символов для заметки"]
+		// 	}
+		// 	if (text.value.length > 300) {
+		// 		error.errorMessages = [
+		// 			"Максимум 300 символов для заметки"
+		// 		]
+		// 		form.value.errors.unshift(error)
+		// 	}
+		// }
 
 		const reset = async () => {
-	
+
 			// await nextTick()
-			console.log('form.value.reset()', form.value.reset)
+			// console.log('form.value.reset()', form.value.reset)
 			form.value.reset()
 		}
 
@@ -102,12 +150,15 @@ export default {
 			form,
 			valid,
 			text,
-			textRules,
+			// textRules,
 			select,
-			items,
-			checkbox,
-			validate,
+			// items,
+			inFirstPlace,
+			// validate,
 			reset,
+			createNote,
+			setActive,
+			changeActive
 			// resetValidation,
 		}
 	}
