@@ -20,9 +20,9 @@
 
 
 			<Modal>
-				<template v-slot:modal-content="{ isActive }" >
+				<!-- <template v-slot:modal-content="{ isActive }" >
 					 <NoteForm/>
-				</template>
+				</template> -->
 			</Modal>
 
 
@@ -48,7 +48,7 @@ import NoteForm from './NoteForm.vue'
 export default {
 	components: {
 		Modal,
-		NoteForm
+		// NoteForm
 	},
 	props: {
 		tab: {

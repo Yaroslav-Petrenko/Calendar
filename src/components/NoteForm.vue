@@ -44,7 +44,7 @@
 					color="success"
 					class="mt-4"
 					block
-					@click="createNote(), changeActive()"
+					@click="createNote()"
 				>
 					Добавить
 				</v-btn>
@@ -58,10 +58,9 @@
 					Очистить
 				</v-btn>
 			</div>
+			
 		</v-form>
 	</v-sheet>
-	<!-- <pre>someValue {{ someValue }}</pre> -->
-	<!-- <pre>form {{ form }}</pre> -->
 </template>
 
 <script>
@@ -69,7 +68,12 @@ import { ref, nextTick, computed, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-	setup() {
+	props: {
+		isActive: {
+			type: Boolean,
+		}
+	},
+	setup(_, {emit}) {
 		const store = useStore()
 
 		const createNote = () => {
@@ -87,13 +91,11 @@ export default {
 					color: getRandomColor.value
 				})
 			text.value = ''
+			closeModal()
 		}
 
-		const setActive = reactive({
-			value: false
-		})
-		const changeActive = () => {
-			setActive.value = false
+		const closeModal = () => {
+			emit('closeModal')
 		}
 
 		const form = ref(null)
@@ -157,8 +159,8 @@ export default {
 			// validate,
 			reset,
 			createNote,
-			setActive,
-			changeActive
+			// setActive,
+			// closeModal
 			// resetValidation,
 		}
 	}
