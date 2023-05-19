@@ -1,6 +1,6 @@
 <template>
 	<v-sheet
-		width="400"
+		width="420"
 		class="mx-auto"
 	>
 
@@ -37,7 +37,68 @@
 			<v-checkbox
 				v-model="inFirstPlace"
 				label="Поместить в начало"
+				color="success"
+				density="compact"
 			></v-checkbox>
+			<v-checkbox
+				v-model="cbxRandonIcon"
+				label="Случайная иконка"
+				density="compact"
+				color="info"
+			></v-checkbox>
+
+			<v-col
+				cols="12"
+				class="achievement-col"
+			>
+				<p class="pb-4">Выбирите тип заметки</p>
+
+				<v-btn-toggle
+					v-model="noteType"
+					rounded="1"
+					group
+				>
+					<v-btn
+						color="grey-darken-2"
+						value="text"
+					>
+						<img
+							src="../icons/notesType-32px/4.webp"
+							alt=""
+						/>
+						Текст
+					</v-btn>
+
+
+
+					<v-btn
+						color="amber"
+						value="idea"
+					>
+						<img
+							src="../icons/notesType-32px/21.webp"
+							alt=""
+						/>
+						Идея
+					</v-btn>
+
+					<v-btn
+						color="green-darken-1"
+						value="achievement"
+						class="pe-2"
+					>
+						<img
+							src="../icons/notesType-32px/5.webp"
+							alt=""
+						/>
+						Достижение
+					</v-btn>
+
+				</v-btn-toggle>
+				<!-- noteType {{ noteType }} -->
+			</v-col>
+
+
 
 			<div class="d-flex flex-column">
 				<v-btn
@@ -58,7 +119,8 @@
 					Очистить
 				</v-btn>
 			</div>
-			
+
+			<IconPack />
 		</v-form>
 	</v-sheet>
 </template>
@@ -66,14 +128,18 @@
 <script>
 import { ref, nextTick, computed, reactive } from 'vue'
 import { useStore } from 'vuex'
+import IconPack from './IconPack.vue'
 
 export default {
+	components: {
+		IconPack
+	},
 	props: {
 		isActive: {
 			type: Boolean,
 		}
 	},
-	setup(_, {emit}) {
+	setup(_, { emit }) {
 		const store = useStore()
 
 		const createNote = () => {
@@ -105,6 +171,9 @@ export default {
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
+		const cbxRandonIcon = ref(true)
+
+		const noteType = ref('')
 
 		// const textRules = [
 		// 	v => !!v || 'Текст обязателен',
@@ -159,6 +228,8 @@ export default {
 			// validate,
 			reset,
 			createNote,
+			noteType,
+			cbxRandonIcon
 			// setActive,
 			// closeModal
 			// resetValidation,
@@ -174,6 +245,10 @@ export default {
 	height: 64px;
 	top: 80px;
 	right: 4px;
+}
+
+.v-col.achievement-col {
+	padding: 0 0 15px 0;
 }
 
 #textarea {
