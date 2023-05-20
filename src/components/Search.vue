@@ -1,7 +1,7 @@
 <template>
 	<v-card
 		color="#27272f"
-		class="pa-4"
+		class="pa-4 LALALALA"
 	>
 		<v-card-title class="d-flex align-center">
 			<!-- Nutrition -->
@@ -207,4 +207,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.LALALALA {
+	overflow-y: hidden;
+}
+</style>

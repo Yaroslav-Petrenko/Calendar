@@ -13,16 +13,14 @@
 						size="large"
 					>Добавить заметку</v-btn>
 				</template>
-				<template v-slot:default="{isActive}">
+				<template v-slot:default="{ isActive }">
 					<v-card>
 						<v-toolbar
 							color="#7858d7"
 							title="Добавьте заметку"
 						></v-toolbar>
 						<v-card-text>
-							<NoteForm
-								@closeModal="isActive.value = false"
-							/>
+							<NoteForm @closeModal="isActive.value = false" />
 						</v-card-text>
 						<v-card-actions class="justify-end">
 							<v-btn
@@ -57,22 +55,22 @@ export default {
 		// const isActive = ref('');
 		// console.log('isActive', isActive)
 
-		 const isActive = ref(true);
+		const isActive = ref(true);
 
 		// // Проверяем наличие isActive в слоте
-		
-	
+
+
 		// 	const { isActive: slotIsActive } = context.slots.default();
 		// 	// console.log('slotIsActive', slotIsActive)
 		// 	isActive.value = slotIsActive;
-		
+
 
 
 		// let active = ref(true)
 		const setActive = () => {
 			console.log('isActive work')
 			// active = false
-		} 
+		}
 
 		return {
 			// someValue,
@@ -82,3 +80,40 @@ export default {
 	}
 }
 </script>
+
+<style>
+/* .v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated::-webkit-scrollbar {
+	scrollbar-width: 4px;
+	scrollbar-color: #4b4b55;
+	
+}
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated {
+	scrollbar-color: #6969dd #e0e0e0;
+  scrollbar-width: thin;
+	
+}
+
+html {
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+} */
+
+::-webkit-scrollbar {
+	width: 4px;
+	/* ширина для вертикального скролла */
+	height: 4px;
+	/* высота для горизонтального скролла */
+	background-color: #383B42;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(to bottom,#9B8BFD, #00B3FE);
+	/* border-radius: 9em;
+	box-shadow: inset 1px 1px 10px #f3faf7; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #253861;
+}
+</style>

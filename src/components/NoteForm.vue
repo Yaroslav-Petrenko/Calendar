@@ -46,6 +46,7 @@
 				density="compact"
 				color="info"
 			></v-checkbox>
+			<IconPack v-if="!cbxRandonIcon"/>
 
 			<v-col
 				cols="12"
@@ -120,7 +121,6 @@
 				</v-btn>
 			</div>
 
-			<IconPack />
 		</v-form>
 	</v-sheet>
 </template>
