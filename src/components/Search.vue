@@ -1,7 +1,7 @@
 <template>
 	<v-card
 		color="#27272f"
-		class="pa-4 LALALALA"
+		class="pa-4"
 	>
 		<v-card-title class="d-flex align-center">
 			<!-- Nutrition -->
@@ -43,7 +43,7 @@
 import { ref, reactive, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 import Modal from './Modal.vue'
-import NoteForm from './NoteForm.vue'
+// import NoteForm from './NoteForm.vue'
 // import { props } from 'vue'
 export default {
 	components: {
@@ -58,8 +58,8 @@ export default {
 	},
 	setup(props, context) {
 		
-		const isActive = ref(false); // Создаем реактивную переменную
-		console.log('isActive', isActive.value)
+		// const isActive = ref(false); 
+		// console.log('isActive', isActive.value)
 		
 		const store = useStore()
 		const { tab } = toRefs(props)
@@ -197,7 +197,7 @@ export default {
 			// desserts,
 			notesType,
 			allNotes,
-			isActive
+			// isActive
 			// clearSearch
 		}
 
@@ -208,7 +208,5 @@ export default {
 </script>
 
 <style>
-.LALALALA {
-	overflow-y: hidden;
-}
+
 </style>

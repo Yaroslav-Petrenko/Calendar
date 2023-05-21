@@ -46,7 +46,7 @@
 				density="compact"
 				color="info"
 			></v-checkbox>
-			<IconPack v-if="!cbxRandonIcon"/>
+			<IconPack v-if="!cbxRandonIcon" @selectedIcon="setSelectIcon($event)"/>
 
 			<v-col
 				cols="12"
@@ -154,7 +154,9 @@ export default {
 				{
 					text: text.value,
 					inFirstPlace: inFirstPlace.value,
-					color: getRandomColor.value
+					color: getRandomColor.value,
+					notesType: '',
+					icon: selectIcon
 				})
 			text.value = ''
 			closeModal()
@@ -167,13 +169,18 @@ export default {
 		const form = ref(null)
 
 		const valid = ref(true)
-		const text = ref('')
+		const text = ref('Привет моя новая заметка')
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
-		const cbxRandonIcon = ref(true)
+		const cbxRandonIcon = ref(false)
 
 		const noteType = ref('')
+		const selectIcon = ref('')
+		const setSelectIcon = (e) => {
+			selectIcon.value = e
+			// console.log('selectIcon', selectIcon.value)
+		}
 
 		// const textRules = [
 		// 	v => !!v || 'Текст обязателен',
@@ -229,7 +236,8 @@ export default {
 			reset,
 			createNote,
 			noteType,
-			cbxRandonIcon
+			cbxRandonIcon,
+			setSelectIcon
 			// setActive,
 			// closeModal
 			// resetValidation,
