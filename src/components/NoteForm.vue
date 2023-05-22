@@ -1,7 +1,7 @@
 <template>
 	<v-sheet
 		width="420"
-		class="mx-auto"
+		class="mx-auto modal-icon-block"
 	>
 
 		<v-form ref="form">
@@ -46,7 +46,11 @@
 				density="compact"
 				color="info"
 			></v-checkbox>
-			<IconPack v-if="!cbxRandonIcon" @selectedIcon="setSelectIcon($event)"/>
+			<IconPack
+				v-show="!cbxRandonIcon"
+				@selectedIcon="setIcon($event)"
+			/>
+			selectedIcon {{ selectedIcon }}
 
 			<v-col
 				cols="12"
@@ -69,8 +73,6 @@
 						/>
 						Текст
 					</v-btn>
-
-
 
 					<v-btn
 						color="amber"
@@ -156,11 +158,17 @@ export default {
 					inFirstPlace: inFirstPlace.value,
 					color: getRandomColor.value,
 					notesType: '',
-					icon: selectIcon
+					icon: selectedIcon || getRandomIco()
 				})
 			text.value = ''
 			closeModal()
 		}
+
+		// function getRandomIco(name) {
+		// 	const rndIcon = iconsName[Math.floor(Math.random() * icons.length)]
+		// 	const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
+		// 	return path
+		// }
 
 		const closeModal = () => {
 			emit('closeModal')
@@ -173,12 +181,12 @@ export default {
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
-		const cbxRandonIcon = ref(false)
+		const cbxRandonIcon = ref(true)
 
-		const noteType = ref('')
-		const selectIcon = ref('')
-		const setSelectIcon = (e) => {
-			selectIcon.value = e
+		const noteType = ref('text')
+		const selectedIcon = ref('')
+		const setIcon = (e) => {
+			selectedIcon.value = e
 			// console.log('selectIcon', selectIcon.value)
 		}
 
@@ -237,7 +245,8 @@ export default {
 			createNote,
 			noteType,
 			cbxRandonIcon,
-			setSelectIcon
+			setIcon,
+			selectedIcon
 			// setActive,
 			// closeModal
 			// resetValidation,
@@ -247,12 +256,27 @@ export default {
 </script>
 
 <style lang="scss">
+.v-card.v-theme--dark.v-card--density-default.v-card--variant-elevated {
+	// margin-right: -4px;
+	// overflow-x:hidden;
+	// scrollbar-gutter: stable;
+}
+
+.modal-icon-block {
+	// scrollbar-gutter: stable;
+	// padding-right: 4px;
+	// margin-right: -4px;
+	// overflow-x:hidden;
+}
+
 .modal-icon {
 	position: absolute;
 	width: 64px;
 	height: 64px;
 	top: 80px;
 	right: 4px;
+
+
 }
 
 .v-col.achievement-col {
@@ -271,5 +295,4 @@ export default {
 	// left: 0;
 	// z-index: 999;
 	// }
-}
-</style>
+}</style>

@@ -1,36 +1,38 @@
 <template>
-	<div class="icon-pack fade-enter-active fade-leave-active">
-		<div class="icon-pack-title">Выберите иконку для заметки</div>
-		iconToggle {{ iconToggle }}
-		<!-- <div class="pt-0 d-flex flex-wrap justify-center"> -->
-		<v-btn-toggle
-			class="button-togle"
-			v-model="iconToggle"
-			selected-class="select-item"
-		>
-			<div class="pt-0 d-flex flex-wrap justify-center">
-				<div
-					v-for="icon in iconsName"
-					:key="icon"
-					class="icon-pack-body"
-				>
-					<v-btn
-						class="icon-button"
-						stacked
-						variant="text"
-						:value="icon"
-						@click="emitSelectedIcon(icon)"
+	<transition name="fade" >
+		<div class="icon-pack">
+			<div class="icon-pack-title">Выберите иконку для заметки</div>
+			<!-- iconToggle {{ iconToggle }} -->
+			<!-- <div class="pt-0 d-flex flex-wrap justify-center"> -->
+			<v-btn-toggle
+				class="button-togle"
+				v-model="iconToggle"
+				selected-class="select-item"
+			>
+				<div class="pt-0 d-flex flex-wrap justify-center">
+					<div
+						v-for="icon in iconsName"
+						:key="icon"
+						class="icon-pack-body"
 					>
-						<img
-							:src="getImageUrl(icon)"
-							alt="Icon"
+						<v-btn
+							class="icon-button"
+							stacked
+							variant="text"
+							:value="icon"
+							@click="emitSelectedIcon(icon)"
 						>
-					</v-btn>
+							<img
+								:src="getImageUrl(icon)"
+								alt="Icon"
+							>
+						</v-btn>
+					</div>
 				</div>
-			</div>
-		</v-btn-toggle>
-		<!-- </div> -->
-	</div>
+			</v-btn-toggle>
+			<!-- </div> -->
+		</div>
+	</transition>
 </template>
 
 <script>
@@ -98,11 +100,12 @@ export default {
 		// 	const image = import(`@/icons/viking-icons-48px/${name}.webp`);
 		// 	return image.then((module) => module.default); */
 		// };
+
 		return {
 			iconsName,
 			getImageUrl,
 			iconToggle,
-			emitSelectedIcon
+			emitSelectedIcon,
 		}
 	}
 }
@@ -111,6 +114,7 @@ export default {
 <style lang="scss">
 .icon-pack {
 	// padding-right: 20px;
+	 overflow: hidden;
 }
 
 .icon-pack-body {
@@ -140,39 +144,42 @@ export default {
 
 // анимация
 .fade-enter-active {
-	animation: fadeIn 0.5s;
+	animation: fadeIn 0.5s linear;
 }
 
-// .fade-leave-active {
-// 	animation: fadeOut 2s;
-// }
+.fade-leave-active {
+	animation: fadeIn 0.5s linear reverse;
+}
+
 
 @keyframes fadeIn {
 	from {
-		// opacity: 0;
-		// transform: translateY(-100%);
-		overflow: hidden;
-		max-height: 0;
+		// overflow: hidden;
+		max-height: 0px;
 	}
 
 	to {
-		// opacity: 1;
-		// transform: translateY(100%);
-		max-height: 500px;
 		// overflow: hidden;
+		max-height: 500px;
 	}
 }
 
-@keyframes fadeOut {
-	from {
-		// opacity: 1;
-		// transform: translateY(100%);
-		max-height: 500px;
-	}
+// .bounce-enter-active {
+//   animation: bounce-in 0.5s;
+// }
+// .bounce-leave-active {
+//   animation: bounce-in 0.5s reverse;
+// }
+// @keyframes bounce-in {
+//   0% {
+//     transform: scale(0);
+//   }
+//   50% {
+//     transform: scale(1.25);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 
-	to {
-		// opacity: 0;
-		// transform: translateY(-100%);
-		max-height: 0;
-	}
-}</style>
+</style>
