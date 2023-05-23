@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 
 const inputFolder = './notesType';
-const outputFolder = './notesType-32px';
+const outputFolder = './notesType-48px';
 
 // image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньге при идентичном качестве
 
@@ -31,7 +31,7 @@ for (const file of files) {
 	const data = await sharp(file)
 		.webp({ lossless: true, effort: 6 })
 		// .webp({ quality: 100, effort: 6 })
-		.resize(32, 32)
+		.resize(48, 48)
 		.toFile(outputPath);
 	counter++
 }

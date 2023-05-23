@@ -1,143 +1,154 @@
 <template>
-	<v-card class="content">
-		<v-toolbar color="#27272f">
-			
-				<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-				<v-toolbar-title>Calendar</v-toolbar-title>
-				<v-spacer></v-spacer>
-				<v-btn icon>
-					<v-icon>mdi-magnify</v-icon>
-				</v-btn>
-				<v-btn icon>
-					<v-icon>mdi-dots-vertical</v-icon>
-				</v-btn>
-			
-				<template v-slot:extension>
-					<!-- <div class="container"> -->
-					<!-- Хочу заменить цикл на статику -->
-					<v-tabs
-						v-model="tab"
-						align-tabs="title"
-						selected-class="red"
-					>
-						<v-tab
-							value="Заметки"
-							variant="plain"
-						>
-							Заметки
-						</v-tab>
-						<v-tab
-							value="Задачи"
-							variant="plain"
-						>
-							Задачи
-						</v-tab>
-						<v-tab
-							value="Цели"
-							variant="plain"
-						>
-							Цели
-						</v-tab>
-						<!-- Ниже цикл -->
-						<!-- <v-tab
-								v-for="item in notes"
-								:key="item.category"
-								:value="item.category"
-								variant="plain"
-							>
-								{{ item.category }}
-							</v-tab> -->
-						<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
-					</v-tabs>
-					<!-- <Search/> -->
-						<!-- </div> -->
-				</template>
-			
-		</v-toolbar>
-		<Search
-			:tab="tab"
-			@emitSearchValue="setSearch($event)"
-		/>
-		<!-- <v-data-table
-				:headers="headers"
-				:items="desserts"
-				:search="search"
-			></v-data-table> -->
-		<!-- Хочу заменить цикл на статику -->
-		<div class="pa-3 d-flex justify-center">
-		</div>
-		<v-window
-			:modelValue="tab"
-			update:modelValue="update($event)"
-		>
-			<v-window-item value="Заметки">
-				<v-row>
-					<!-- <v-card v-for="item in allCards" flat> -->
-					<!-- <v-card-text v-text="text"></v-card-text> -->
-					<Notes
-						v-for="item in filteredNotes(search.value)"
-						:color="item.color"
-						:text="item.text"
-					/>
-					<!-- </v-card> -->
-				</v-row>
-			</v-window-item>
-			<v-window-item value="Задачи">
-				<v-row>
-					<Notes
-						v-for="item in filteredTasks(search.value)"
-						:title="item.title"
-						:text="item.text"
-					/>
-				</v-row>
-			</v-window-item>
-			<v-window-item value="Цели">
-				<v-row >
-					<Notes
-						v-for="item in filteredGoals(search.value)"
-						:title="item.title"
-						:text="item.text"
-					/>
-				</v-row>
-			</v-window-item>
-			<!-- Ниже цикл -->
-			<!-- <v-window
+	<v-card class="content d-flex flex-column">
+		<v-card color="#27272f">
+			<v-card class="ma-auto" width="1300">
+				<v-toolbar color="#27272f">
+				
+						<!-- <v-card class="ma-auto" color="#27272f" width="1300"> -->
+							<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+							<v-toolbar-title >Calendar</v-toolbar-title>
+							<!-- Calendar -->
+							<v-spacer></v-spacer>
+							<v-btn icon>
+								<v-icon>mdi-magnify</v-icon>
+							</v-btn>
+							<v-btn icon>
+								<v-icon>mdi-dots-vertical</v-icon>
+							</v-btn>
+							<template late v-slot:extension>
+								<!-- <div class="container"> -->
+								<!-- Хочу заменить цикл на статику -->
+								<v-tabs
+									v-model="tab"
+									align-tabs="title"
+									selected-class=""
+								>
+									<v-tab
+										value="Заметки"
+										variant="plain"
+									>
+										Заметки
+									</v-tab>
+									<v-tab
+										value="Задачи"
+										variant="plain"
+									>
+										Задачи
+									</v-tab>
+									<v-tab
+										value="Цели"
+										variant="plain"
+									>
+										Цели
+									</v-tab>
+									<!-- Ниже цикл -->
+									<!-- <v-tab
+											v-for="item in notes"
+											:key="item.category"
+											:value="item.category"
+											variant="plain"
+										>
+											{{ item.category }}
+										</v-tab> -->
+									<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
+								</v-tabs>
+								<!-- <Search/> -->
+									<!-- </div> -->
+							</template>
+						<!-- </v-card> -->
+				</v-toolbar>
+			</v-card>
+		</v-card>
+
+		
+		<v-card class="ma-auto flex-grow-1" width="1300" color="#1d1d24">
+			<Search
+				:tab="tab"
+				@emitSearchValue="setSearch($event)"
+			/>
+			<!-- <v-data-table
+					:headers="headers"
+					:items="desserts"
+					:search="search"
+				></v-data-table> -->
+			<!-- Хочу заменить цикл на статику -->
+			<!-- <div class="pa-3 d-flex justify-center">
+			</div> -->
+			<v-window
 				:modelValue="tab"
 				update:modelValue="update($event)"
 			>
-				<v-window-item
-					v-for="item, i in notes.cards"
-					:key="item"
-					:value="item"
-				>
-					Before card
-					<v-card flat>
-						Hellol
-						<v-card-text v-text="text[i]"></v-card-text>
+				<v-window-item value="Заметки">
+					<v-row>
+						<!-- <v-card v-for="item in allCards" flat> -->
+						<!-- <v-card-text v-text="text"></v-card-text> -->
 						<Notes
-							subTitle="Заметки"
-							title="Заметки title"
-							text="Заметки lorem ipsum"
+							v-for="item in filteredNotes(search.value)"
+							:text="item.text"
+							:borderColor="item.borderColor"
+							:notesType="item.notesType"
+							:icon="item.icon"
 						/>
-					</v-card>
-				</v-window-item> -->
-			<!-- <v-window-item>
+						<!-- </v-card> -->
+					</v-row>
+				</v-window-item>
+				<v-window-item value="Задачи">
+					<v-row>
+						<Notes
+							v-for="item in filteredTasks(search.value)"
+							:title="item.title"
+							:text="item.text"
+						/>
+					</v-row>
+				</v-window-item>
+				<v-window-item value="Цели">
+					<v-row >
+						<Notes
+							v-for="item in filteredGoals(search.value)"
+							:title="item.title"
+							:text="item.text"
+						/>
+					</v-row>
+				</v-window-item>
+				<!-- Ниже цикл -->
+				<!-- <v-window
+					:modelValue="tab"
+					update:modelValue="update($event)"
+				>
+					<v-window-item
+						v-for="item, i in notes.cards"
+						:key="item"
+						:value="item"
+					>
+						Before card
 						<v-card flat>
-							<v-card-text >Lorem</v-card-text>
+							Hellol
+							<v-card-text v-text="text[i]"></v-card-text>
+							<Notes
+								subTitle="Заметки"
+								title="Заметки title"
+								text="Заметки lorem ipsum"
+							/>
 						</v-card>
 					</v-window-item> -->
-		</v-window>
-		<!-- <v-window v-model="One">
-					<v-window-item
-						value="One"
-					>
-						<v-card flat>
-							<v-card-text>Personal item text</v-card-text>
-						</v-card>
-					</v-window-item>
-				</v-window> -->
-		<!-- The tab is {{ tab }} -->
-		<!-- allTasks {{ allTasks }} -->
+				<!-- <v-window-item>
+							<v-card flat>
+								<v-card-text >Lorem</v-card-text>
+							</v-card>
+						</v-window-item> -->
+			</v-window>
+			<!-- <v-window v-model="One">
+						<v-window-item
+							value="One"
+						>
+							<v-card flat>
+								<v-card-text>Personal item text</v-card-text>
+							</v-card>
+						</v-window-item>
+					</v-window> -->
+			<!-- The tab is {{ tab }} -->
+			<!-- allTasks {{ allTasks }} -->
+		</v-card>
 	</v-card>
 </template>
 
@@ -153,51 +164,6 @@ export default {
 		Search
 	},
 	setup() {
-
-		const notes = [
-			{
-				category: 'Заметки',
-				cards: {
-					'100': { id: '100', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
-
-					'101': { id: '101', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
-
-					'102': { id: '102', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
-
-					'103': { id: '103', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" },
-
-					'104': { id: '104', title: 'Заметки title', subTitle: 'Заметки subTitle', text: "Заметки lorem ipsum" }
-				}
-			},
-			{
-				category: 'Задачи',
-				cards: {
-					'100': { id: '100', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
-
-					'101': { id: '101', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
-
-					'102': { id: '102', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" },
-
-					'103': { id: '103', title: 'Задачии title', subTitle: 'Задачи subTitle', text: "Заметки lorem ipsum" },
-
-					'104': { id: '104', title: 'Задачи title', subTitle: 'Задачи subTitle', text: "Задачи lorem ipsum" }
-				}
-			},
-			{
-				category: 'Цели',
-				cards: {
-					'100': { id: '100', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
-
-					'101': { id: '101', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
-
-					'102': { id: '102', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
-
-					'103': { id: '103', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" },
-
-					'104': { id: '104', title: 'Цели title', subTitle: 'Цели subTitle', text: "Цели lorem ipsum" }
-				}
-			}
-		]
 
 		const store = useStore()
 
@@ -248,7 +214,6 @@ export default {
 			tab,
 			test,
 			update,
-			notes,
 			// allNotes,
 			// allTasks,
 			// allGoals,

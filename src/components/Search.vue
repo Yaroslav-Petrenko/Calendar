@@ -1,7 +1,8 @@
 <template>
 	<v-card
-		color="#27272f"
-		class="pa-4"
+		color="#1d1d24"
+		class="py-2"
+		elevation="0"
 	>
 		<v-card-title class="d-flex align-center">
 			<!-- Nutrition -->
@@ -56,7 +57,7 @@ export default {
 			required: true
 		}
 	},
-	setup(props, context) {
+	setup(props, {emit}) {
 		
 		// const isActive = ref(false); 
 		// console.log('isActive', isActive.value)

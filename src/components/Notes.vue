@@ -6,10 +6,10 @@
 	>
 		<!-- max-width="344" -->
 		<v-card
-			:class="`flex-grow-1 pa-2 d-flex flex-column note ${color}`"
-			color="#27272f"
+			:class="`flex-grow-1 pa-2 d-flex flex-column note ${borderColor}`"
+			:color="getNoteColor"
 		>
-			<v-card-item class="pa-1 flex-grow-1 align-content-space-between">
+			<v-card-item class="notes-item flex-grow-1 align-content-space-between">
 				<div class="">
 					<div class="note-body d-flex">
 						<!-- <div class="text-overline mb-1 text-h1">
@@ -21,7 +21,7 @@
 						<div class="flex-1-1 note-text">{{ text }}</div>
 						<div class="icon">
 							<img
-								src="../icons/viking-icons-48px/31.webp"
+								:src="`/src/icons/viking-icons-48px/${icon}.webp`"
 								alt=""
 							/>
 						</div>
@@ -29,46 +29,74 @@
 
 				</div>
 			</v-card-item>
-			<v-card-actions>
-				<v-btn
+			<!-- <v-card-actions class="pa-0"> -->
+			<!-- <v-btn
 					variant="flat"
 					color="#465af7"
+					size="small"
 				>
-					Done
-				</v-btn>
-				<v-btn
-					variant="flat"
-					color="amber-darken-2"
-				>
-					archive
-				</v-btn>
-				<!-- Random id {{ getRandomIco }} -->
-			</v-card-actions>
+					Выполнено
+				</v-btn> -->
+			<v-btn
+				class="align-self-start"
+				variant="flat"
+				color="amber-darken-2"
+				size="small"
+			>
+				в архив
+			</v-btn>
+			<!-- Random id {{ getRandomIco }} -->
+			<!-- getNoteColor	{{ getNoteColor }} -->
+			<!-- </v-card-actions> -->
 			<!-- getRandomColor {{ getRandomColor }} -->
 		</v-card>
 	</v-col>
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, toRef } from 'vue'
 // import { props } from 'vue'
 export default {
 	props: {
-		// subTitle: {
-		// 	type: String,
-		// 	required: true
-		// },
-		color: {
-			type: String,
-			// required: true
-		},
 		text: {
 			type: String,
 			required: true
 		},
-
+		borderColor: {
+			type: String,
+			required: true
+		},
+		notesType: {
+			type: String,
+			required: true
+		},
+		icon: {
+			type: String,
+			required: true
+		},
 	},
-	setup() {
+	setup(props) {
+		const notesType = toRef(props, 'notesType')
+		// console.log('notesType', notesType.value)
+		const getNoteColor = computed(() => {
+			console.log('notesType', notesType.value)
+			switch (notesType.value) {
+				// case 'text': return '#27272f'
+				// case 'text': return 'grey-darken-3'
+				// case 'text': return 'blue-grey-darken-3'
+				case 'text': return 'blue-grey-darken-4'
+				// case 'idea': return 'brown-darken-4'
+				// case 'idea': return 'brown-darken-4'
+				case 'idea': return '#46302F'
+				// case 'achievement': return '#45412B'
+				// case 'achievement': return '#324F33'
+				// case 'achievement': return '#36472F'
+				// case 'achievement': return '#1A381B'
+				// case 'achievement': return '#1A341B'
+				// case 'achievement': return '#1A321B'
+				case 'achievement': return '#1A321B'
+			}
+		})
 		// const vCard = ref(null)
 		// onMounted(() => {
 		// 	note.value.style.border = `8px solid ${getRandomColor}`
@@ -90,6 +118,7 @@ export default {
 
 		return {
 			getRandomIco,
+			getNoteColor
 			// getRandomColor,
 			// vCard
 		}
@@ -105,6 +134,10 @@ export default {
 	/* font-size: 23px; */
 }
 
+.v-card-item.notes-item {
+	padding: 0 0 15px 0;
+}
+
 .note-title-text {
 	/* font-family: 'Open Sans', sans-serif; */
 	font-weight: 500;
@@ -115,7 +148,7 @@ export default {
 
 .note-text {
 	color: #fff;
-	padding: 10px;
+	// padding: 10px;
 }
 
 .note-body {}
@@ -133,49 +166,49 @@ export default {
 
 .v-card.note {
 	border: 2px solid transparent;
-	border-bottom: 8px solid transparent;
+	// border-bottom: 8px solid transparent;
 	transition: all .225s ease-in-out;
 	// padding: 8px;
 }
 
-.v-card.purple {
-	border-bottom-color: #7858d7;
+// .v-card.purple {
+// 	border-bottom-color: #7858d7;
 
-	&:hover {
-		border-color: #7858d7;
-	}
-}
+// 	&:hover {
+// 		border-color: #7858d7;
+// 	}
+// }
 
-.v-card.green {
-	border-bottom-color: #5baa73;
+// .v-card.green {
+// 	border-bottom-color: #5baa73;
 
-	&:hover {
-		border-color: #5baa73;
-	}
-}
+// 	&:hover {
+// 		border-color: #5baa73;
+// 	}
+// }
 
-.v-card.blue {
-	border-bottom-color: #465af7;
+// .v-card.blue {
+// 	border-bottom-color: #465af7;
 
-	&:hover {
-		border-color: #465af7;
-	}
+// 	&:hover {
+// 		border-color: #465af7;
+// 	}
 
-}
+// }
 
-.v-card.orange {
-	border-bottom-color: #f4a965;
+// .v-card.orange {
+// 	border-bottom-color: #f4a965;
 
-	&:hover {
-		border-color: #f4a965;
-	}
-}
+// 	&:hover {
+// 		border-color: #f4a965;
+// 	}
+// }
 
-.v-card.grey {
-	border-bottom-color: #7E7E7E;
+// .v-card.grey {
+// 	border-bottom-color: #7E7E7E;
 
-	&:hover {
-		border-color: #7E7E7E;
-	}
-}
+// 	&:hover {
+// 		border-color: #7E7E7E;
+// 	}
+// }
 </style>

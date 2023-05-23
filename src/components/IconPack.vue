@@ -47,11 +47,14 @@ export default {
 		function getImageUrl(name) {
 			return new URL(`/src/icons/viking-icons-48px/${name}.webp`, import.meta.url).href
 		}
-		function getRandomIco(name) {
-			const rndIcon = iconsName[Math.floor(Math.random() * icons.length)]
-			const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-			return path
-		}
+		// function getRandomIco() {
+		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
+			emit('selectedIcon', rndIcon)
+			// const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
+			// return path
+		// }
+
+
 		// это тоже работает
 		// function getImageUrl(name) {
 		// 	return `/src/icons/viking-icons-48px/${name}.webp`

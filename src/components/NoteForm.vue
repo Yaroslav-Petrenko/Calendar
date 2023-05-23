@@ -59,7 +59,7 @@
 				<p class="pb-4">Выбирите тип заметки</p>
 
 				<v-btn-toggle
-					v-model="noteType"
+					v-model="notesType"
 					rounded="1"
 					group
 				>
@@ -147,7 +147,7 @@ export default {
 		const createNote = () => {
 			if (text.value.length < 5) return
 			// определяю геттер внутри функции, чтобы избежать кеширования его результата
-			const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
+			const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey', 'yellow']
 			const getRandomColor = computed(() => {
 				return colorPalete[Math.floor(Math.random() * colorPalete.length)]
 			})
@@ -156,9 +156,9 @@ export default {
 				{
 					text: text.value,
 					inFirstPlace: inFirstPlace.value,
-					color: getRandomColor.value,
-					notesType: '',
-					icon: selectedIcon || getRandomIco()
+					borderColor: getRandomColor.value,
+					notesType,
+					icon: selectedIcon
 				})
 			text.value = ''
 			closeModal()
@@ -181,9 +181,9 @@ export default {
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
-		const cbxRandonIcon = ref(true)
+		const cbxRandonIcon = ref(false)
 
-		const noteType = ref('text')
+		const notesType = ref('text')
 		const selectedIcon = ref('')
 		const setIcon = (e) => {
 			selectedIcon.value = e
@@ -243,7 +243,7 @@ export default {
 			// validate,
 			reset,
 			createNote,
-			noteType,
+			notesType,
 			cbxRandonIcon,
 			setIcon,
 			selectedIcon
