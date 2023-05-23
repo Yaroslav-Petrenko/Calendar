@@ -1,7 +1,7 @@
 <template>
 	<v-card class="content d-flex flex-column">
 		<v-card color="#27272f">
-			<v-card class="ma-auto" width="1300">
+			<v-card class="ma-auto" width="1300" >
 				<v-toolbar color="#27272f">
 				
 						<!-- <v-card class="ma-auto" color="#27272f" width="1300"> -->
@@ -234,6 +234,8 @@ export default {
 	background-color:  #1d1d24;
 	/* font-weight: 500; */
 	 /* font-size: 16px; */
+	min-height: 100%;
+	overflow: hidden;
 }
 /* .app-title {
 	font-size: 40px;

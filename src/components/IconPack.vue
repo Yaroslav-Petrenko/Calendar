@@ -1,36 +1,52 @@
 <template>
-	<transition name="fade" >
-		<div class="icon-pack">
-			<div class="icon-pack-title">Выберите иконку для заметки</div>
-			<!-- iconToggle {{ iconToggle }} -->
-			<!-- <div class="pt-0 d-flex flex-wrap justify-center"> -->
-			<v-btn-toggle
-				class="button-togle"
-				v-model="iconToggle"
-				selected-class="select-item"
-			>
-				<div class="pt-0 d-flex flex-wrap justify-center">
-					<div
-						v-for="icon in iconsName"
-						:key="icon"
-						class="icon-pack-body"
+	<transition name="cbxFade">
+		<div
+			key="icon-pack"
+			class="icon-pack"
+		>
+			<!-- <transition name="cbxFade"> -->
+				<v-checkbox
+					key="checkbox"
+					v-model="cbxRandonIcon"
+					label="Случайная иконка"
+					density="compact"
+					color="info"
+				></v-checkbox>
+			<!-- </transition> -->
+			<transition name="fadeIcon">
+				<div
+					v-show="!cbxRandonIcon"
+					class="icon-block"
+				>
+					<div class="icon-pack-title">Выберите иконку для заметки</div>
+					<v-btn-toggle
+						class="button-togle"
+						v-model="iconToggle"
+						selected-class="select-item"
 					>
-						<v-btn
-							class="icon-button"
-							stacked
-							variant="text"
-							:value="icon"
-							@click="emitSelectedIcon(icon)"
-						>
-							<img
-								:src="getImageUrl(icon)"
-								alt="Icon"
+						<div class="pt-0 d-flex flex-wrap justify-center">
+							<div
+								v-for="icon in iconsName"
+								:key="icon"
+								class="icon-pack-body"
 							>
-						</v-btn>
-					</div>
+								<v-btn
+									class="icon-button"
+									stacked
+									variant="text"
+									:value="icon"
+									@click="emitSelectedIcon(icon)"
+								>
+									<img
+										:src="getImageUrl(icon)"
+										alt="Icon"
+									>
+								</v-btn>
+							</div>
+						</div>
+					</v-btn-toggle>
 				</div>
-			</v-btn-toggle>
-			<!-- </div> -->
+			</transition>
 		</div>
 	</transition>
 </template>
@@ -41,7 +57,7 @@ import { ref, computed } from 'vue'
 
 
 export default {
-	setup(_, {emit}) {
+	setup(_, { emit }) {
 		const iconsName = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49']
 		// это взято из офф документации
 		function getImageUrl(name) {
@@ -49,11 +65,11 @@ export default {
 		}
 		// function getRandomIco() {
 		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
-			emit('selectedIcon', rndIcon)
-			// const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-			// return path
+		emit('selectedIcon', rndIcon)
+		// const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
+		// return path
 		// }
-
+		const cbxRandonIcon = ref(false)
 
 		// это тоже работает
 		// function getImageUrl(name) {
@@ -109,6 +125,7 @@ export default {
 			getImageUrl,
 			iconToggle,
 			emitSelectedIcon,
+			cbxRandonIcon
 		}
 	}
 }
@@ -117,7 +134,7 @@ export default {
 <style lang="scss">
 .icon-pack {
 	// padding-right: 20px;
-	 overflow: hidden;
+	overflow: hidden;
 }
 
 .icon-pack-body {
@@ -140,22 +157,23 @@ export default {
 	height: 60px;
 	padding: 6px;
 }
+
 .select-item {
 	color: #FAFAFA;
 	--v-activated-opacity: 0.2;
 }
 
-// анимация
-.fade-enter-active {
-	animation: fadeIn 0.5s linear;
+// анимация для checkbox
+.cbxFade-enter-active {
+	animation: cbxFadeIn 0.5s linear;
 }
 
-.fade-leave-active {
-	animation: fadeIn 0.5s linear reverse;
+.cbxFade-leave-active {
+	animation: cbxFadeIn 0.5s linear reverse;
 }
 
 
-@keyframes fadeIn {
+@keyframes cbxFadeIn {
 	from {
 		// overflow: hidden;
 		max-height: 0px;
@@ -163,9 +181,54 @@ export default {
 
 	to {
 		// overflow: hidden;
-		max-height: 500px;
+		max-height: 420px;
 	}
 }
+
+
+// анимация для блока icon
+.fadeIcon-enter-active {
+	animation: iconFadeIn 0.5s linear;
+}
+
+.fadeIcon-leave-active {
+	animation: iconFadeIn 0.5s linear reverse;
+}
+
+
+@keyframes iconFadeIn {
+	from {
+		// overflow: hidden;
+		max-height: 0px;
+	}
+
+	to {
+		// overflow: hidden;
+		max-height: 420px;
+	}
+}
+
+// //////////////////////////////////////////////////////////////////
+// .cbxFade2-enter-active {
+// 	animation: cbxFadeIn2 0.2s linear;
+// }
+
+// .cbxFade2-leave-active {
+// 	animation: cbxFadeIn2 0.2s linear reverse;
+// }
+
+
+// @keyframes cbxFadeIn2 {
+// 	from {
+// 		// overflow: hidden;
+// 		max-height: 0px;
+// 	}
+
+// 	to {
+// 		// overflow: hidden;
+// 		max-height: 62px;
+// 	}
+// }
 
 // .bounce-enter-active {
 //   animation: bounce-in 0.5s;
@@ -183,6 +246,4 @@ export default {
 //   100% {
 //     transform: scale(1);
 //   }
-// }
-
-</style>
+// }</style>

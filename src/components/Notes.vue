@@ -161,7 +161,7 @@ export default {
 	// overflow: hidden;
 	width: 48px;
 	height: 48px;
-	margin-left: 20px;
+	margin-left: 15px;
 }
 
 .v-card.note {

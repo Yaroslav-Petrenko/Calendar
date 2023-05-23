@@ -40,66 +40,72 @@
 				color="success"
 				density="compact"
 			></v-checkbox>
-			<v-checkbox
-				v-model="cbxRandonIcon"
-				label="Случайная иконка"
-				density="compact"
-				color="info"
-			></v-checkbox>
+
+
+					<v-col
+					cols="12"
+					class="achievement-col"
+				>
+					<p class="pb-4">Выбирите тип заметки</p>
+
+					<v-btn-toggle
+						v-model="notesType"
+						rounded="1"
+						group
+					>
+						<v-btn
+							color="grey-darken-2"
+							value="text"
+						>
+							<img
+								src="../icons/notesType-32px/4.webp"
+								alt=""
+							/>
+							Текст
+						</v-btn>
+
+						<v-btn
+							color="amber"
+							value="idea"
+						>
+							<img
+								src="../icons/notesType-32px/21.webp"
+								alt=""
+							/>
+							Идея
+						</v-btn>
+
+						<v-btn
+							color="green-darken-1"
+							value="achievement"
+							class="pe-2"
+						>
+							<img
+								src="../icons/notesType-32px/5.webp"
+								alt=""
+							/>
+							Достижение
+						</v-btn>
+
+					</v-btn-toggle>
+					<!-- noteType {{ noteType }} -->
+				</v-col>
+
+
+			<!-- <transition name="cbxFade"> -->
+				<!-- <v-checkbox
+					v-show="notesType === 'text'"
+					v-model="cbxRandonIcon"
+					label="Случайная иконка"
+					density="compact"
+					color="info"
+				></v-checkbox> -->
+			<!-- </transition> -->
 			<IconPack
-				v-show="!cbxRandonIcon"
+				v-show="notesType === 'text'"
 				@selectedIcon="setIcon($event)"
 			/>
-			selectedIcon {{ selectedIcon }}
-
-			<v-col
-				cols="12"
-				class="achievement-col"
-			>
-				<p class="pb-4">Выбирите тип заметки</p>
-
-				<v-btn-toggle
-					v-model="notesType"
-					rounded="1"
-					group
-				>
-					<v-btn
-						color="grey-darken-2"
-						value="text"
-					>
-						<img
-							src="../icons/notesType-32px/4.webp"
-							alt=""
-						/>
-						Текст
-					</v-btn>
-
-					<v-btn
-						color="amber"
-						value="idea"
-					>
-						<img
-							src="../icons/notesType-32px/21.webp"
-							alt=""
-						/>
-						Идея
-					</v-btn>
-
-					<v-btn
-						color="green-darken-1"
-						value="achievement"
-						class="pe-2"
-					>
-						<img
-							src="../icons/notesType-32px/5.webp"
-							alt=""
-						/>
-						Достижение
-					</v-btn>
-
-				</v-btn-toggle>
-				<!-- noteType {{ noteType }} -->
-			</v-col>
+			<!-- selectedIcon {{ selectedIcon }} -->
 
 
 
@@ -181,7 +187,7 @@ export default {
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
-		const cbxRandonIcon = ref(false)
+		// const cbxRandonIcon = ref(false)
 
 		const notesType = ref('text')
 		const selectedIcon = ref('')
@@ -244,7 +250,7 @@ export default {
 			reset,
 			createNote,
 			notesType,
-			cbxRandonIcon,
+			// cbxRandonIcon,
 			setIcon,
 			selectedIcon
 			// setActive,
@@ -295,4 +301,28 @@ export default {
 	// left: 0;
 	// z-index: 999;
 	// }
-}</style>
+}
+
+// анимация
+// .cbxFade-enter-active {
+// 	animation: fadeIn 0.5s linear;
+// }
+
+// .cbxFade-leave-active {
+// 	animation: fadeIn 0.5s linear reverse;
+// }
+
+
+// @keyframes fadeIn {
+// 	from {
+// 		// overflow: hidden;
+// 		max-height: 0px;
+// 	}
+
+// 	to {
+// 		// overflow: hidden;
+// 		max-height: 70px;
+// 	}
+// }
+
+</style>
