@@ -26,7 +26,7 @@
 				</template> -->
 			</Modal>
 
-			
+			<Filter/>
 		</v-card-title>
 		<!-- <v-data-table
 			:headers="headers"
@@ -44,12 +44,13 @@
 import { ref, reactive, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
 import Modal from './Modal.vue'
-// import Filter from './Filter.vue'
+import Filter from './Filter.vue'
 // import NoteForm from './NoteForm.vue'
 // import { props } from 'vue'
 export default {
 	components: {
 		Modal,
+		Filter
 		// NoteForm
 	},
 	props: {

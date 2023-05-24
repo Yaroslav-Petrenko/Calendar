@@ -52,7 +52,7 @@ export default {
 				icon: '5'
 			},
 			{
-				id: '104',
+				id: '105',
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked.",
@@ -61,7 +61,7 @@ export default {
 				icon: '52'
 			},
 			{
-				id: '104',
+				id: '106',
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked.",
