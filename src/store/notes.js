@@ -12,7 +12,7 @@ export default {
 				// subTitle: 'Заметки subTitle',
 				text: "Calendify always allows you to set the reminder to optimize task management roles and jobs.",
 				borderColor: 'grey',
-				notesType: 'achievement',
+				notesType: 'achievements',
 				icon: '52'
 			},
 			{
@@ -21,14 +21,14 @@ export default {
 				// subTitle: 'Заметки subTitle',
 				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
 				borderColor: 'yellow',
-				notesType: 'idea',
-				icon: '51'
+				notesType: 'text',
+				icon: '26'
 			},
 			{
 				id: '102',
 				// title: 'Plugins & Team Review Meeting',
 				// subTitle: 'Заметки subTitle',
-				text: "Calendify lets you to simplify and prioritize your calendar and your team’s calendar with review.",
+				text: "Cviverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec",
 				borderColor: 'green',
 				notesType: 'text',
 				icon: '3'
@@ -37,38 +37,83 @@ export default {
 				id: '103',
 				// title: 'New Year Iqonic Design Campaigns',
 				// subTitle: 'Заметки subTitle',
-				text: "Quickly schedule and set the event type to manage all your marketing and management campaigns.",
+				text: "Ut ornare lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta",
 				borderColor: 'blue',
-				notesType: 'achievement',
+				notesType: 'achievements',
 				icon: '52'
 			},
 			{
 				id: '104',
-				// title: 'Project And Task Management Roles',
+				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
-				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked.",
-				borderColor: 'orange',
-				notesType: 'text',
-				icon: '5'
+				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
+				borderColor: 'yellow',
+				notesType: 'ideas',
+				icon: '51'
 			},
 			{
 				id: '105',
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked.",
+				text: "Sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec",
 				borderColor: 'orange',
-				notesType: 'achievement',
-				icon: '52'
+				notesType: 'text',
+				icon: '5'
 			},
 			{
 				id: '106',
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Set reminders for your team regarding their project and task completion so that they are not overlooked.",
+				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis",
 				borderColor: 'orange',
-				notesType: 'achievement',
+				notesType: 'achievements',
 				icon: '52'
-			}
+			},
+			{
+				id: '107',
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique",
+				borderColor: 'orange',
+				notesType: 'achievements',
+				icon: '52'
+			},
+			{
+				id: '108',
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus",
+				borderColor: 'orange',
+				notesType: 'text',
+				icon: '15'
+			},
+			{
+				id: '108',
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra",
+				borderColor: 'orange',
+				notesType: 'achievements',
+				icon: '52'
+			},
+			{
+				id: '109',
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
+				borderColor: 'orange',
+				notesType: 'ideas',
+				icon: '51'
+			},
+			{
+				id: '108',
+				// title: 'Project And Task Management Roles',
+				// subTitle: 'Заметки subTitle',
+				text: "Faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa",
+				borderColor: 'orange',
+				notesType: 'text',
+				icon: '11'
+			},
 		]
 	},
 	getters: {
@@ -76,11 +121,14 @@ export default {
 			return state.notes.id
 		},
 		// allNotes: state => state.cards,
-		filteredNotes: state => conditions => state.notes.filter(item => {
+		filteredNotes: state => ({ search, select }) => state.notes.filter(item => {
+			console.log("select", select)
+			if (select == 'all') return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+			if (item.notesType == select && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
+			// const selecteItem = item.notesType === select
 			// if (conditions) return 
-			// console.log(Object.values(item))
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
-			return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
+			// return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 		})
 	},
 	mutations: {

@@ -1,48 +1,54 @@
 <template>
 	<v-card class="content d-flex flex-column">
 		<v-card color="#27272f">
-			<v-card class="ma-auto" width="1300" >
+			<v-card
+				class="ma-auto"
+				width="1300"
+			>
 				<v-toolbar color="#27272f">
-				
-						<!-- <v-card class="ma-auto" color="#27272f" width="1300"> -->
-							<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-							<v-toolbar-title >Calendar</v-toolbar-title>
-							<!-- Calendar -->
-							<v-spacer></v-spacer>
-							<v-btn icon>
-								<v-icon>mdi-magnify</v-icon>
-							</v-btn>
-							<v-btn icon>
-								<v-icon>mdi-dots-vertical</v-icon>
-							</v-btn>
-							<template late v-slot:extension>
-								<!-- <div class="container"> -->
-								<!-- Хочу заменить цикл на статику -->
-								<v-tabs
-									v-model="tab"
-									align-tabs="title"
-									selected-class=""
-								>
-									<v-tab
-										value="Заметки"
-										variant="plain"
-									>
-										Заметки
-									</v-tab>
-									<v-tab
-										value="Задачи"
-										variant="plain"
-									>
-										Задачи
-									</v-tab>
-									<v-tab
-										value="Цели"
-										variant="plain"
-									>
-										Цели
-									</v-tab>
-									<!-- Ниже цикл -->
-									<!-- <v-tab
+
+					<!-- <v-card class="ma-auto" color="#27272f" width="1300"> -->
+					<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+					<v-toolbar-title>Calendar</v-toolbar-title>
+					<!-- Calendar -->
+					<v-spacer></v-spacer>
+					<v-btn icon>
+						<v-icon>mdi-magnify</v-icon>
+					</v-btn>
+					<v-btn icon>
+						<v-icon>mdi-dots-vertical</v-icon>
+					</v-btn>
+					<template
+						late
+						v-slot:extension
+					>
+						<!-- <div class="container"> -->
+						<!-- Хочу заменить цикл на статику -->
+						<v-tabs
+							v-model="tab"
+							align-tabs="title"
+							selected-class=""
+						>
+							<v-tab
+								value="Заметки"
+								variant="plain"
+							>
+								Заметки
+							</v-tab>
+							<v-tab
+								value="Задачи"
+								variant="plain"
+							>
+								Задачи
+							</v-tab>
+							<v-tab
+								value="Цели"
+								variant="plain"
+							>
+								Цели
+							</v-tab>
+							<!-- Ниже цикл -->
+							<!-- <v-tab
 											v-for="item in notes"
 											:key="item.category"
 											:value="item.category"
@@ -50,22 +56,29 @@
 										>
 											{{ item.category }}
 										</v-tab> -->
-									<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
-								</v-tabs>
-								<!-- <Search/> -->
-									<!-- </div> -->
-							</template>
-						<!-- </v-card> -->
+							<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
+						</v-tabs>
+						<!-- <Search/> -->
+						<!-- </div> -->
+					</template>
+					<!-- </v-card> -->
 				</v-toolbar>
 			</v-card>
 		</v-card>
 
-		
-		<v-card class="ma-auto flex-grow-1" width="1300" color="#1d1d24">
-			<Search
-				:tab="tab"
-				@emitSearchValue="setSearch($event)"
-			/>
+
+		<v-card
+			class="ma-auto flex-grow-1"
+			width="1300"
+			color="#1d1d24"
+		>
+			<div class="d-flex justify-space-between">
+				<Search
+					:tab="tab"
+					@emitSearchValue="setSearch($event)"
+				/>
+				<Filter @select="setSelect($event)" />
+			</div>
 			<!-- <v-data-table
 					:headers="headers"
 					:items="desserts"
@@ -83,7 +96,7 @@
 						<!-- <v-card v-for="item in allCards" flat> -->
 						<!-- <v-card-text v-text="text"></v-card-text> -->
 						<Notes
-							v-for="item in filteredNotes(search.value)"
+							v-for="item in filteredNotes({search, select})"
 							:text="item.text"
 							:borderColor="item.borderColor"
 							:notesType="item.notesType"
@@ -95,16 +108,16 @@
 				<v-window-item value="Задачи">
 					<v-row>
 						<Notes
-							v-for="item in filteredTasks(search.value)"
+							v-for="item in filteredTasks({search, select})"
 							:title="item.title"
 							:text="item.text"
 						/>
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Цели">
-					<v-row >
+					<v-row>
 						<Notes
-							v-for="item in filteredGoals(search.value)"
+							v-for="item in filteredGoals({search, select})"
 							:title="item.title"
 							:text="item.text"
 						/>
@@ -157,11 +170,13 @@ import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
+import Filter from './Filter.vue'
 
 export default {
 	components: {
 		Notes,
-		Search
+		Search,
+		Filter
 	},
 	setup() {
 
@@ -180,7 +195,7 @@ export default {
 
 		// notes.forEach(item => console.log(Object.keys(item)))
 		// console.log(Object.keys(notes))
-		const search = reactive({ value: '' })
+		const search = ref('')
 		const setSearch = (e) => {
 			search.value = e.value
 			// console.log(obj)
@@ -188,13 +203,14 @@ export default {
 		// watch(tab, () => {
 		// 	search.value = ''
 		// });
-
-
+		const select = ref('all')
+		const setSelect = (e) => {
+			select.value = e.value
+		}
 
 
 
 		const update = ($event) => {
-			// console.log('event', $event)
 
 		}
 
@@ -221,7 +237,9 @@ export default {
 			filteredTasks,
 			filteredGoals,
 			setSearch,
-			search
+			search,
+			setSelect,
+			select
 		}
 	}
 }
@@ -231,17 +249,17 @@ export default {
 .content {
 	font-family: 'Work Sans', sans-serif;
 	/* color:#fff; */
-	background-color:  #1d1d24;
+	background-color: #1d1d24;
 	/* font-weight: 500; */
-	 /* font-size: 16px; */
+	/* font-size: 16px; */
 	min-height: 100%;
 	overflow: hidden;
 }
+
 /* .app-title {
 	font-size: 40px;
 } */
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */
-</style>
+	} */</style>

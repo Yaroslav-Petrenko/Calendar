@@ -79,7 +79,7 @@ export default {
 		const notesType = toRef(props, 'notesType')
 		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
-			console.log('notesType', notesType.value)
+			// console.log('notesType', notesType.value)
 			switch (notesType.value) {
 				// case 'text': return '#27272f'
 				// case 'text': return 'grey-darken-3'
@@ -87,14 +87,14 @@ export default {
 				case 'text': return 'blue-grey-darken-4'
 				// case 'idea': return 'brown-darken-4'
 				// case 'idea': return 'brown-darken-4'
-				case 'idea': return '#46302F'
+				case 'ideas': return '#46302F'
 				// case 'achievement': return '#45412B'
 				// case 'achievement': return '#324F33'
 				// case 'achievement': return '#36472F'
 				// case 'achievement': return '#1A381B'
 				// case 'achievement': return '#1A341B'
 				// case 'achievement': return '#1A321B'
-				case 'achievement': return '#1A321B'
+				case 'achievements': return '#1A321B'
 			}
 		})
 		// const vCard = ref(null)

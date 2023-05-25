@@ -5,13 +5,15 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = './notesType';
-const outputFolder = './notesType-48px';
+const inputFolder = './viking-icons';
+const outputFolder = './viking-icons-test';
 
 // image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньге при идентичном качестве
 
-// Ниже переменная которя создаст имена файлов вида 1-кол-во файлов
-const numNames = true
+// Ниже переменная которя создаст имена файлов в виде цифр
+const numNames = false
+// Ниже переменная которая убирает цифры и исмвол - в начале строки
+const replaceNum = true
 
 // Создаем папку, если она не существует
 if (!fs.existsSync(outputFolder)) {
@@ -25,7 +27,12 @@ if (!fs.existsSync(outputFolder)) {
 const files = glob.sync(`${inputFolder}/*.png`);
 let counter = 1
 for (const file of files) {
-	const fileName = path.basename(file).replace(/\.png$/, '');
+	let fileName = path.basename(file).replace(/\.png$/, '');
+	// console.log( fileName)
+	if (replaceNum) {
+		fileName = fileName.replace(/\d+-?/, '');
+		console.log(fileName)
+	}
 	const outputPath = path.join(outputFolder, `${numNames ? counter : fileName}.webp`);
 
 	const data = await sharp(file)

@@ -1,10 +1,10 @@
 <template>
 	<v-card
 		color="#1d1d24"
-		class="py-2"
 		elevation="0"
+		width="770"
 	>
-		<v-card-title class="d-flex align-center">
+		<v-card-title class="search d-flex align-center ">
 			<!-- Nutrition -->
 			<!-- <v-spacer></v-spacer> -->
 			<v-text-field
@@ -26,7 +26,7 @@
 				</template> -->
 			</Modal>
 
-			<Filter/>
+			<!-- <Filter/> -->
 		</v-card-title>
 		<!-- <v-data-table
 			:headers="headers"
@@ -211,5 +211,7 @@ export default {
 </script>
 
 <style>
-
+.search.v-card-title {
+	padding: 15px 15px 15px 0;
+}
 </style>

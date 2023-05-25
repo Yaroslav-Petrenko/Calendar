@@ -1,38 +1,39 @@
 <template>
-	<v-row>
-		<v-col cols="auto">
-			<v-dialog
-				transition="dialog-top-transition"
-				width="auto"
-			>
-				<template v-slot:activator="{ props }">
+	<!-- <v-row> -->
+	<!-- <v-col cols="auto"> -->
+	<v-dialog
+		transition="dialog-top-transition"
+		width="auto"
+	>
+		<template v-slot:activator="{ props }">
+			<v-btn
+				color="#465af7"
+				v-bind="props"
+				class="ml-3"
+				height="47px"
+				size="large"
+			>Добавить заметку</v-btn>
+		</template>
+		<template v-slot:default="{ isActive }">
+			<v-card>
+				<v-toolbar
+					color="#7858d7"
+					title="Добавьте заметку"
+				></v-toolbar>
+				<v-card-text>
+					<NoteForm @closeModal="isActive.value = false" />
+				</v-card-text>
+				<v-card-actions class="justify-end">
 					<v-btn
-						color="#465af7"
-						v-bind="props"
-						class="ml-3"
-						size="large"
-					>Добавить заметку</v-btn>
-				</template>
-				<template v-slot:default="{ isActive }">
-					<v-card>
-						<v-toolbar
-							color="#7858d7"
-							title="Добавьте заметку"
-						></v-toolbar>
-						<v-card-text>
-							<NoteForm @closeModal="isActive.value = false" />
-						</v-card-text>
-						<v-card-actions class="justify-end">
-							<v-btn
-								variant="text"
-								@click="isActive.value = false"
-							>Закрыть</v-btn>
-						</v-card-actions>
-					</v-card>
-				</template>
-			</v-dialog>
-		</v-col>
-	</v-row>
+						variant="text"
+						@click="isActive.value = false"
+					>Закрыть</v-btn>
+				</v-card-actions>
+			</v-card>
+		</template>
+	</v-dialog>
+	<!-- </v-col> -->
+	<!-- </v-row> -->
 </template>
 
 <script>
@@ -50,7 +51,7 @@ export default {
 	// 	},
 	// },
 	setup(props, context) {
-		console.log('context', context.slots.default())
+		// console.log('context', context.slots.default())
 		// const someValue = 42
 		// const isActive = ref('');
 		// console.log('isActive', isActive)
@@ -68,7 +69,7 @@ export default {
 
 		// let active = ref(true)
 		const setActive = () => {
-			console.log('isActive work')
+			// console.log('isActive work')
 			// active = false
 		}
 
@@ -108,7 +109,7 @@ html {
 
 /* ползунок скроллбара */
 ::-webkit-scrollbar-thumb {
-	background: linear-gradient(to bottom,#9B8BFD, #00B3FE);
+	background: linear-gradient(to bottom, #9B8BFD, #00B3FE);
 	/* border-radius: 9em;
 	box-shadow: inset 1px 1px 10px #f3faf7; */
 }
