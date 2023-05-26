@@ -66,7 +66,7 @@
 
 						<v-btn
 							color="amber"
-							value="idea"
+							value="ideas"
 						>
 							<img
 								src="../icons/notesType-32px/21.webp"
@@ -77,7 +77,7 @@
 
 						<v-btn
 							color="green-darken-1"
-							value="achievement"
+							value="achievements"
 							class="pe-2"
 						>
 							<img

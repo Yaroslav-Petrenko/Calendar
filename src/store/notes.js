@@ -8,6 +8,7 @@ export default {
 		notes: [
 			{
 				id: '100',
+				archive: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
 				text: "Calendify always allows you to set the reminder to optimize task management roles and jobs.",
@@ -17,6 +18,7 @@ export default {
 			},
 			{
 				id: '101',
+				archive: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
 				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
@@ -26,6 +28,7 @@ export default {
 			},
 			{
 				id: '102',
+				archive: false,
 				// title: 'Plugins & Team Review Meeting',
 				// subTitle: 'Заметки subTitle',
 				text: "Cviverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec",
@@ -35,6 +38,7 @@ export default {
 			},
 			{
 				id: '103',
+				archive: false,
 				// title: 'New Year Iqonic Design Campaigns',
 				// subTitle: 'Заметки subTitle',
 				text: "Ut ornare lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta",
@@ -44,6 +48,7 @@ export default {
 			},
 			{
 				id: '104',
+				archive: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
 				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
@@ -53,6 +58,7 @@ export default {
 			},
 			{
 				id: '105',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec",
@@ -62,6 +68,7 @@ export default {
 			},
 			{
 				id: '106',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis",
@@ -71,6 +78,7 @@ export default {
 			},
 			{
 				id: '107',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique",
@@ -80,6 +88,7 @@ export default {
 			},
 			{
 				id: '108',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus",
@@ -88,7 +97,8 @@ export default {
 				icon: '15'
 			},
 			{
-				id: '108',
+				id: '109',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra",
@@ -97,7 +107,8 @@ export default {
 				icon: '52'
 			},
 			{
-				id: '109',
+				id: '110',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
@@ -106,7 +117,8 @@ export default {
 				icon: '51'
 			},
 			{
-				id: '108',
+				id: '111',
+				archive: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa",
@@ -123,8 +135,9 @@ export default {
 		// allNotes: state => state.cards,
 		filteredNotes: state => ({ search, select }) => state.notes.filter(item => {
 			console.log("select", select)
-			if (select == 'all') return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-			if (item.notesType == select && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
+			if (select == 'all' && !item.archive) return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+			if (select == 'archive') return item.archive
+			if (item.notesType == select && !item.archive && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
 			// const selecteItem = item.notesType === select
 			// if (conditions) return 
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
@@ -150,6 +163,11 @@ export default {
 			// 	text,
 			// 	color: 'orange'
 			// })
+		},
+		changeArchive({ notes }, id) {
+			const elem = notes.find(item => item.id === id)
+			elem.archive = true
+			// console.log('elem', elem)
 		}
 
 	},
@@ -157,6 +175,10 @@ export default {
 		createNote(store, obj) {
 			// console.log('obj', obj)
 			store.commit('addNote', obj)
+		},
+		toArchive(store, id) {
+			console.log('toArchive', id)
+			store.commit('changeArchive', id)
 		}
 	},
 }

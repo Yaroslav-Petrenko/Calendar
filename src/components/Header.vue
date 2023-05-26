@@ -12,9 +12,9 @@
 					<v-toolbar-title>Calendar</v-toolbar-title>
 					<!-- Calendar -->
 					<v-spacer></v-spacer>
-					<v-btn icon>
+					<!-- <v-btn icon>
 						<v-icon>mdi-magnify</v-icon>
-					</v-btn>
+					</v-btn> -->
 					<v-btn icon>
 						<v-icon>mdi-dots-vertical</v-icon>
 					</v-btn>
@@ -79,6 +79,7 @@
 				/>
 				<Filter @select="setSelect($event)" />
 			</div>
+
 			<!-- <v-data-table
 					:headers="headers"
 					:items="desserts"
@@ -95,20 +96,28 @@
 					<v-row>
 						<!-- <v-card v-for="item in allCards" flat> -->
 						<!-- <v-card-text v-text="text"></v-card-text> -->
-						<Notes
-							v-for="item in filteredNotes({search, select})"
-							:text="item.text"
-							:borderColor="item.borderColor"
-							:notesType="item.notesType"
-							:icon="item.icon"
-						/>
+						<transition-group
+							name="bounce"
+							appear
+						>
+							<Notes
+								v-for="item in filteredNotes({ search, select })"
+								:key="item.id"
+								:text="item.text"
+								:borderColor="item.borderColor"
+								:notesType="item.notesType"
+								:icon="item.icon"
+								:id="item.id"
+								mode="out-in"
+							/>
+						</transition-group>
 						<!-- </v-card> -->
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Задачи">
 					<v-row>
 						<Notes
-							v-for="item in filteredTasks({search, select})"
+							v-for="item in filteredTasks({ search, select })"
 							:title="item.title"
 							:text="item.text"
 						/>
@@ -117,7 +126,7 @@
 				<v-window-item value="Цели">
 					<v-row>
 						<Notes
-							v-for="item in filteredGoals({search, select})"
+							v-for="item in filteredGoals({ search, select })"
 							:title="item.title"
 							:text="item.text"
 						/>
@@ -246,6 +255,32 @@ export default {
 </script>
 
 <style>
+/* // анимация для note */
+.bounce-enter-active {
+	animation: bounce-in 0.3s;
+}
+
+.bounce-leave-active {
+	animation: bounce-in 0.3s reverse;
+}
+
+@keyframes bounce-in {
+	0% {
+		transform: scale(0);
+	}
+
+	50% {
+		transform: scale(1.1);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+
+
+
 .content {
 	font-family: 'Work Sans', sans-serif;
 	/* color:#fff; */

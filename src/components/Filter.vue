@@ -2,9 +2,9 @@
 	<v-card
 		class="filter d-flex align-center"
 		color="#1d1d24"
-		width="250px"
+		width="265px"
 	>
-		Показать
+		<span class="filter-title">Показать</span>
 		<v-select
 			v-model="select"
 			class="sort-select"
@@ -47,7 +47,12 @@ export default {
 			{
 				title: 'Достижения',
 				value: 'achievements'
-			}]
+			},
+			{
+				title: 'Архив',
+				value: 'archive'
+			}
+		]
 
 		// watch(select, () => {
 		// 	emit('selectValue', select)
@@ -73,5 +78,11 @@ export default {
 
 .filter.v-card {
 	padding: 15px 0px 15px 15px;
+}
+.filter-title {
+	font-size: 14px;
+	// font-weight: 500;
+	letter-spacing: 0.0892857143em;
+	text-transform: uppercase;
 }
 </style>

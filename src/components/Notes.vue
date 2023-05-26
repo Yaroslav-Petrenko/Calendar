@@ -1,60 +1,67 @@
 <template>
-	<v-col
-		cols="12"
-		md="3"
-		class="d-flex"
-	>
-		<!-- max-width="344" -->
-		<v-card
-			:class="`flex-grow-1 pa-2 d-flex flex-column note ${borderColor}`"
-			:color="getNoteColor"
+	<transition>
+		<v-col
+			cols="12"
+			md="3"
+			class="d-flex"
 		>
-			<v-card-item class="notes-item flex-grow-1 align-content-space-between">
-				<div class="">
-					<div class="note-body d-flex">
-						<!-- <div class="text-overline mb-1 text-h1">
+			<!-- max-width="344" -->
+			<!-- <transition name="bounce" appear> -->
+			<v-card
+				:class="`flex-grow-1 pa-2 d-flex flex-column note ${borderColor}`"
+				:color="getNoteColor"
+			>
+				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
+					<div class="">
+						<div class="note-body d-flex">
+							<!-- <div class="text-overline mb-1 text-h1">
 							<span class="sub-title">{{ subTitle }}</span>
 						</div> -->
-						<!-- <div class="card-title-text align-self-stretch">
+							<!-- <div class="card-title-text align-self-stretch">
 							{{ title }}
 						</div> -->
-						<div class="flex-1-1 note-text">{{ text }}</div>
-						<div class="icon">
-							<img
-								:src="`/src/icons/viking-icons-48px/${icon}.webp`"
-								alt=""
-							/>
+							<div class="flex-1-1 note-text">{{ text }}</div>
+							<div class="icon">
+								<img
+									:src="`/src/icons/viking-icons-48px/${icon}.webp`"
+									alt=""
+								/>
+							</div>
 						</div>
-					</div>
 
-				</div>
-			</v-card-item>
-			<!-- <v-card-actions class="pa-0"> -->
-			<!-- <v-btn
+					</div>
+				</v-card-item>
+				<!-- <v-card-actions class="pa-0"> -->
+				<!-- <v-btn
 					variant="flat"
 					color="#465af7"
 					size="small"
 				>
 					Выполнено
 				</v-btn> -->
-			<v-btn
-				class="align-self-start"
-				variant="flat"
-				color="amber-darken-2"
-				size="small"
-			>
-				в архив
-			</v-btn>
-			<!-- Random id {{ getRandomIco }} -->
-			<!-- getNoteColor	{{ getNoteColor }} -->
-			<!-- </v-card-actions> -->
-			<!-- getRandomColor {{ getRandomColor }} -->
-		</v-card>
-	</v-col>
+				<v-btn
+					class="align-self-start"
+					variant="flat"
+					color="amber-darken-2"
+					size="small"
+					@click="dispArchive(id)"
+				>
+					в архив
+				</v-btn>
+				id {{ id }}
+				<!-- Random id {{ getRandomIco }} -->
+				<!-- getNoteColor	{{ getNoteColor }} -->
+				<!-- </v-card-actions> -->
+				<!-- getRandomColor {{ getRandomColor }} -->
+			</v-card>
+				<!-- </transition> -->
+		</v-col>
+			</transition>
 </template>
 
 <script>
 import { ref, reactive, computed, onMounted, toRef } from 'vue'
+import { useStore } from 'vuex'
 // import { props } from 'vue'
 export default {
 	props: {
@@ -74,8 +81,14 @@ export default {
 			type: String,
 			required: true
 		},
+		id: {
+			type: String,
+			required: true
+		},
 	},
 	setup(props) {
+		const store = useStore()
+
 		const notesType = toRef(props, 'notesType')
 		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
@@ -116,9 +129,15 @@ export default {
 			return "09.webp";
 		})
 
+		const dispArchive = (id) => {
+			store.dispatch('notes/toArchive', id)
+		}
+
+
 		return {
 			getRandomIco,
-			getNoteColor
+			getNoteColor,
+			dispArchive
 			// getRandomColor,
 			// vCard
 		}
@@ -130,6 +149,32 @@ export default {
 </script>
 
 <style lang="scss">
+// анимация для note
+.bounce-enter-active {
+	animation: bounce-in 0.3s;
+}
+
+.bounce-leave-active {
+	animation: bounce-in 0.3s reverse;
+}
+
+@keyframes bounce-in {
+	0% {
+		transform: scale(0);
+	}
+
+	50% {
+		transform: scale(1.1);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+
+
+
 .sub-title {
 	/* font-size: 23px; */
 }
@@ -170,6 +215,8 @@ export default {
 	transition: all .225s ease-in-out;
 	// padding: 8px;
 }
+
+
 
 // .v-card.purple {
 // 	border-bottom-color: #7858d7;
