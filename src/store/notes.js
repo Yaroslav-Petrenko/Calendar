@@ -142,6 +142,24 @@ export default {
 			// if (conditions) return 
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
 			// return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+			
+			
+			// вариант оптимизации от gpt
+			// filteredNotes: state => ({ search, select }) => {
+			// 	const lowercaseSearch = search.toLowerCase();
+			// 	const filtered = state.notes.filter(item => {
+			// 		if (select === 'all') {
+			// 			return !item.archive && item.text.toLowerCase().includes(lowercaseSearch);
+			// 		}
+			// 		if (select === 'archive') {
+			// 			return item.archive;
+			// 		}
+			// 		return item.notesType === select && !item.archive && item.text.toLowerCase().includes(lowercaseSearch);
+			// 	});
+
+			// 	return filtered;
+			// }
+
 		})
 	},
 	mutations: {

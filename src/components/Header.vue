@@ -116,11 +116,13 @@
 				</v-window-item>
 				<v-window-item value="Задачи">
 					<v-row>
-						<Notes
-							v-for="item in filteredTasks({ search, select })"
-							:title="item.title"
-							:text="item.text"
+						<Tasks
+							v-for="item in filteredTasks({ search })"
+							:key="item.id"
+							:date="item.date"
+							:tasks="item.tasks"
 						/>
+						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Цели">
@@ -180,19 +182,21 @@ import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
 import Filter from './Filter.vue'
+import Tasks from './Tasks.vue'
 
 export default {
 	components: {
 		Notes,
 		Search,
-		Filter
+		Filter,
+		Tasks
 	},
 	setup() {
 
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Заметки')
+		const tab = ref('Задачи')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]

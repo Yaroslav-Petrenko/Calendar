@@ -3,6 +3,7 @@
 		class="filter d-flex align-center"
 		color="#1d1d24"
 		width="265px"
+		elevation="0"
 	>
 		<span class="filter-title">Показать</span>
 		<v-select
