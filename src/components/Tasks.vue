@@ -7,7 +7,7 @@
 		>
 			<v-card :class="`flex-grow-1 pa-2 d-flex flex-column note`">
 
-				<v-card-title class="task-title" >
+				<v-card-title class="task-title">
 					{{ date }}
 				</v-card-title>
 
@@ -19,12 +19,30 @@
 						class="task-checkbox pr-1 flex-grow-0"
 						hide-details="true"
 						density="compact"
-						 color="info"
+						color="info"
 					></v-checkbox>
 					<v-card-text class="task-text flex-grow-1">
 						{{ item.text }}
 					</v-card-text>
 				</div>
+				<div class="d-flex align-center">
+					<v-text-field
+						v-model="textField"
+						class="mr-3"
+						label="Label"
+						variant="underlined"
+					></v-text-field>
+					<v-btn
+						variant="flat"
+						icon="$plus"
+						color="light-blue-darken-3"
+						size="small"
+						@click="createTask()"
+					>
+					</v-btn>
+
+				</div>
+				textField {{ textField }}
 
 				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
 					<div class="">
@@ -44,15 +62,24 @@
 					</div>
 				</v-card-item> -->
 
-				<v-btn
-					class="align-self-start"
-					variant="flat"
-					color="amber-darken-2"
-					size="small"
-					@click="dispArchive(id)"
-				>
-					в архив
-				</v-btn>
+				<v-card-actions class="justify-space-between pl-1">
+					<v-btn
+						variant="flat"
+						color="green-darken-2"
+						size="small"
+						@click="dispArchive(id)"
+					>
+						всё сделано
+					</v-btn>
+					<v-btn
+						variant="plain"
+						color="amber-accent-4"
+						size="small"
+						@click="dispArchive(id)"
+					>
+						в архив
+					</v-btn>
+				</v-card-actions>
 				<!-- id {{ id }} -->
 			</v-card>
 		</v-col>
@@ -79,16 +106,22 @@ export default {
 		},
 	},
 	setup(props) {
+		const store = useStore()
+		const id = toRef(props, 'id')
+		const textField = ref('Выгулять девушку')
 
 
-
-		const dispArchive = (id) => {
-			store.dispatch('notes/toArchive', id)
+		const createTask = () => {
+			store.dispatch('tasks/createTask', {
+				text: textField.value,
+				id: id.value
+			})
 		}
 
 
 		return {
-
+			textField,
+			createTask
 		}
 
 	}
@@ -102,6 +135,7 @@ export default {
 	// margin: 5px 0 5px 0;
 	margin: 0 0 0 0;
 }
+
 .task-title.v-card-title {
 	line-height: 120%;
 	padding: 0;
@@ -111,4 +145,5 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}</style>
+}
+</style>

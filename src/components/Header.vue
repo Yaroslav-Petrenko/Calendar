@@ -121,6 +121,7 @@
 							:key="item.id"
 							:date="item.date"
 							:tasks="item.tasks"
+							:id="item.id"
 						/>
 						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>

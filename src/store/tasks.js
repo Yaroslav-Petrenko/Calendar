@@ -8,25 +8,13 @@ export default {
 				date: 'Вчера, 25 Мая 2023',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ text: 'Пойти на рыбалку с друзьями', complited: false },
-					{ text: 'Зайти в магазин за продуктами', complited: false },
-					{ text: 'Выпить пива, поностальгировать', complited: false },
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', complited: false },
+					{ id: '2', text: 'Зайти в магазин за продуктами', complited: false },
+					{ id: '3', text: 'Выпить пива, поностальгировать', complited: false },
 				],
 				complited: false,
 				show: false,
 			},
-			// {
-			// 	id: '100',
-			// 	date: 'Сегодня, 26 Мая 2023',
-			// 	// subTitle: 'Задачи subTitle',
-			// 	tasks: [
-			// 		{ text: 'Пойти на рыбалку с друзьями', complited: false },
-			// 		{ text: 'Зайти в магазин за продуктами', complited: false },
-			// 		{ text: 'Выпить пива, поностальгировать', complited: false },
-			// 	],
-			// 	complited: false,
-			// 	show: false,
-			// },
 		]
 	},
 	getters: {
@@ -58,9 +46,26 @@ export default {
 		}
 	},
 	mutations: {
+		addTask({ cards }, { text, id }) {
+			// console.log(Array.isArray(cards.tasks))
+			const selectedCard = cards.find(item => item.id = id)
+			const item = {
+				id: (parseInt(selectedCard.tasks[selectedCard.tasks.length - 1].id) + 1).toString(),
+				// id: (parseInt(cards.tasks[cards.tasks.length - 1].id) + 1).toString(),
+				// date,
+				text,
+			}
+			// console.log('selectedCard', selectedCard)
+			selectedCard.tasks.push(item)
+
+		},
 
 	},
 	actions: {
+		createTask(store, obj) {
+			// console.log('obj', obj)
+			store.commit('addTask', obj)
+		},
 
 	},
 }
