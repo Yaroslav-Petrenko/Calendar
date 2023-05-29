@@ -1,202 +1,166 @@
 <template>
-	<div class="icon-block">
-		<transition-group name="fade">
-			<v-checkbox
-				key="checkbox"
-				v-model="cbxRandonIcon"
-				label="Случайная иконка"
-				density="compact"
-				color="info"
-			></v-checkbox>
-			<div
-				v-show="!cbxRandonIcon"
-				key="icon-pack"
-				class="icon-pack"
-			>
-				<div class="icon-pack-title">Выберите иконку для заметки</div>
-				<!-- iconToggle {{ iconToggle }} -->
-				<!-- <div class="pt-0 d-flex flex-wrap justify-center"> -->
-				<v-btn-toggle
-					class="button-togle"
-					v-model="iconToggle"
-					selected-class="select-item"
+	<transition>
+		<v-col
+			cols="12"
+			md="4"
+			class="d-flex"
+		>
+			<v-card :class="`flex-grow-1 pa-2 d-flex flex-column note`">
+
+				<v-card-title class="task-title">
+					{{ date }}
+				</v-card-title>
+
+				<div
+					v-for="item in tasks"
+					:key="item.id"
+					class="task-item d-flex align-center"
 				>
-					<div class="pt-0 d-flex flex-wrap justify-center">
-						<div
-							v-for="icon in iconsName"
-							:key="icon"
-							class="icon-pack-body"
-						>
-							<v-btn
-								class="icon-button"
-								stacked
-								variant="text"
-								:value="icon"
-								@click="emitSelectedIcon(icon)"
-							>
+					<v-checkbox
+						v-model="selected"
+						:value="item.id"
+						class="task-checkbox pr-1 flex-grow-0"
+						hide-details="true"
+						density="compact"
+						color="info"
+						:label="item.text"
+					></v-checkbox>
+					<!-- <v-card-text class="task-text flex-grow-1">
+						{{ item.text }}
+					</v-card-text> -->
+					<!-- <v-label class="task-text flex-grow-1">
+						{{ item.text }}
+					</v-label> -->
+				</div>
+				selected {{ selected }}
+
+				<div class="d-flex align-center">
+					<v-text-field
+						v-model="textField"
+						class="mr-3"
+						label="Label"
+						variant="underlined"
+					></v-text-field>
+					<v-btn
+						variant="flat"
+						icon="$plus"
+						color="light-blue-darken-3"
+						size="small"
+						@click="createTask()"
+					>
+					</v-btn>
+
+				</div>
+				<!-- textField {{ textField }} -->
+
+				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
+					<div class="">
+						<div class="note-body d-flex">
+							<div class="card-title-text align-self-stretch">
+								Date {{ date }}
+							</div>
+							<div class="flex-1-1 note-text">{{ text }}</div>
+							<div class="icon">
 								<img
-									:src="getImageUrl(icon)"
-									alt="Icon"
-								>
-							</v-btn>
+									:src="`/src/icons/viking-icons-48px/${icon}.webp`"
+									alt=""
+								/>
+							</div>
 						</div>
+
 					</div>
-				</v-btn-toggle>
-				<!-- </div> -->
-			</div>
-		</transition-group>
-	</div>
+				</v-card-item> -->
+
+				<v-card-actions class="justify-space-between pl-1">
+					<v-btn
+						variant="flat"
+						color="green-darken-2"
+						size="small"
+						@click="dispArchive(id)"
+					>
+						всё сделано
+					</v-btn>
+					<v-btn
+						variant="plain"
+						color="amber-accent-4"
+						size="small"
+						@click="dispArchive(id)"
+					>
+						в архив
+					</v-btn>
+				</v-card-actions>
+				<!-- id {{ id }} -->
+			</v-card>
+		</v-col>
+	</transition>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-// import { fileURLToPath, URL } from 'node:url'
-
-
+import { ref, reactive, computed, onMounted, toRef } from 'vue'
+import { useStore } from 'vuex'
+// import { props } from 'vue'
 export default {
-	setup(_, { emit }) {
-		const iconsName = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49']
-		// это взято из офф документации
-		function getImageUrl(name) {
-			return new URL(`/src/icons/viking-icons-48px/${name}.webp`, import.meta.url).href
+	props: {
+		tasks: {
+			type: Array,
+			required: true
+		},
+		id: {
+			type: String,
+			required: true
+		},
+		date: {
+			type: String,
+			required: true
+		},
+	},
+	setup(props) {
+		const store = useStore()
+		const id = toRef(props, 'id')
+		const textField = ref('Выгулять девушку')
+
+
+		const createTask = () => {
+			store.dispatch('tasks/createTask', {
+				text: textField.value,
+				id: id.value
+			})
+			textField.value = ''
 		}
-		// function getRandomIco() {
-		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
-		emit('selectedIcon', rndIcon)
-		// const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-		// return path
-		// }
-		const cbxRandonIcon = ref(false)
 
-		// это тоже работает
-		// function getImageUrl(name) {
-		// 	return `/src/icons/viking-icons-48px/${name}.webp`
-		// }
-		const iconToggle = ref('none')
-		const emitSelectedIcon = (id) => {
-			emit('selectedIcon', id)
+		const selected = ref([])
+		const setCheckbox = (e) => {
+			console.log('work')
 		}
 
-
-
-
-		/* // const num = '51'
-		// const num2 = new URL('1', import.meta.url)
-		// const module2 = await import(`@/icons/viking-icons-48px/${num}.webp`)
-
-		// const path = new URL(`@/icons/viking-icons-48px/1.webp`, import.meta.url).href
-		// const path = new URL(`@/icons/viking-icons-48px/${num}.webp`, import.meta.url).href
-		// const path2 = '@/icons/viking-icons-48px/1.webp'
-
-		// const getIcons = () => {
-		// 	const rndIcon = icons[Math.floor(Math.random() * icons.length)]
-		// 	const path = new URL(`@/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-		// 	return path
-		// }
-
-		// function getImageUrl(name) {
-		// 	return new URL(`./dir/${name}.png`, import.meta.url).href
-		// }
-
-		// function getImageUrl2(name) {
-		// 	return await import(`./icons/viking-icons-48px/${name}.webp`)
-		// }
-
-		// async function getImageUrl3(name) {
-		// 	const image = await import(`@/icons/viking-icons-48px/${name}.webp`);
-		// 	return image;
-		// }
-		// const imageUrl = new URL(`@/icons/viking-icons-48px/${num}.webp`, import.meta.url).href
-
-		// const imageUrl = new URL('@/icons/viking-icons-48px/' + num + '.webp', import.meta.url).href
-
-
-		// ошибок нет но изображения битые
-		// const getImageUrl4 = (name) => {
-		// 	const image = import(`@/icons/viking-icons-48px/${name}.webp`);
-		// 	return image.then((module) => module.default); */
-		// };
 
 		return {
-			iconsName,
-			getImageUrl,
-			iconToggle,
-			emitSelectedIcon,
-			cbxRandonIcon
+			textField,
+			createTask,
+			selected,
+			setCheckbox
 		}
+
 	}
+
+
 }
 </script>
 
 <style lang="scss">
-.icon-pack {
-	// padding-right: 20px;
-	overflow: hidden;
+.task-item {
+	// margin: 5px 0 5px 0;
+	margin: 0 0 0 0;
 }
 
-.icon-pack-body {
-	// padding: 5px;
-	border-radius: 3px;
+.task-title.v-card-title {
+	line-height: 120%;
+	padding: 0;
+	margin-bottom: 10px;
 }
 
-.icon-pack-title {
-	margin-bottom: 15px;
+.task-text.v-card-text {
+	padding: 0;
+	font-size: 18px;
 }
-
-.v-btn-group.button-togle {
-	// height: 420px;
-	height: 100%;
-}
-
-.v-btn.icon-button {
-	min-height: 48px;
-	min-width: 48px;
-	height: 60px;
-	padding: 6px;
-}
-
-.select-item {
-	color: #FAFAFA;
-	--v-activated-opacity: 0.2;
-}
-
-// анимация
-.fade-enter-active {
-	animation: fadeIn 0.5s linear;
-}
-
-.fade-leave-active {
-	animation: fadeIn 0.5s linear reverse;
-}
-
-
-@keyframes fadeIn {
-	from {
-		// overflow: hidden;
-		max-height: 0px;
-	}
-
-	to {
-		// overflow: hidden;
-		max-height: 500px;
-	}
-}
-
-// .bounce-enter-active {
-//   animation: bounce-in 0.5s;
-// }
-// .bounce-leave-active {
-//   animation: bounce-in 0.5s reverse;
-// }
-// @keyframes bounce-in {
-//   0% {
-//     transform: scale(0);
-//   }
-//   50% {
-//     transform: scale(1.25);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
 </style>

@@ -116,13 +116,23 @@
 				</v-window-item>
 				<v-window-item value="Задачи">
 					<v-row>
-						<Tasks
+						<!-- <Tasks
 							v-for="item in filteredTasks({ search })"
 							:key="item.id"
 							:date="item.date"
 							:tasks="item.tasks"
 							:id="item.id"
-						/>
+						/> -->
+							<Tasks
+								v-for="item in cards"
+								:key="item.id"
+								:date="item.date"
+								:tasks="item.tasks"
+								:cardId="item.id"
+							/>
+
+
+
 						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>
 				</v-window-item>
@@ -233,6 +243,8 @@ export default {
 		// const allTasks = computed(() => store.getters['tasks/allTasks'])
 		const filteredTasks = computed(() => store.getters['tasks/filteredTasks'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
+		const cards = computed(() => store.getters['tasks/cards'])
+		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		const filteredGoals = computed(() => store.getters['goals/filteredGoals'])
 		// console.log('filteredNotes', filteredNotes.value(''))
 
@@ -253,7 +265,8 @@ export default {
 			setSearch,
 			search,
 			setSelect,
-			select
+			select,
+			cards
 		}
 	}
 }

@@ -13,18 +13,28 @@
 
 				<div
 					v-for="item in tasks"
+					:key="item.id"
 					class="task-item d-flex align-center"
 				>
 					<v-checkbox
+						:model-value="item.complited"
+						@change="setCheckbox(cardId, item.id)"
 						class="task-checkbox pr-1 flex-grow-0"
 						hide-details="true"
 						density="compact"
 						color="info"
+						:label="item.text"
 					></v-checkbox>
-					<v-card-text class="task-text flex-grow-1">
+					<!-- item.complited {{ item.complited }} -->
+					<!-- <v-card-text class="task-text flex-grow-1">
 						{{ item.text }}
-					</v-card-text>
+					</v-card-text> -->
+					<!-- <v-label class="task-text flex-grow-1">
+						{{ item.text }}
+					</v-label> -->
 				</div>
+				<!-- selected {{ selected }} -->
+
 				<div class="d-flex align-center">
 					<v-text-field
 						v-model="textField"
@@ -42,7 +52,7 @@
 					</v-btn>
 
 				</div>
-				textField {{ textField }}
+				<!-- textField {{ textField }} -->
 
 				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
 					<div class="">
@@ -81,6 +91,7 @@
 					</v-btn>
 				</v-card-actions>
 				<!-- id {{ id }} -->
+				<!-- date {{ date }} -->
 			</v-card>
 		</v-col>
 	</transition>
@@ -96,7 +107,7 @@ export default {
 			type: Array,
 			required: true
 		},
-		id: {
+		cardId: {
 			type: String,
 			required: true
 		},
@@ -104,24 +115,39 @@ export default {
 			type: String,
 			required: true
 		},
+		// cards: {
+		// 	type: Object,
+		// 	required: true
+		// },
 	},
 	setup(props) {
 		const store = useStore()
-		const id = toRef(props, 'id')
+		const cardId = toRef(props, 'cardId')
 		const textField = ref('Выгулять девушку')
 
 
 		const createTask = () => {
+			console.log('cardId', cardId.value)
 			store.dispatch('tasks/createTask', {
 				text: textField.value,
-				id: id.value
+				cardId: cardId.value
 			})
+			textField.value = ''
+		}
+
+		// const selected = ref([])
+		const setCheckbox = (cardId, taskId) => {
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			store.dispatch('tasks/setCheckbox', { cardId, taskId })
 		}
 
 
 		return {
 			textField,
-			createTask
+			createTask,
+			// selected,
+			setCheckbox
 		}
 
 	}

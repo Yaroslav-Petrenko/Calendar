@@ -5,15 +5,23 @@ export default {
 		cards: [
 			{
 				id: '100',
-				date: 'Вчера, 25 Мая 2023',
+				date: 'Вчера, 27 Мая 2023',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', complited: false },
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', complited: true },
 					{ id: '2', text: 'Зайти в магазин за продуктами', complited: false },
+					{ id: '3', text: 'Выпить пива, поностальгировать', complited: true },
+				],
+			},
+			{
+				id: '101',
+				date: 'Сегодня, 28 Мая 2023',
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', complited: true },
+					{ id: '2', text: 'Зайти в магазин за продуктами', complited: true },
 					{ id: '3', text: 'Выпить пива, поностальгировать', complited: false },
 				],
-				complited: false,
-				show: false,
 			},
 		]
 	},
@@ -29,6 +37,7 @@ export default {
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
 			// return (item.tasks.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 		}),
+		cards: state => state.cards,
 		getDate: state => {
 			const months = [
 				"Января", "Февраля", "Марта", "Апреля",
@@ -59,13 +68,22 @@ export default {
 			selectedCard.tasks.push(item)
 
 		},
+		changeCheckbox(state, { cardId, taskId }) {
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			const card = state.cards.find(item => item.id == cardId)
+			const elem = card.tasks.find(e => e.id == taskId)
+			elem.complited = !elem.complited
+		}
 
 	},
 	actions: {
 		createTask(store, obj) {
-			// console.log('obj', obj)
 			store.commit('addTask', obj)
 		},
+		setCheckbox(store, obj) {
+			store.commit('changeCheckbox', obj)
+		}
 
 	},
 }
