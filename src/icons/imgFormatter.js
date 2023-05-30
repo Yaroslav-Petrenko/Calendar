@@ -6,14 +6,14 @@ import fs from 'fs';
 import path from 'path';
 
 const inputFolder = './done-icons';
-const outputFolder = '.done-icons-64px';
+const outputFolder = 'done-icons-64px';
 
 // image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньге при идентичном качестве
 
 // Ниже переменная которя создаст имена файлов в виде цифр
 const numNames = false
 // Ниже переменная которая убирает цифры и исмвол - в начале строки
-const replaceNum = true
+const replaceNum = false
 
 // Создаем папку, если она не существует
 if (!fs.existsSync(outputFolder)) {

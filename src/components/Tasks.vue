@@ -18,19 +18,30 @@
 					/>
 				</div> -->
 
-				<v-card-title
-					class="task-title d-flex justify-space-between"
-				>
+				<v-card-title class="task-title d-flex justify-space-between">
 					{{ date }}
-					<div
-						v-show="allDone"
-						class="task-icon"
-					>
-						<img
-							src="../icons/done-icons-64px/check.webp"
-							alt=""
-						/>
+
+
+
+					<div class="task-icon">
+						<div class="task-icon-circle">
+							<img
+								src="../icons/done-icons-64px/1-check.webp"
+								alt=""
+							/>
+						</div>
+						<transition name="bounce">
+							<div v-show="allDone" class="task-icon-check">
+								<img
+									src="../icons/done-icons-64px/2-check.webp"
+									alt=""
+								/>
+							</div>
+						</transition>
 					</div>
+
+
+
 				</v-card-title>
 
 				<div
@@ -112,7 +123,7 @@
 						size="small"
 						@click="changeAllDone(cardId)"
 					>
-						снять выделения
+						снять выделение
 					</v-btn>
 					<v-btn
 						variant="plain"
@@ -260,12 +271,22 @@ export default {
 	// 	height: 64px;
 	// }
 }
-
+// галочка выполнения
 .task-icon {
-	// position: absolute;
-	right: 7px;
-	top: 6px;
+	position: absolute;
+	right: 57px;
+	top: 7px;
+	.task-icon-circle {
+		position: fixed;
+	}
+	.task-icon-check {
+		position: fixed;
+	}
 }
+
+
+
+
 
 .task-item {
 	// margin: 5px 0 5px 0;
@@ -281,4 +302,5 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}</style>
+}
+</style>
