@@ -5,8 +5,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = './viking-icons';
-const outputFolder = './viking-icons-test';
+const inputFolder = './done-icons';
+const outputFolder = '.done-icons-64px';
 
 // image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньге при идентичном качестве
 

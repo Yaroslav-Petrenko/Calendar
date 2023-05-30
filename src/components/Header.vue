@@ -129,6 +129,7 @@
 								:date="item.date"
 								:tasks="item.tasks"
 								:cardId="item.id"
+								:allDone="item.allDone"
 							/>
 
 
@@ -234,9 +235,9 @@ export default {
 
 
 
-		const update = ($event) => {
+		// const update = ($event) => {
 
-		}
+		// }
 
 		// const allNotes = computed(() => store.getters['notes/allNotes'])
 		const filteredNotes = computed(() => store.getters['notes/filteredNotes'])
@@ -255,7 +256,7 @@ export default {
 			text,
 			tab,
 			test,
-			update,
+			// update,
 			// allNotes,
 			// allTasks,
 			// allGoals,
