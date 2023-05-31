@@ -5,7 +5,7 @@ export default {
 		cards: [
 			{
 				id: '100',
-				date: 'Вчера, 27 Мая 2023',
+				date: 'Вчера, ',
 				allDone: true,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
@@ -16,7 +16,35 @@ export default {
 			},
 			{
 				id: '101',
-				date: 'Сегодня, 28 Мая 2023',
+				date: 'Сегодня, ',
+				allDone: false,
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
+					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
+					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '4', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '5', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '6', text: 'Выпить пива, поностальгировать', done: false },
+				],
+			},
+			{
+				id: '102',
+				date: 'Завтра, ',
+				allDone: false,
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
+					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
+					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '4', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '5', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '6', text: 'Выпить пива, поностальгировать', done: false },
+				],
+			},
+			{
+				id: '103',
+				date: 'Послезавтра, ',
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
@@ -91,6 +119,12 @@ export default {
 			// console.log('card.allDone', card.allDone)
 			// console.log('card', card)
 			// card.tasks.forEach(item => item.done = true)
+		},
+		setDate(state, {cardId, date}) {
+			const card = state.cards.find(item => item.id == cardId)
+			console.log('cardId', cardId)
+			// console.log('date', date)
+			card.date += date
 		}
 
 	},
@@ -105,6 +139,9 @@ export default {
 		changeCbxDone(store, cardId) {
 			// console.log("allDone", cardId)
 			store.commit('changeAllDone', cardId)
+		},
+		changeDate(store, obj) {
+			store.commit('setDate', obj)
 		}
 
 	},
