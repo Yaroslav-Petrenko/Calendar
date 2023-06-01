@@ -5,10 +5,10 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = './done-icons';
-const outputFolder = 'done-icons-64px';
+const inputFolder = './foto';
+const outputFolder = 'foto-webp';
 
-// image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньге при идентичном качестве
+// image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньше при идентичном качестве
 
 // Ниже переменная которя создаст имена файлов в виде цифр
 const numNames = false

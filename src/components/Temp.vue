@@ -1,59 +1,97 @@
 <template>
-	<transition>
-		<v-col
-			cols="12"
-			md="4"
-			class="d-flex"
+	<!-- Task до изменения заголовка под иконку -->
+	<v-col
+		cols="12"
+		md="4"
+		class="d-flex align-start"
+	>
+		<v-card
+			:class="`flex-grow-1 pa-2 d-flex flex-column note`"
+			max-height="296px"
+			:color="getTaskColor"
 		>
-			<v-card :class="`flex-grow-1 pa-2 d-flex flex-column note`">
 
-				<v-card-title class="task-title">
-					{{ date }}
-				</v-card-title>
+			<!-- <div v-show="allDone" class="task-icon">
+					<img
+						src="../icons/done-icons-64px/check.webp"
+						alt=""
+					/>
+				</div> -->
 
-				<div
-					v-for="item in tasks"
-					:key="item.id"
-					class="task-item d-flex align-center"
-				>
-					<v-checkbox
-						v-model="selected"
-						:value="item.id"
-						class="task-checkbox pr-1 flex-grow-0"
-						hide-details="true"
-						density="compact"
-						color="info"
-						:label="item.text"
-					></v-checkbox>
-					<!-- <v-card-text class="task-text flex-grow-1">
+			<v-card-title class="task-title d-flex justify-space-between">
+				{{ date }}
+
+
+
+				<div class="task-icon">
+					<div class="task-icon-circle">
+						<img
+							src="../icons/done-icons-48px/1-check.webp"
+							alt=""
+						/>
+					</div>
+					<transition name="bounce">
+						<div
+							v-show="allDone"
+							class="task-icon-check"
+						>
+							<img
+								src="../icons/done-icons-48px/2-check.webp"
+								alt=""
+							/>
+						</div>
+					</transition>
+				</div>
+
+
+
+			</v-card-title>
+
+			<div
+				v-for="item in tasks"
+				:key="item.id"
+				class="task-item d-flex align-center"
+			>
+				<v-checkbox
+					:model-value="item.done"
+					@change="setCheckbox(cardId, item.id)"
+					class="task-checkbox pr-1 flex-grow-0"
+					hide-details="true"
+					density="compact"
+					color="info"
+					:label="item.text"
+				></v-checkbox>
+				<!-- item.done {{ item.done }} -->
+				<!-- <v-card-text class="task-text flex-grow-1">
 						{{ item.text }}
 					</v-card-text> -->
-					<!-- <v-label class="task-text flex-grow-1">
+				<!-- <v-label class="task-text flex-grow-1">
 						{{ item.text }}
 					</v-label> -->
-				</div>
-				selected {{ selected }}
+			</div>
+			<!-- selected {{ selected }} -->
 
-				<div class="d-flex align-center">
-					<v-text-field
-						v-model="textField"
-						class="mr-3"
-						label="Label"
-						variant="underlined"
-					></v-text-field>
-					<v-btn
-						variant="flat"
-						icon="$plus"
-						color="light-blue-darken-3"
-						size="small"
-						@click="createTask()"
-					>
-					</v-btn>
+			<div class="d-flex align-center">
+				<v-text-field
+					v-model="textField"
+					class="mr-3"
+					label="Текст"
+					variant="underlined"
+					:error-messages="errorMessages"
+				></v-text-field>
+				<v-btn
+					variant="flat"
+					icon="$plus"
+					color="light-blue-darken-3"
+					size="small"
+					@click="createTask()"
+				>
+				</v-btn>
 
-				</div>
-				<!-- textField {{ textField }} -->
+			</div>
+			<!-- textField {{ textField }} -->
 
-				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
+			<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
 					<div class="">
 						<div class="note-body d-flex">
 							<div class="card-title-text align-self-stretch">
@@ -71,32 +109,43 @@
 					</div>
 				</v-card-item> -->
 
-				<v-card-actions class="justify-space-between pl-1">
-					<v-btn
-						variant="flat"
-						color="green-darken-2"
-						size="small"
-						@click="dispArchive(id)"
-					>
-						всё сделано
-					</v-btn>
-					<v-btn
-						variant="plain"
-						color="amber-accent-4"
-						size="small"
-						@click="dispArchive(id)"
-					>
-						в архив
-					</v-btn>
-				</v-card-actions>
-				<!-- id {{ id }} -->
-			</v-card>
-		</v-col>
-	</transition>
+			<v-card-actions class="justify-space-between pl-1">
+				<v-btn
+					v-if="!allDone"
+					variant="flat"
+					color="green-darken-2"
+					size="small"
+					@click="changeAllDone(cardId)"
+				>
+					всё сделано
+				</v-btn>
+				<v-btn
+					v-else
+					variant="flat"
+					color="blue-grey-darken-3"
+					size="small"
+					@click="changeAllDone(cardId)"
+				>
+					снять выделение
+				</v-btn>
+				<v-btn
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="dispArchive(id)"
+				>
+					в архив
+				</v-btn>
+			</v-card-actions>
+			<!-- getTaskColor {{ getTaskColor }} -->
+			<!-- id {{ id }} -->
+			<!-- date {{ date }} -->
+		</v-card>
+	</v-col>
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted, toRef } from 'vue'
+import { ref, reactive, computed, onMounted, toRef, watch } from 'vue'
 import { useStore } from 'vuex'
 // import { props } from 'vue'
 export default {
@@ -105,7 +154,7 @@ export default {
 			type: Array,
 			required: true
 		},
-		id: {
+		cardId: {
 			type: String,
 			required: true
 		},
@@ -113,32 +162,138 @@ export default {
 			type: String,
 			required: true
 		},
+		allDone: {
+			type: Boolean,
+			required: true
+		},
+		// cards: {
+		// 	type: Object,
+		// 	required: true
+		// },
 	},
 	setup(props) {
+
 		const store = useStore()
-		const id = toRef(props, 'id')
+		const cardId = toRef(props, 'cardId')
+		const allDone = toRef(props, 'allDone')
 		const textField = ref('Выгулять девушку')
+		const errorMessages = ref('')
+		// const rules = {
+		// 	required: value => !!value || 'Поле обязательно',
+		// 	minLenght: value => value.length > 3 || 'Минимальная длина 5 символов'
+		// }
+		const validateField = () => {
+			// console.log('textField.value.lenght', textField.value.length)
+			if (!textField.value) {
+				errorMessages.value = 'Поле обязательно'
+				return false
+			}
+			if (textField.value.length < 5) {
+				// console.log('второй if')
+				errorMessages.value = 'Минимальная длина 5 символов'
+				return false
+			}
+			errorMessages.value = ''
+		}
+
+		// watch(textField, (newValue, oldValue) => {
+		// 	// console.log("watch newValue", newValue)
+		// 	// console.log("watch oldValue", oldValue)
+		// 		if (!newValue) {
+		// 		errorMessages.value = 'Поле обязательно'
+		// 		return false
+		// 	}
+		// 	if (newValue.length < 5) {
+		// 		// console.log('второй if')
+		// 		errorMessages.value = 'Минимальная длина 5 символов'
+		// 		return false
+		// 	}
+		// 	errorMessages.value = ''
+		// })
+
+		const getTaskColor = computed(() => {
+			// console.log('getTaskColor', allDone.value)
+			// if (allDone.value) return '#424242'
+			if (allDone.value) return 'blue-grey-darken-4'
+			// else return '#212121'
+			// else return '#182024'
+			else return '#171E21'
+		})
 
 
 		const createTask = () => {
+			if (validateField() === false) return
+			// console.log('cardId', cardId.value)
 			store.dispatch('tasks/createTask', {
 				text: textField.value,
-				id: id.value
+				cardId: cardId.value
 			})
 			textField.value = ''
+
 		}
 
-		const selected = ref([])
-		const setCheckbox = (e) => {
-			console.log('work')
+		// const selected = ref([])
+		const setCheckbox = (cardId, taskId) => {
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			store.dispatch('tasks/setCheckbox', { cardId, taskId })
 		}
+
+		const changeAllDone = (cardId) => {
+			// console.log('cardId', cardId)
+			store.dispatch('tasks/changeCbxDone', cardId)
+		}
+
+
+		onMounted(() => {
+			// const months = [
+			// 	"Января", "Февраля", "Марта", "Апреля",
+			// 	"Мая", "Июня", "Июля", "Августа",
+			// 	"Сентября", "Октября", "Ноября", "Декабря"
+			// ];
+
+			const currentDate = new Date();
+			const yesterday = new Date();
+			const tomorrow = new Date();
+			const afterTomorrow = new Date();
+
+			yesterday.setDate(currentDate.getDate() - 1)
+			tomorrow.setDate(currentDate.getDate() + 1)
+			afterTomorrow.setDate(currentDate.getDate() + 2)
+
+			const options = { month: 'short', day: 'numeric', year: 'numeric' };
+			const getYesterday = yesterday.toLocaleDateString('ru-RU', options)
+			const getToday = currentDate.toLocaleDateString('ru-RU', options);
+			const getTomorrow = tomorrow.toLocaleDateString('ru-RU', options)
+			const getAfterTomorrow = afterTomorrow.toLocaleDateString('ru-RU', options)
+
+
+			// console.log('cardId.value', cardId.value);
+			// console.log('Сегодня', getToday);
+			// console.log('Завтра', getTomorrow);
+			// console.log('Послезавтра', getAfterTomorrow);
+			switch (cardId.value) {
+				case '100': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getYesterday })
+				case '101': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getToday })
+				case '102': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getTomorrow })
+				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getAfterTomorrow })
+			}
+
+
+			if (cardId === '100') { }
+		})
 
 
 		return {
 			textField,
 			createTask,
-			selected,
-			setCheckbox
+			// selected,
+			setCheckbox,
+			// rules
+			validateField,
+			errorMessages,
+			changeAllDone,
+			getTaskColor
 		}
 
 	}
@@ -148,6 +303,36 @@ export default {
 </script>
 
 <style lang="scss">
+.note.v-card {
+	overflow: auto;
+	// ::after {
+	// 	content: '';
+	// 	background: url('');
+	// 	position: absolute;
+	// 	width: 64px;
+	// 	height: 64px;
+	// }
+}
+
+// галочка выполнения
+.task-icon {
+	position: absolute;
+	right: 57px;
+	top: 7px;
+
+	.task-icon-circle {
+		position: fixed;
+	}
+
+	.task-icon-check {
+		position: fixed;
+	}
+}
+
+
+
+
+
 .task-item {
 	// margin: 5px 0 5px 0;
 	margin: 0 0 0 0;

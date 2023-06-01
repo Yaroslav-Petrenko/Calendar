@@ -123,27 +123,32 @@
 							:tasks="item.tasks"
 							:id="item.id"
 						/> -->
-							<Tasks
-								v-for="item in cards"
-								:key="item.id"
-								:date="item.date"
-								:tasks="item.tasks"
-								:cardId="item.id"
-								:allDone="item.allDone"
-							/>
-
-
-
+						<Tasks
+							v-for="item in cards"
+							:key="item.id"
+							:date="item.date"
+							:tasks="item.tasks"
+							:cardId="item.id"
+							:allDone="item.allDone"
+						/>
 						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
-						<Notes
+						<Goals
+							v-for="item in cards"
+							:key="item.id"
+							:date="item.date"
+							:tasks="item.tasks"
+							:cardId="item.id"
+							:allDone="item.allDone"
+						/>
+						<!-- <Goals
 							v-for="item in filteredGoals({ search, select })"
 							:title="item.title"
 							:text="item.text"
-						/>
+						/> -->
 					</v-row>
 				</v-window-item>
 				<!-- Ниже цикл -->
@@ -195,13 +200,15 @@ import Notes from './Notes.vue'
 import Search from './Search.vue'
 import Filter from './Filter.vue'
 import Tasks from './Tasks.vue'
+import Goals from './Goals.vue'
 
 export default {
 	components: {
 		Notes,
 		Search,
 		Filter,
-		Tasks
+		Tasks,
+		Goals
 	},
 	setup() {
 
@@ -316,4 +323,5 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */</style>
+	} */
+</style>

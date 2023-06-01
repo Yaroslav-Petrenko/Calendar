@@ -2,164 +2,143 @@
 	<v-col
 		cols="12"
 		md="4"
+		class="d-flex align-start"
 	>
 		<v-card
-			class="task"
+			:class="`flex-grow-1 pa-2 d-flex flex-column note`"
+			max-height="296px"
 			:color="getTaskColor"
 		>
 
-			<v-card
-				:color="getTaskColor"
-				class="task-header"
-				elevation="0"
-			>
-				<div class="task-header d-flex align-center justify-space-between">
-					<div class="task-title">{{ date }}</div>
-					<div class="task-icon">
-						<div class="task-icon-circle">
-							<img
-								src="../icons/done-icons-48px/1-check.webp"
-								alt=""
-							/>
-						</div>
-						<transition name="bounce">
-							<div
-								v-show="allDone"
-								class="task-icon-check"
-							>
-								<img
-									src="../icons/done-icons-48px/2-check.webp"
-									alt=""
-								/>
-							</div>
-						</transition>
-					</div>
-				</div>
-			</v-card>
+			<!-- <div v-show="allDone" class="task-icon">
+					<img
+						src="../icons/done-icons-64px/check.webp"
+						alt=""
+					/>
+				</div> -->
 
-			<v-card
-				:class="`flex-grow-1 d-flex flex-column task-body`"
-				max-height="296px"
-				:color="getTaskColor"
-				elevation="0"
-			>
-				<!-- <div v-show="allDone" class="task-icon">
+			<v-card-title class="task-title d-flex justify-space-between">
+				{{ date }}
+
+
+
+				<div class="task-icon">
+					<div class="task-icon-circle">
 						<img
-							src="../icons/done-icons-64px/check.webp"
+							src="../icons/done-icons-64px/1-check.webp"
 							alt=""
 						/>
-					</div> -->
-				<!-- <v-card-title class="task-title d-flex justify-space-between">
-					{{ date }}
-					<div class="task-icon">
-						<div class="task-icon-circle">
+					</div>
+					<transition name="bounce">
+						<div
+							v-show="allDone"
+							class="task-icon-check"
+						>
 							<img
-								src="../icons/done-icons-48px/1-check.webp"
+								src="../icons/done-icons-64px/2-check.webp"
 								alt=""
 							/>
 						</div>
-						<transition name="bounce">
-							<div
-								v-show="allDone"
-								class="task-icon-check"
-							>
+					</transition>
+				</div>
+
+
+
+			</v-card-title>
+
+			<div
+				v-for="item in tasks"
+				:key="item.id"
+				class="task-item d-flex align-center"
+			>
+				<v-checkbox
+					:model-value="item.done"
+					@change="setCheckbox(cardId, item.id)"
+					class="task-checkbox pr-1 flex-grow-0"
+					hide-details="true"
+					density="compact"
+					color="info"
+					:label="item.text"
+				></v-checkbox>
+				<!-- item.done {{ item.done }} -->
+				<!-- <v-card-text class="task-text flex-grow-1">
+						{{ item.text }}
+					</v-card-text> -->
+				<!-- <v-label class="task-text flex-grow-1">
+						{{ item.text }}
+					</v-label> -->
+			</div>
+			<!-- selected {{ selected }} -->
+
+			<div class="d-flex align-center">
+				<v-text-field
+					v-model="textField"
+					class="mr-3"
+					label="Текст"
+					variant="underlined"
+					:error-messages="errorMessages"
+				></v-text-field>
+				<v-btn
+					variant="flat"
+					icon="$plus"
+					color="light-blue-darken-3"
+					size="small"
+					@click="createTask()"
+				>
+				</v-btn>
+
+			</div>
+			<!-- textField {{ textField }} -->
+
+			<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
+					<div class="">
+						<div class="note-body d-flex">
+							<div class="card-title-text align-self-stretch">
+								Date {{ date }}
+							</div>
+							<div class="flex-1-1 note-text">{{ text }}</div>
+							<div class="icon">
 								<img
-									src="../icons/done-icons-48px/2-check.webp"
+									:src="`/src/icons/viking-icons-48px/${icon}.webp`"
 									alt=""
 								/>
 							</div>
-						</transition>
-					</div>
-				</v-card-title> -->
-				<div
-					v-for="item in tasks"
-					:key="item.id"
-					class="task-item d-flex align-center"
-				>
-					<v-checkbox
-						:model-value="item.done"
-						@change="setCheckbox(cardId, item.id)"
-						class="task-checkbox pr-1 flex-grow-0"
-						hide-details="true"
-						density="compact"
-						color="info"
-						:label="item.text"
-					></v-checkbox>
-					<!-- item.done {{ item.done }} -->
-					<!-- <v-card-text class="task-text flex-grow-1">
-							{{ item.text }}
-						</v-card-text> -->
-					<!-- <v-label class="task-text flex-grow-1">
-							{{ item.text }}
-						</v-label> -->
-				</div>
-				<!-- selected {{ selected }} -->
-				<div class="d-flex align-center">
-					<v-text-field
-						v-model="textField"
-						class="mr-3"
-						label="Текст"
-						variant="underlined"
-						:error-messages="errorMessages"
-					></v-text-field>
-					<v-btn
-						variant="flat"
-						icon="$plus"
-						color="light-blue-darken-3"
-						size="small"
-						@click="createTask()"
-					>
-					</v-btn>
-				</div>
-				<!-- textField {{ textField }} -->
-				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
-						<div class="">
-							<div class="note-body d-flex">
-								<div class="card-title-text align-self-stretch">
-									Date {{ date }}
-								</div>
-								<div class="flex-1-1 note-text">{{ text }}</div>
-								<div class="icon">
-									<img
-										:src="`/src/icons/viking-icons-48px/${icon}.webp`"
-										alt=""
-									/>
-								</div>
-							</div>
 						</div>
-					</v-card-item> -->
-				<v-card-actions class="justify-space-between pl-1">
-					<v-btn
-						v-if="!allDone"
-						variant="flat"
-						color="green-darken-2"
-						size="small"
-						@click="changeAllDone(cardId)"
-					>
-						всё сделано
-					</v-btn>
-					<v-btn
-						v-else
-						variant="flat"
-						color="blue-grey-darken-3"
-						size="small"
-						@click="changeAllDone(cardId)"
-					>
-						снять выделение
-					</v-btn>
-					<v-btn
-						variant="plain"
-						color="amber-accent-4"
-						size="small"
-						@click="dispArchive(id)"
-					>
-						в архив
-					</v-btn>
-				</v-card-actions>
-				<!-- getTaskColor {{ getTaskColor }} -->
-				<!-- id {{ id }} -->
-				<!-- date {{ date }} -->
-			</v-card>
+
+					</div>
+				</v-card-item> -->
+
+			<v-card-actions class="justify-space-between pl-1">
+				<v-btn
+					v-if="!allDone"
+					variant="flat"
+					color="green-darken-2"
+					size="small"
+					@click="changeAllDone(cardId)"
+				>
+					всё сделано
+				</v-btn>
+				<v-btn
+					v-else
+					variant="flat"
+					color="blue-grey-darken-3"
+					size="small"
+					@click="changeAllDone(cardId)"
+				>
+					снять выделение
+				</v-btn>
+				<v-btn
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="dispArchive(id)"
+				>
+					в архив
+				</v-btn>
+			</v-card-actions>
+			<!-- getTaskColor {{ getTaskColor }} -->
+			<!-- id {{ id }} -->
+			<!-- date {{ date }} -->
 		</v-card>
 	</v-col>
 </template>
@@ -282,7 +261,6 @@ export default {
 			afterTomorrow.setDate(currentDate.getDate() + 2)
 
 			const options = { month: 'short', day: 'numeric', year: 'numeric' };
-
 			const getYesterday = yesterday.toLocaleDateString('ru-RU', options)
 			const getToday = currentDate.toLocaleDateString('ru-RU', options);
 			const getTomorrow = tomorrow.toLocaleDateString('ru-RU', options)
@@ -324,75 +302,49 @@ export default {
 </script>
 
 <style lang="scss">
-.task {
-	padding: 5px 10px 10px 10px;
-}
+// .note.v-card {
+// 	overflow: auto;
+// 	// ::after {
+// 	// 	content: '';
+// 	// 	background: url('');
+// 	// 	position: absolute;
+// 	// 	width: 64px;
+// 	// 	height: 64px;
+// 	// }
+// }
 
-.task-body.v-card {
-	overflow: auto;
-	// padding: 0 8px 8px 8px;
-	border-radius: 0 0 4px 4px;
-	// ::after {
-	// 	content: '';
-	// 	background: url('');
-	// 	position: absolute;
-	// 	width: 64px;
-	// 	height: 64px;
-	// }
-}
+// // галочка выполнения
+// .task-icon {
+// 	position: absolute;
+// 	right: 57px;
+// 	top: 7px;
 
-// галочка выполнения
-.task-header {
-	// position: relative;
-	// min-height: 50px;
-	padding: 0 4px 0 4px;
-	border-radius: 4px 4px 0 0;
+// 	.task-icon-circle {
+// 		position: fixed;
+// 	}
 
-	.task-title {
-		color: #fff;
-		line-height: 120%;
-		padding: 0;
-		// margin-bottom: 10px;
-		font-size: 20px;
-		font-weight: 500;
-		letter-spacing: 0.0125em;
-	}
-
-	.task-icon {
-		// position: relative;
-		height: 48px;
-		width: 48px;
-
-		// right: 0px;
-		// top: 0px;
-		// z-index: 999;
-
-		.task-icon-circle {
-			position: absolute;
-		}
-
-		.task-icon-check {
-			position: absolute;
-		}
-	}
-}
+// 	.task-icon-check {
+// 		position: fixed;
+// 	}
+// }
 
 
 
 
 
+// .task-item {
+// 	// margin: 5px 0 5px 0;
+// 	margin: 0 0 0 0;
+// }
 
+// .task-title.v-card-title {
+// 	line-height: 120%;
+// 	padding: 0;
+// 	margin-bottom: 10px;
+// }
 
-
-.task-item {
-	// margin: 5px 0 5px 0;
-	margin: 0 0 0 0;
-}
-
-
-
-.task-text.v-card-text {
-	padding: 0;
-	font-size: 18px;
-}
+// .task-text.v-card-text {
+// 	padding: 0;
+// 	font-size: 18px;
+// }
 </style>

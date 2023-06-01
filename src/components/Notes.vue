@@ -48,7 +48,7 @@
 				>
 					в архив
 				</v-btn>
-				id {{ id }}
+				<!-- id {{ id }} -->
 				<!-- Random id {{ getRandomIco }} -->
 				<!-- getNoteColor	{{ getNoteColor }} -->
 				<!-- </v-card-actions> -->
