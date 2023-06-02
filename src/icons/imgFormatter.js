@@ -5,14 +5,17 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = './foto';
-const outputFolder = 'foto-webp';
+const inputFolder = 'delete-icons';
+const outputFolder = 'delete-icons-48px';
+// const inputFolder = 'edit-icons';
+// const outputFolder = 'edit-icons-48px';
+
 
 // image-min плохо конвертирует в webp, sharp делает итоговый размер файл вдвое меньше при идентичном качестве
 
 // Ниже переменная которя создаст имена файлов в виде цифр
-const numNames = false
-// Ниже переменная которая убирает цифры и исмвол - в начале строки
+const numNames = true
+// Ниже переменная которая убирает цифры и смвол - в начале строки
 const replaceNum = false
 
 // Создаем папку, если она не существует

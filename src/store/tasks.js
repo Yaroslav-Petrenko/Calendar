@@ -97,7 +97,7 @@ export default {
 			// console.log("text", text)
 			// console.log("cardId", cardId)
 			const item = {
-				id: (parseInt(selectedCard.tasks[selectedCard.tasks.length - 1].id) + 1).toString(),
+				id: (parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1).toString() || '0',
 				// id: (parseInt(cards.tasks[cards.tasks.length - 1].id) + 1).toString(),
 				// date,
 				text,
@@ -125,9 +125,17 @@ export default {
 		},
 		setDate(state, {cardId, date}) {
 			const card = state.cards.find(item => item.id == cardId)
-			console.log('cardId', cardId)
+			// console.log('cardId', cardId)
 			// console.log('date', date)
 			card.date += date
+		},
+		deleteTask(state, { cardId, taskId }) {
+			const card = state.cards.find(item => item.id == cardId)
+			const index = card.tasks.findIndex(task => task.id === taskId);
+			// console.log("index", index)
+			if (index !== -1) {
+				card.tasks.splice(index, 1);
+			}
 		}
 
 	},
@@ -145,6 +153,9 @@ export default {
 		},
 		changeDate(store, obj) {
 			store.commit('setDate', obj)
+		},
+		deleteTask(store, obj) {
+			store.commit('deleteTask', obj)
 		}
 
 	},

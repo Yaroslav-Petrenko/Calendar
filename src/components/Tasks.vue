@@ -39,7 +39,7 @@
 
 			<v-card
 				:class="`flex-grow-1 d-flex flex-column task-body`"
-				max-height="296px"
+				max-height="248px"
 				:color="getTaskColor"
 				elevation="0"
 			>
@@ -74,17 +74,39 @@
 				<div
 					v-for="item in tasks"
 					:key="item.id"
-					class="task-item d-flex align-center"
+					class="task-item d-flex align-center "
 				>
 					<v-checkbox
 						:model-value="item.done"
 						@change="setCheckbox(cardId, item.id)"
-						class="task-checkbox pr-1 flex-grow-0"
+						class="task-checkbox pr-1 flex-grow-1"
 						hide-details="true"
 						density="compact"
 						color="info"
 						:label="item.text"
 					></v-checkbox>
+
+					<div class="task-checkbox-pencil">
+						<button class="task-checkbox-button">
+							<img
+								src="../icons/edit-icons-48px/16.webp"
+								alt=""
+							/>
+						</button>
+					</div>
+
+					<div class="task-checkbox-delete">
+						<button
+							@click="deleteTask(cardId, item.id)"
+							class="task-checkbox-button"
+						>
+							<img
+								src="../icons/delete-icons-48px/22.webp"
+								alt=""
+							/>
+						</button>
+					</div>
+
 					<!-- item.done {{ item.done }} -->
 					<!-- <v-card-text class="task-text flex-grow-1">
 							{{ item.text }}
@@ -252,6 +274,15 @@ export default {
 
 		}
 
+		const deleteTask = (cardId, taskId) => {
+			// console.log('deleteTask')
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			store.dispatch('tasks/deleteTask', { cardId, taskId })
+		}
+
+
+
 		// const selected = ref([])
 		const setCheckbox = (cardId, taskId) => {
 			// console.log('cardId', cardId)
@@ -314,7 +345,8 @@ export default {
 			validateField,
 			errorMessages,
 			changeAllDone,
-			getTaskColor
+			getTaskColor,
+			deleteTask
 		}
 
 	}
@@ -326,6 +358,7 @@ export default {
 <style lang="scss">
 .task {
 	padding: 5px 10px 10px 10px;
+	// overflow: auto;
 }
 
 .task-body.v-card {
@@ -359,11 +392,11 @@ export default {
 	}
 
 	.task-icon {
-		// position: relative;
+		position: relative;
 		height: 48px;
 		width: 48px;
 
-		// right: 0px;
+		right: -4px;
 		// top: 0px;
 		// z-index: 999;
 
@@ -387,6 +420,60 @@ export default {
 .task-item {
 	// margin: 5px 0 5px 0;
 	margin: 0 0 0 0;
+
+	.task-checkbox-pencil {
+		// height:24px;
+		// width:24px;
+		margin-right: 10px;
+	}
+
+	.task-checkbox-delete {
+		margin-right: 5px;
+	}
+
+	.task-checkbox-pencil,
+	.task-checkbox-delete {
+		visibility: hidden;
+	}
+
+	// .task-checkbox-delete:hover {
+	// 	visibility: visible;
+	// }
+	&:hover .task-checkbox-delete,
+	&:hover .task-checkbox-pencil {
+		visibility: visible;
+	}
+
+
+	.task-checkbox-delete {
+		// height:24px;
+		// width:24px;
+
+	}
+
+	.task-checkbox-button img {
+		max-height: 20px;
+		max-width: 20px;
+		// overflow: hidden;
+	}
+
+	.task-checkbox-button:hover {
+		transform: scale(1.15);
+		//  box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.3);
+	}
+
+
+	&:hover {
+		// color: red;
+		// &::after {
+		// 	content: '';
+		// 	background: url('../icons/edit-icons-24px/1.webp');
+		// 	position: relative;
+		// 	height: 24px;
+		// 	width: 24px;
+		// 	right: -92px;
+		// }
+	}
 }
 
 
@@ -394,5 +481,4 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}
-</style>
+}</style>
