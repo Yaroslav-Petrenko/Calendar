@@ -6,20 +6,21 @@ export default {
 			{
 				id: '100',
 				date: 'Вчера, ',
-				allDone: true,
+				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: true },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: true },
 				],
 			},
 			{
 				id: '101',
 				date: 'Сегодня, ',
-				allDone: false,
+				allDone: true,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
+					{ id: '0', text: 'Выпить пива, поностальгировать', done: true },
 					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
 					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
 					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
@@ -37,9 +38,9 @@ export default {
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '4', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '5', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '6', text: 'Выпить пива, поностальгировать', done: false },
@@ -51,9 +52,9 @@ export default {
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '4', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '5', text: 'Выпить пива, поностальгировать', done: false },
 					// { id: '6', text: 'Выпить пива, поностальгировать', done: false },
@@ -97,7 +98,7 @@ export default {
 			// console.log("text", text)
 			// console.log("cardId", cardId)
 			const item = {
-				id: (parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1).toString() || '0',
+				id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
 				// id: (parseInt(cards.tasks[cards.tasks.length - 1].id) + 1).toString(),
 				// date,
 				text,

@@ -4,7 +4,7 @@
 		md="4"
 	>
 		<v-card
-			:class="`task text-shadow ${getShadowType}`"
+			class="task"
 			:color="getTaskColor"
 		>
 
@@ -13,7 +13,7 @@
 				class="task-header"
 				elevation="0"
 			>
-				<div class=" pa-2 d-flex align-center justify-space-between">
+				<div class="task-header pa-2 d-flex align-center justify-space-between">
 					<div class="task-title">{{ date }}</div>
 					<div class="task-icon">
 						<div class="task-icon-circle">
@@ -238,23 +238,6 @@ export default {
 			errorMessages.value = ''
 		}
 
-		const getTaskStyles = computed(() => {
-			const color = allDone.value ? 'blue-grey-darken-4' : '#171E21'
-			const shadowType = allDone.value ? 'text-shadow__grey' : 'text-shadow__dark'
-
-			return {
-				color,
-				shadowType
-			}
-		})
-
-
-		const getShadowType = computed(() => {
-			return allDone.value ? 'text-shadow__grey' : 'text-shadow__dark'
-			// if (allDone.value) return 'text-shadow__dark'
-			// else return 'text-shadow__grey'
-		})
-
 		// watch(textField, (newValue, oldValue) => {
 		// 	// console.log("watch newValue", newValue)
 		// 	// console.log("watch oldValue", oldValue)
@@ -271,49 +254,13 @@ export default {
 		// })
 
 		const getTaskColor = computed(() => {
-			return allDone.value ? 'blue-grey-darken-4' : '#171E21'
 			// console.log('getTaskColor', allDone.value)
 			// if (allDone.value) return '#424242'
-			// if (allDone.value) return 'blue-grey-darken-4'
-			// // else return '#212121'
-			// // else return '#182024'
-			// else return '#171E21'
+			if (allDone.value) return 'blue-grey-darken-4'
+			// else return '#212121'
+			// else return '#182024'
+			else return '#171E21'
 		})
-
-		watch(allDone, () => {
-			console.log('change')
-		})
-
-
-		// const getTaskColor = computed(() => {
-		// 	if (allDone.value) {
-		// 		return 'blue-grey-darken-4'
-		// 	} else {
-		// 		return '#171E21'
-		// 	}
-		// })
-
-		// const getShadowType = computed(() => {
-		// 	if (allDone.value) {
-		// 		return 'text-shadow__grey'
-		// 	} else {
-		// 		return 'text-shadow__dark'
-		// 	}
-		// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		const createTask = () => {
@@ -399,9 +346,7 @@ export default {
 			errorMessages,
 			changeAllDone,
 			getTaskColor,
-			deleteTask,
-			getShadowType,
-			getTaskStyles
+			deleteTask
 		}
 
 	}
@@ -413,42 +358,7 @@ export default {
 <style lang="scss">
 .task {
 	padding: 5px 10px 10px 10px;
-
 	// overflow: auto;
-	// &::before {
-	// 	content: '';
-	// 	display: block;
-	// 	position: absolute;
-	// 	width: 390px;
-	// 	height: 10px;
-	// 	background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-	// 	top: 69px;
-	// 	z-index: 50;
-	// }
-}
-
-.text-shadow::before {
-	content: '';
-	display: block;
-	position: absolute;
-	width: 390px;
-	height: 10px;
-	// background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-	top: 69px;
-	z-index: 50;
-	// transition: all 5s linear;
-	// background: #263238;
-}
-
-.text-shadow__dark::before {
-	// background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-	transition: all 5s linear;
-	// transition-delay: 1s ;
-	background: linear-gradient(to bottom, #171E21 0%, transparent 100%);
-}
-.text-shadow__grey::before {
-	// background: linear-gradient(to bottom, transparent 0%, rgb(38,50,56, 0) 100%);
-	background: linear-gradient(to bottom, #263238 0%, transparent 100%);
 }
 
 .task-body.v-card {
@@ -470,9 +380,7 @@ export default {
 	// min-height: 50px;
 	padding: 0 4px 0 4px;
 	border-radius: 4px 4px 0 0;
-	// overflow: visible;
-
-
+	
 
 	.task-title {
 		color: #fff;
@@ -574,5 +482,4 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}
-</style>
+}</style>
