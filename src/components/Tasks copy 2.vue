@@ -1,4 +1,5 @@
 <template>
+	<!-- тут анимации и blur -->
 	<v-col
 		cols="12"
 		md="4"
@@ -76,17 +77,7 @@
 					:key="item.id"
 					class="task-item d-flex align-center "
 				>
-					<v-text-field
-						v-if="item.editing"
-						v-model="editingField"
-						:autofocus=true
-						density="compact"
-						class="mr-0 ml-7 mb-1"
-						variant="underlined"
-						hide-details="true"
-					></v-text-field>
 					<v-checkbox
-						v-else
 						:model-value="item.done"
 						@change="setCheckbox(cardId, item.id)"
 						class="task-checkbox pr-1 flex-grow-1"
@@ -97,12 +88,9 @@
 					></v-checkbox>
 
 					<div class="task-checkbox-pencil">
-						<button
-							@click="editTask(cardId, item.id, item.text)"
-							class="task-checkbox-button"
-						>
+						<button class="task-checkbox-button">
 							<img
-								src="../icons/ok-icons-48px/1.webp"
+								src="../icons/edit-icons-48px/16.webp"
 								alt=""
 							/>
 						</button>
@@ -233,7 +221,6 @@ export default {
 		const allDone = toRef(props, 'allDone')
 		const textField = ref('Выгулять девушку')
 		const errorMessages = ref('')
-		const editingField = ref('')
 		// const rules = {
 		// 	required: value => !!value || 'Поле обязательно',
 		// 	minLenght: value => value.length > 3 || 'Минимальная длина 5 символов'
@@ -267,7 +254,7 @@ export default {
 			// не смог пофиксить планость анимации, поэтому убираю размытие
 			// return allDone.value ? 'text-shadow__grey' : 'text-shadow__dark'
 
-
+			
 			// if (allDone.value) return 'text-shadow__dark'
 			// else return 'text-shadow__grey'
 		})
@@ -334,16 +321,6 @@ export default {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
 			store.dispatch('tasks/deleteTask', { cardId, taskId })
-		}
-		const editTask = (cardId, taskId, text) => {
-
-			// console.log('deleteTask')
-			console.log('cardId', cardId)
-			console.log('taskId', taskId)
-			console.log('text', text)
-			editingField.value = text
-
-			// store.dispatch('tasks/deleteTask', { cardId, taskId })
 		}
 
 
@@ -413,9 +390,7 @@ export default {
 			getTaskColor,
 			deleteTask,
 			getShadowType,
-			getTaskStyles,
-			editingField,
-			editTask
+			getTaskStyles
 		}
 
 	}
@@ -474,18 +449,16 @@ export default {
 	// transition: all 0s linear;
 	// transition-delay: 1s;
 	// background: linear-gradient(to bottom, #171E21 0%, transparent 100%);
-	// background: #171E21;
+	background: #171E21;
 	animation: blurGrey 0.2s;
-	animation-fill-mode: forwards;
 }
 
 .text-shadow__grey::before {
 	// background: linear-gradient(to bottom, transparent 0%, rgb(38,50,56, 0) 100%);
 	// background: linear-gradient(to bottom, #263238 0%, transparent 100%);
-	// background: #263238;
+	background: #263238;
 	// animation: blurGrey 0.5s reverse;
-	animation: blurDark 0.2s;
-	animation-fill-mode: forwards;
+		animation: blurDark 0.2s;
 }
 
 @keyframes blurGrey {
@@ -539,9 +512,6 @@ export default {
 	// 	width: 64px;
 	// 	height: 64px;
 	// }
-	.v-field__input {
-		padding: 0;
-	}
 }
 
 // галочка выполнения
@@ -551,19 +521,6 @@ export default {
 	padding: 0 4px 0 4px;
 	border-radius: 4px 4px 0 0;
 	// overflow: visible;
-
-	// &::after {
-	// 	content: "";
-	// 	position: absolute;
-	// 	bottom: 0;
-	// 	left: 0;
-	// 	width: 100%;
-	// 	height: 10px;
-	// 	// background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5));
-	// 	box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.2);
-	// 	z-index: 9999;
-	// }
-
 
 
 

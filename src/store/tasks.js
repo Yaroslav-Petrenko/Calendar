@@ -20,16 +20,16 @@ export default {
 				allDone: true,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Выпить пива, поностальгировать', done: true },
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '2', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: false },
-					{ id: '4', text: 'Выпить пива, поностальгировать', done: false },
-					{ id: '5', text: 'Выпить пива, поностальгировать', done: false },
-					{ id: '6', text: 'Выпить пива, поностальгировать', done: false },
-					{ id: '7', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '8', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '9', text: 'Выпить пива, поностальгировать', done: true },
+					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: true },
+					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '7', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '8', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '9', text: 'Выпить пива, поностальгировать', done: true, editing: false },
 				],
 			},
 			{
@@ -124,7 +124,7 @@ export default {
 			// console.log('card', card)
 			// card.tasks.forEach(item => item.done = true)
 		},
-		setDate(state, {cardId, date}) {
+		setDate(state, { cardId, date }) {
 			const card = state.cards.find(item => item.id == cardId)
 			// console.log('cardId', cardId)
 			// console.log('date', date)

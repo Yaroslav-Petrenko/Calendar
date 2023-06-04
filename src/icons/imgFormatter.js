@@ -5,8 +5,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = 'delete-icons';
-const outputFolder = 'delete-icons-48px';
+const inputFolder = 'ok-icons';
+const outputFolder = 'ok-icons-48px';
 // const inputFolder = 'edit-icons';
 // const outputFolder = 'edit-icons-48px';
 
