@@ -9,19 +9,19 @@ export default {
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: true },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false },
 				],
 			},
 			{
 				id: '101',
 				date: 'Сегодня, ',
 				allDone: true,
-				// subTitle: 'Задачи subTitle',
+				// subTitle: 'Задачи subTitle',, editing: false
 				tasks: [
 					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: true },
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
 					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
 					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },
 					{ id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
@@ -38,12 +38,12 @@ export default {
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '4', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
 				],
 			},
 			{
@@ -52,12 +52,12 @@ export default {
 				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '4', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
 				],
 			},
 		]
@@ -137,19 +137,33 @@ export default {
 			if (index !== -1) {
 				card.tasks.splice(index, 1);
 			}
+		},
+		editTask(state, { cardId, taskId, text }) {
+			// убираю редактирования со всех тасков, чтобы одновременно релактировался только один
+			state.cards.forEach(card => {
+				card.tasks.forEach(task => task.editing = false)
+			})
+			// включаю редактирование на нужном
+			const card = state.cards.find(item => item.id == cardId)
+			const task = card.tasks.find(task => task.id === taskId);
+			task.editing = true
+		},
+		completeEditing(state, { cardId, taskId, text }) {
+			const card = state.cards.find(item => item.id == cardId)
+			const task = card.tasks.find(task => task.id === taskId);
+			task.text = text;
+			task.editing = false;
 		}
 
 	},
 	actions: {
 		createTask(store, obj) {
-			// console.log("obj", obj)
 			store.commit('addTask', obj)
 		},
 		setCheckbox(store, obj) {
 			store.commit('changeCheckbox', obj)
 		},
 		changeCbxDone(store, cardId) {
-			// console.log("allDone", cardId)
 			store.commit('changeAllDone', cardId)
 		},
 		changeDate(store, obj) {
@@ -157,6 +171,12 @@ export default {
 		},
 		deleteTask(store, obj) {
 			store.commit('deleteTask', obj)
+		},
+		editTask(store, obj) {
+			store.commit('editTask', obj)
+		},
+		finishEditingTask(store, obj) {
+			store.commit('completeEditing', obj)
 		}
 
 	},

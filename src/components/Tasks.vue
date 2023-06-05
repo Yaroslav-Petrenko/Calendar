@@ -96,9 +96,13 @@
 						:label="item.text"
 					></v-checkbox>
 
-					<div class="task-checkbox-pencil">
+
+					<div
+						v-if="item.editing"
+						class="task-checkbox-pencil"
+					>
 						<button
-							@click="editTask(cardId, item.id, item.text)"
+							@click="finishEditingTask(cardId, item.id, item.text)"
 							class="task-checkbox-button"
 						>
 							<img
@@ -108,16 +112,32 @@
 						</button>
 					</div>
 
-					<div class="task-checkbox-delete">
-						<button
-							@click="deleteTask(cardId, item.id)"
-							class="task-checkbox-button"
-						>
-							<img
-								src="../icons/delete-icons-48px/22.webp"
-								alt=""
-							/>
-						</button>
+					<div
+						v-else
+						class="d-flex align-center"
+					>
+						<div class="task-checkbox-pencil">
+							<button
+								@click="editTask(cardId, item.id, item.text)"
+								class="task-checkbox-button"
+							>
+								<img
+									src="../icons/edit-icons-48px/16.webp"
+									alt=""
+								/>
+							</button>
+						</div>
+						<div class="task-checkbox-delete">
+							<button
+								@click="deleteTask(cardId, item.id)"
+								class="task-checkbox-button"
+							>
+								<img
+									src="../icons/delete-icons-48px/22.webp"
+									alt=""
+								/>
+							</button>
+						</div>
 					</div>
 
 					<!-- item.done {{ item.done }} -->
@@ -191,7 +211,7 @@
 						в архив
 					</v-btn>
 				</v-card-actions>
-				<!-- getTaskColor {{ getTaskColor }} -->
+				<!-- editingField.value {{ editingField }} -->
 				<!-- id {{ id }} -->
 				<!-- date {{ date }} -->
 			</v-card>
@@ -335,6 +355,7 @@ export default {
 			// console.log('taskId', taskId)
 			store.dispatch('tasks/deleteTask', { cardId, taskId })
 		}
+
 		const editTask = (cardId, taskId, text) => {
 
 			// console.log('deleteTask')
@@ -343,8 +364,16 @@ export default {
 			console.log('text', text)
 			editingField.value = text
 
-			// store.dispatch('tasks/deleteTask', { cardId, taskId })
+			store.dispatch('tasks/editTask', { cardId, taskId, text })
 		}
+
+
+		const finishEditingTask = (cardId, taskId) => {
+				// if (validateField() === false) return
+			store.dispatch('tasks/finishEditingTask', { cardId, taskId, text: editingField.value })
+		}
+
+
 
 
 
@@ -415,7 +444,8 @@ export default {
 			getShadowType,
 			getTaskStyles,
 			editingField,
-			editTask
+			editTask,
+			finishEditingTask
 		}
 
 	}
@@ -532,6 +562,7 @@ export default {
 	overflow: auto;
 	// padding: 0 8px 8px 8px;
 	border-radius: 0 0 4px 4px;
+
 	// ::after {
 	// 	content: '';
 	// 	background: url('');
