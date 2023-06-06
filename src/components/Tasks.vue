@@ -71,83 +71,84 @@
 						</transition>
 					</div>
 				</v-card-title> -->
-				<div
-					v-for="item in tasks"
-					:key="item.id"
-					class="task-item d-flex align-center "
+
+				<transition-group
+					leave-active-class="animate__animated animate__bounceOutRight animate__faster"
 				>
-					<v-text-field
-						v-if="item.editing"
-						v-model="editingField"
-						:autofocus=true
-						density="compact"
-						class="mr-0 ml-7 mb-1"
-						variant="underlined"
-						hide-details="true"
-					></v-text-field>
-					<v-checkbox
-						v-else
-						:model-value="item.done"
-						@change="setCheckbox(cardId, item.id)"
-						class="task-checkbox pr-1 flex-grow-1"
-						hide-details="true"
-						density="compact"
-						color="info"
-						:label="item.text"
-					></v-checkbox>
-
-
 					<div
-						v-if="item.editing"
-						class="task-checkbox-pencil"
+						v-for="item in tasks"
+						:key="item.id"
+						class="task-item d-flex align-center "
 					>
-						<button
-							@click="finishEditingTask(cardId, item.id, item.text)"
-							class="task-checkbox-button"
+						<v-text-field
+							v-if="item.editing"
+							v-model="editingField"
+							:autofocus=true
+							density="compact"
+							class="mr-0 ml-7 mb-1"
+							variant="underlined"
+							hide-details="true"
+						></v-text-field>
+						<v-checkbox
+							v-else
+							:model-value="item.done"
+							@change="setCheckbox(cardId, item.id)"
+							class="task-checkbox pr-1 flex-grow-1"
+							hide-details="true"
+							density="compact"
+							color="info"
+							:label="item.text"
+						></v-checkbox>
+						<div
+							v-if="item.editing"
+							class="task-checkbox-pencil"
 						>
-							<img
-								src="../icons/ok-icons-48px/1.webp"
-								alt=""
-							/>
-						</button>
-					</div>
-
-					<div
-						v-else
-						class="d-flex align-center"
-					>
-						<div class="task-checkbox-pencil">
 							<button
-								@click="editTask(cardId, item.id, item.text)"
+								@click="finishEditingTask(cardId, item.id, item.text)"
 								class="task-checkbox-button"
 							>
 								<img
-									src="../icons/edit-icons-48px/16.webp"
+									src="../icons/ok-icons-48px/1.webp"
 									alt=""
 								/>
 							</button>
 						</div>
-						<div class="task-checkbox-delete">
-							<button
-								@click="deleteTask(cardId, item.id)"
-								class="task-checkbox-button"
-							>
-								<img
-									src="../icons/delete-icons-48px/22.webp"
-									alt=""
-								/>
-							</button>
+						<div
+							v-else
+							class="d-flex align-center"
+						>
+							<div class="task-checkbox-pencil">
+								<button
+									@click="editTask(cardId, item.id, item.text)"
+									class="task-checkbox-button"
+								>
+									<img
+										src="../icons/edit-icons-48px/16.webp"
+										alt=""
+									/>
+								</button>
+							</div>
+							<div class="task-checkbox-delete">
+								<button
+									@click="deleteTask(cardId, item.id)"
+									class="task-checkbox-button"
+								>
+									<img
+										src="../icons/delete-icons-48px/22.webp"
+										alt=""
+									/>
+								</button>
+							</div>
 						</div>
+						<!-- item.done {{ item.done }} -->
+						<!-- <v-card-text class="task-text flex-grow-1">
+								{{ item.text }}
+							</v-card-text> -->
+						<!-- <v-label class="task-text flex-grow-1">
+								{{ item.text }}
+							</v-label> -->
 					</div>
-
-					<!-- item.done {{ item.done }} -->
-					<!-- <v-card-text class="task-text flex-grow-1">
-							{{ item.text }}
-						</v-card-text> -->
-					<!-- <v-label class="task-text flex-grow-1">
-							{{ item.text }}
-						</v-label> -->
-				</div>
+				</transition-group>
 				<!-- selected {{ selected }} -->
 				<div class="d-flex align-center mr-2">
 					<v-text-field
@@ -317,9 +318,9 @@ export default {
 			// else return '#171E21'
 		})
 
-		watch(allDone, () => {
-			console.log('change')
-		})
+		// watch(allDone, () => {
+		// 	console.log('change')
+		// })
 
 
 		// const getTaskColor = computed(() => {
@@ -359,9 +360,9 @@ export default {
 		const editTask = (cardId, taskId, text) => {
 
 			// console.log('deleteTask')
-			console.log('cardId', cardId)
-			console.log('taskId', taskId)
-			console.log('text', text)
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			// console.log('text', text)
 			editingField.value = text
 
 			store.dispatch('tasks/editTask', { cardId, taskId, text })
@@ -369,7 +370,7 @@ export default {
 
 
 		const finishEditingTask = (cardId, taskId) => {
-				// if (validateField() === false) return
+			// if (validateField() === false) return
 			store.dispatch('tasks/finishEditingTask', { cardId, taskId, text: editingField.value })
 		}
 
@@ -455,10 +456,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'animate.css';
+
 .task {
 	padding: 5px 10px 10px 10px;
 
-	// overflow: auto;
+	overflow: hidden;
 	// &::before {
 	// 	content: '';
 	// 	display: block;
@@ -562,6 +565,7 @@ export default {
 	overflow: auto;
 	// padding: 0 8px 8px 8px;
 	border-radius: 0 0 4px 4px;
+	overflow-x: hidden;
 
 	// ::after {
 	// 	content: '';

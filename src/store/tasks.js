@@ -6,7 +6,7 @@ export default {
 			{
 				id: '100',
 				date: 'Вчера, ',
-				allDone: false,
+				allDone: true,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
@@ -17,7 +17,7 @@ export default {
 			{
 				id: '101',
 				date: 'Сегодня, ',
-				allDone: true,
+				allDone: false,
 				// subTitle: 'Задачи subTitle',, editing: false
 				tasks: [
 					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
@@ -105,14 +105,21 @@ export default {
 			}
 			// console.log('selectedCard', selectedCard)
 			selectedCard.tasks.push(item)
+			selectedCard.allDone = false
 
 		},
 		changeCheckbox(state, { cardId, taskId }) {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
+			// ставлю done на на нужном таске
 			const card = state.cards.find(item => item.id == cardId)
+			// console.log('card', card)
 			const elem = card.tasks.find(e => e.id == taskId)
 			elem.done = !elem.done
+			// проверяю если все таски done -> ставлю/снимаю галочку allDone
+			const checkAllDone = card.tasks.every(val =>  val.done === true)
+			if (checkAllDone) card.allDone = true
+			else card.allDone = false
 		},
 		changeAllDone(state, cardId) {
 			const card = state.cards.find(item => item.id == cardId)

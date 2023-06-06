@@ -284,9 +284,9 @@ export default {
 			// else return '#171E21'
 		})
 
-		watch(allDone, () => {
-			console.log('change')
-		})
+		// watch(allDone, () => {
+		// 	console.log('change')
+		// })
 
 
 		// const getTaskColor = computed(() => {
