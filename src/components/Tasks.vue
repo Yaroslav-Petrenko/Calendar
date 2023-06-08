@@ -2,12 +2,13 @@
 	<v-col
 		cols="12"
 		md="4"
+		
 	>
 		<v-card
 			:class="`task text-shadow ${getShadowType}`"
 			:color="getTaskColor"
+			max-height="321px"
 		>
-
 			<v-card
 				:color="getTaskColor"
 				class="task-header"
@@ -72,9 +73,7 @@
 					</div>
 				</v-card-title> -->
 
-				<transition-group
-					leave-active-class="animate__animated animate__bounceOutRight animate__faster"
-				>
+				<transition-group leave-active-class="animate__animated animate__bounceOutRight animate__faster">
 					<div
 						v-for="item in tasks"
 						:key="item.id"
@@ -83,6 +82,7 @@
 						<v-text-field
 							v-if="item.editing"
 							v-model="editingField"
+							@keydown.enter="finishEditingTask(cardId, item.id, item.text)"
 							:autofocus=true
 							density="compact"
 							class="mr-0 ml-7 mb-1"
@@ -153,6 +153,7 @@
 				<div class="d-flex align-center mr-2">
 					<v-text-field
 						v-model="textField"
+						@keydown.enter="createTask()"
 						class="mr-3"
 						label="Текст"
 						variant="underlined"
@@ -214,7 +215,7 @@
 				</v-card-actions>
 				<!-- editingField.value {{ editingField }} -->
 				<!-- id {{ id }} -->
-				<!-- date {{ date }} -->
+				<!-- tasks {{ tasks }} -->
 			</v-card>
 		</v-card>
 	</v-col>

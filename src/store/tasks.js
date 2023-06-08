@@ -117,7 +117,7 @@ export default {
 			const elem = card.tasks.find(e => e.id == taskId)
 			elem.done = !elem.done
 			// проверяю если все таски done -> ставлю/снимаю галочку allDone
-			const checkAllDone = card.tasks.every(val =>  val.done === true)
+			const checkAllDone = card.tasks.every(val => val.done === true)
 			if (checkAllDone) card.allDone = true
 			else card.allDone = false
 		},
@@ -144,6 +144,11 @@ export default {
 			if (index !== -1) {
 				card.tasks.splice(index, 1);
 			}
+			// при удалении таска делаю проверку -> оставшиеся таски done или нет если done то ставлю статус card.allDone = true. Задержку в 500 мс поставил для более красивоого переключения стилей. Зедержку убрал - ассинхронщину нельзя в мутациях
+			const checkAllDone = card.tasks.every(val => val.done === true)
+			if (checkAllDone) card.allDone = true
+			else card.allDone = false
+
 		},
 		editTask(state, { cardId, taskId, text }) {
 			// убираю редактирования со всех тасков, чтобы одновременно релактировался только один
