@@ -41,6 +41,7 @@
 			<v-card
 				:class="`flex-grow-1 d-flex flex-column task-body`"
 				max-height="248px"
+				min-height="248px"
 				:color="getTaskColor"
 				elevation="0"
 			>

@@ -1,38 +1,65 @@
 export default {
 	namespaced: true,
 	state: {
-		category: 'Цели',
+		category: 'Задачи',
 		cards: [
 			{
 				id: '100',
-				title: 'Цели title',
-				subTitle: 'Цели subTitle',
-				text: "Текст первой Цели"
+				date: 'Вчера, ',
+				allDone: true,
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+				],
 			},
 			{
 				id: '101',
-				title: 'Цели title',
-				subTitle: 'Цели subTitle',
-				text: "Текст второй Цели"
+				date: 'Сегодня, ',
+				allDone: false,
+				// subTitle: 'Задачи subTitle',, editing: false
+				tasks: [
+					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '7', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '8', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '9', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+				],
 			},
 			{
 				id: '102',
-				title: 'Цели title',
-				subTitle: 'Цели subTitle',
-				text: "Текст третьей Цели"
+				date: 'Завтра, ',
+				allDone: false,
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+				],
 			},
 			{
 				id: '103',
-				title: 'Цели title',
-				subTitle: 'Цели subTitle',
-				text: "Текст четвертой Цели"
+				date: 'Послезавтра, ',
+				allDone: false,
+				// subTitle: 'Задачи subTitle',
+				tasks: [
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+				],
 			},
-			{
-				id: '104',
-				title: 'Цели title',
-				subTitle: 'Цели subTitle',
-				text: "Текст пятой Цели"
-			}
 		]
 	},
 	getters: {

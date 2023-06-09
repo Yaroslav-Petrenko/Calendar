@@ -6,7 +6,7 @@
 		>
 			<v-card
 				:class="`flex-grow-1 pa-2 d-flex flex-column note`"
-				max-height="296px"
+				height="396px"
 				:color="getTaskColor"
 			>
 				<!-- <div v-show="allDone" class="task-icon">
@@ -42,7 +42,7 @@
 					:key="item.id"
 					class="task-item d-flex align-center"
 				>
-					<v-checkbox
+					<!-- <v-checkbox
 						:model-value="item.done"
 						@change="setCheckbox(cardId, item.id)"
 						class="task-checkbox pr-1 flex-grow-0"
@@ -50,7 +50,7 @@
 						density="compact"
 						color="info"
 						:label="item.text"
-					></v-checkbox>
+					></v-checkbox> -->
 					<!-- item.done {{ item.done }} -->
 					<!-- <v-card-text class="task-text flex-grow-1">
 							{{ item.text }}
@@ -77,23 +77,7 @@
 					>
 					</v-btn>
 				</div>
-				<!-- textField {{ textField }} -->
-				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
-						<div class="">
-							<div class="note-body d-flex">
-								<div class="card-title-text align-self-stretch">
-									Date {{ date }}
-								</div>
-								<div class="flex-1-1 note-text">{{ text }}</div>
-								<div class="icon">
-									<img
-										:src="`/src/icons/viking-icons-48px/${icon}.webp`"
-										alt=""
-									/>
-								</div>
-							</div>
-						</div>
-					</v-card-item> -->
+
 				<v-card-actions class="justify-space-between pl-1">
 					<v-btn
 						v-if="!allDone"
@@ -231,41 +215,7 @@ export default {
 
 
 		onMounted(() => {
-			// const months = [
-			// 	"Января", "Февраля", "Марта", "Апреля",
-			// 	"Мая", "Июня", "Июля", "Августа",
-			// 	"Сентября", "Октября", "Ноября", "Декабря"
-			// ];
-
-			const currentDate = new Date();
-			const yesterday = new Date();
-			const tomorrow = new Date();
-			const afterTomorrow = new Date();
-
-			yesterday.setDate(currentDate.getDate() - 1)
-			tomorrow.setDate(currentDate.getDate() + 1)
-			afterTomorrow.setDate(currentDate.getDate() + 2)
-
-			const options = { month: 'short', day: 'numeric', year: 'numeric' };
-			const getYesterday = yesterday.toLocaleDateString('ru-RU', options)
-			const getToday = currentDate.toLocaleDateString('ru-RU', options);
-			const getTomorrow = tomorrow.toLocaleDateString('ru-RU', options)
-			const getAfterTomorrow = afterTomorrow.toLocaleDateString('ru-RU', options)
-
-
-			// console.log('cardId.value', cardId.value);
-			// console.log('Сегодня', getToday);
-			// console.log('Завтра', getTomorrow);
-			// console.log('Послезавтра', getAfterTomorrow);
-			switch (cardId.value) {
-				case '100': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getYesterday })
-				case '101': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getToday })
-				case '102': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getTomorrow })
-				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getAfterTomorrow })
-			}
-
-
-			if (cardId === '100') { }
+			
 		})
 
 
