@@ -2,7 +2,6 @@
 	<v-col
 		cols="12"
 		md="4"
-		
 	>
 		<v-card
 			:class="`task text-shadow ${getShadowType}`"
@@ -14,7 +13,7 @@
 				class="task-header"
 				elevation="0"
 			>
-				<div class=" pa-2 d-flex align-center justify-space-between">
+				<div class="pa-2 d-flex align-center justify-space-between">
 					<div class="task-title">{{ date }}</div>
 					<div class="task-icon">
 						<div class="task-icon-circle">
@@ -74,7 +73,10 @@
 					</div>
 				</v-card-title> -->
 
-				<transition-group leave-active-class="animate__animated animate__bounceOutRight animate__faster">
+				<transition-group
+					name="flip-list"
+					leave-active-class="animate__animated animate__bounceOutRight animate__faster"
+				>
 					<div
 						v-for="item in tasks"
 						:key="item.id"
@@ -249,6 +251,15 @@ export default {
 		// 	required: true
 		// },
 	},
+	// directives: {
+	// 	pin: {
+	// 		mounted(el) {
+	// 			console.log("mounted el", el)
+	// 			// el.style.position = 'absolute'
+	// 			el.style.color = 'red'
+	// 		},
+	// 	}
+	// },
 	setup(props) {
 
 		const store = useStore()
@@ -634,6 +645,86 @@ export default {
 }
 
 
+.flip-list-move {
+	// transition: transform 0.8s ease;
+	// position: absolute;
+}
+
+.flip-list-enter-active {
+	animation: bounceOutRight 0.3s ease reverse;
+}
+// .flip-list-leave-active {
+	
+// }
+
+
+.animate__bounceOutRight {
+	// animation: anima 0.8s ease;
+	// animation: bounceOutRight 0.3s ease;
+	// position: absolute;
+}
+
+// .flip-list-enter-from,
+// .flip-list-leave-to {
+// 	opacity: 0;
+// 	transform: translateX(30px);
+// }
+
+@keyframes bounceOutRight {
+  20% {
+    opacity: 1;
+    -webkit-transform: translate3d(-20px, 0, 0) scaleX(0.9);
+    transform: translate3d(-20px, 0, 0) scaleX(0.9);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(1100px, 0, 0) scaleX(2);
+    transform: translate3d(1100px, 0, 0) scaleX(2);
+  }
+}
+
+
+// взято с сайта чисто для тренировки
+.list-complete-item {
+	transition: all 0.8s ease;
+	// display: inline-block;
+	margin-right: 10px;
+}
+
+.flip-list-enter-from,
+.flip-list-leave-to {
+	opacity: 0;
+	transform: translateX(30px);
+}
+
+.flip-list-leave-active {
+	position: absolute;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -643,6 +734,8 @@ export default {
 .task-item {
 	// margin: 5px 0 5px 0;
 	margin: 0 0 0 0;
+	transition: all 0.8s ease;
+	// display: inline-block;
 
 	.task-checkbox-pencil {
 		// height:24px;
@@ -704,5 +797,4 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}
-</style>
+}</style>
