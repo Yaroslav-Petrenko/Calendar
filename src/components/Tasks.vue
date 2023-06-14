@@ -75,23 +75,32 @@
 
 				<transition-group
 					name="flip-list"
-					leave-active-class="animate__animated animate__bounceOutRight animate__faster"
+					leave-active-class="animate__animated animate__bounceOutRight animate__delay- animate__faster"
 				>
 					<div
 						v-for="item in tasks"
 						:key="item.id"
 						class="task-item d-flex align-center "
+						
 					>
-						<v-text-field
+						<v-textarea
 							v-if="item.editing"
 							v-model="editingField"
 							@keydown.enter="finishEditingTask(cardId, item.id, item.text)"
 							:autofocus=true
+
+							center-affix
+							no-resize
+							auto-grow
+							rows="1"
+							single-line
+
+
 							density="compact"
-							class="mr-0 ml-7 mb-1"
+							class="mr-0 ml-7 "
 							variant="underlined"
 							hide-details="true"
-						></v-text-field>
+						></v-textarea>
 						<v-checkbox
 							v-else
 							:model-value="item.done"
@@ -265,7 +274,7 @@ export default {
 		const store = useStore()
 		const cardId = toRef(props, 'cardId')
 		const allDone = toRef(props, 'allDone')
-		const textField = ref('Выгулять девушку')
+		const textField = ref('Выгулять девушку gsdfkjglsdglksdgldjgljglkjgldfglsg')
 		const errorMessages = ref('')
 		const editingField = ref('')
 		// const rules = {
@@ -588,7 +597,9 @@ export default {
 	// 	height: 64px;
 	// }
 	.v-field__input {
-		padding: 0;
+		// height: 40px;
+		// padding: 0;
+		padding-top: 0;
 	}
 }
 
@@ -673,12 +684,14 @@ export default {
 @keyframes bounceOutRight {
   20% {
     opacity: 1;
+		
     -webkit-transform: translate3d(-20px, 0, 0) scaleX(0.9);
     transform: translate3d(-20px, 0, 0) scaleX(0.9);
   }
 
   to {
     opacity: 0;
+			// position: absolute;
     -webkit-transform: translate3d(1100px, 0, 0) scaleX(2);
     transform: translate3d(1100px, 0, 0) scaleX(2);
   }
