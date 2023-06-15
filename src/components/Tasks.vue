@@ -73,34 +73,22 @@
 					</div>
 				</v-card-title> -->
 
-				<transition-group
-					name="flip-list"
-					leave-active-class="animate__animated animate__bounceOutRight animate__delay- animate__faster"
-				>
+				<transition-group name="flip-list">
 					<div
 						v-for="item in tasks"
 						:key="item.id"
 						class="task-item d-flex align-center "
-						
 					>
-						<v-textarea
+						<v-text-field
 							v-if="item.editing"
 							v-model="editingField"
 							@keydown.enter="finishEditingTask(cardId, item.id, item.text)"
 							:autofocus=true
-
-							center-affix
-							no-resize
-							auto-grow
-							rows="1"
-							single-line
-
-
-							density="compact"
-							class="mr-0 ml-7 "
+							density="comfortable"
+							class="mr-4 ml-7"
 							variant="underlined"
 							hide-details="true"
-						></v-textarea>
+						></v-text-field>
 						<v-checkbox
 							v-else
 							:model-value="item.done"
@@ -111,9 +99,10 @@
 							color="info"
 							:label="item.text"
 						></v-checkbox>
+						<!-- <transition name="bounce"> -->
 						<div
 							v-if="item.editing"
-							class="task-checkbox-pencil"
+							class="task-checkbox-edit"
 						>
 							<button
 								@click="finishEditingTask(cardId, item.id, item.text)"
@@ -152,6 +141,7 @@
 								</button>
 							</div>
 						</div>
+						<!-- </transition> -->
 						<!-- item.done {{ item.done }} -->
 						<!-- <v-card-text class="task-text flex-grow-1">
 								{{ item.text }}
@@ -274,7 +264,7 @@ export default {
 		const store = useStore()
 		const cardId = toRef(props, 'cardId')
 		const allDone = toRef(props, 'allDone')
-		const textField = ref('Выгулять девушку gsdfkjglsdglksdgldjgljglkjgldfglsg')
+		const textField = ref('At imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna')
 		const errorMessages = ref('')
 		const editingField = ref('')
 		// const rules = {
@@ -600,6 +590,8 @@ export default {
 		// height: 40px;
 		// padding: 0;
 		padding-top: 0;
+		// display: flex;
+		// align-items: flex-end;
 	}
 }
 
@@ -664,8 +656,9 @@ export default {
 .flip-list-enter-active {
 	animation: bounceOutRight 0.3s ease reverse;
 }
+
 // .flip-list-leave-active {
-	
+
 // }
 
 
@@ -681,38 +674,54 @@ export default {
 // 	transform: translateX(30px);
 // }
 
-@keyframes bounceOutRight {
-  20% {
-    opacity: 1;
-		
-    -webkit-transform: translate3d(-20px, 0, 0) scaleX(0.9);
-    transform: translate3d(-20px, 0, 0) scaleX(0.9);
-  }
 
-  to {
-    opacity: 0;
-			// position: absolute;
-    -webkit-transform: translate3d(1100px, 0, 0) scaleX(2);
-    transform: translate3d(1100px, 0, 0) scaleX(2);
-  }
-}
+
+
 
 
 // взято с сайта чисто для тренировки
-.list-complete-item {
-	transition: all 0.8s ease;
-	// display: inline-block;
-	margin-right: 10px;
-}
+// .list-complete-item {
+// 	transition: all 0.8s ease;
+// 	// display: inline-block;
+// 	margin-right: 10px;
+// }
 
-.flip-list-enter-from,
-.flip-list-leave-to {
-	opacity: 0;
-	transform: translateX(30px);
+// .flip-list-enter-from,
+// .flip-list-leave-to {
+// 	opacity: 0;
+// 	transform: translateX(30px);
+// }
+
+// .flip-list-leave-active {
+// 	position: absolute;
+// }
+
+
+.flip-list-enter-active {
+	animation: bounceOutRight 0.3s reverse;
+	// animation-fill-mode: forwards;
 }
 
 .flip-list-leave-active {
-	position: absolute;
+	animation: bounceOutRight 0.3s;
+	animation-fill-mode: forwards;
+	// animation-delay: 2s;
+}
+
+@keyframes bounceOutRight {
+	20% {
+		opacity: 1;
+
+		-webkit-transform: translate3d(-20px, 0, 0) scaleX(0.9);
+		transform: translate3d(-20px, 0, 0) scaleX(0.9);
+	}
+
+	100% {
+		opacity: 0;
+		// position: absolute;
+		-webkit-transform: translate3d(400px, 0, 0) scaleX(1.1);
+		transform: translate3d(400px, 0, 0) scaleX(1.1);
+	}
 }
 
 
@@ -746,14 +755,21 @@ export default {
 
 .task-item {
 	// margin: 5px 0 5px 0;
-	margin: 0 0 0 0;
-	transition: all 0.8s ease;
+	// margin: 0 0 0 0;
+	// свойство ниже делает задержку при bounceOutRight во время leave
+	// transition: all 0.8s ease;
 	// display: inline-block;
 
 	.task-checkbox-pencil {
 		// height:24px;
 		// width:24px;
 		margin-right: 10px;
+	}
+
+	.task-checkbox-edit {
+		// height:24px;
+		// width:24px;
+		margin-right: 34px;
 	}
 
 	.task-checkbox-delete {
@@ -810,4 +826,5 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}</style>
+}
+</style>
