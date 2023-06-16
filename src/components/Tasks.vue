@@ -79,16 +79,18 @@
 						:key="item.id"
 						class="task-item d-flex align-center "
 					>
+
 						<v-text-field
 							v-if="item.editing"
 							v-model="editingField"
 							@keydown.enter="finishEditingTask(cardId, item.id, item.text)"
 							:autofocus=true
 							density="comfortable"
-							class="mr-4 ml-7"
+							class="mr-4 ml-7 editing-text-field"
 							variant="underlined"
 							hide-details="true"
 						></v-text-field>
+
 						<v-checkbox
 							v-else
 							:model-value="item.done"
@@ -99,49 +101,50 @@
 							color="info"
 							:label="item.text"
 						></v-checkbox>
-						<!-- <transition name="bounce"> -->
-						<div
-							v-if="item.editing"
-							class="task-checkbox-edit"
-						>
-							<button
-								@click="finishEditingTask(cardId, item.id, item.text)"
-								class="task-checkbox-button"
+						<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
+						<transition name="bounce" mode="out-in" :duration="50">
+							<div
+								v-if="item.editing"
+								class="task-checkbox-edit align-self-start"
 							>
-								<img
-									src="../icons/ok-icons-48px/1.webp"
-									alt=""
-								/>
-							</button>
-						</div>
-						<div
-							v-else
-							class="d-flex align-center"
-						>
-							<div class="task-checkbox-pencil">
 								<button
-									@click="editTask(cardId, item.id, item.text)"
-									class="task-checkbox-button"
+									@click="finishEditingTask(cardId, item.id, item.text)"
+									class="task-checkbox-button "
 								>
 									<img
-										src="../icons/edit-icons-48px/16.webp"
+										src="../icons/ok-icons-48px/1.webp"
 										alt=""
 									/>
 								</button>
 							</div>
-							<div class="task-checkbox-delete">
-								<button
-									@click="deleteTask(cardId, item.id)"
-									class="task-checkbox-button"
-								>
-									<img
-										src="../icons/delete-icons-48px/22.webp"
-										alt=""
-									/>
-								</button>
+							<div
+								v-else
+								class="d-flex align-self-start"
+							>
+								<div class="task-checkbox-pencil">
+									<button
+										@click="editTask(cardId, item.id, item.text)"
+										class="task-checkbox-button "
+									>
+										<img
+											src="../icons/edit-icons-48px/16.webp"
+											alt=""
+										/>
+									</button>
+								</div>
+								<div class="task-checkbox-delete">
+									<button
+										@click="deleteTask(cardId, item.id)"
+										class="task-checkbox-button"
+									>
+										<img
+											src="../icons/delete-icons-48px/22.webp"
+											alt=""
+										/>
+									</button>
+								</div>
 							</div>
-						</div>
-						<!-- </transition> -->
+						</transition>
 						<!-- item.done {{ item.done }} -->
 						<!-- <v-card-text class="task-text flex-grow-1">
 								{{ item.text }}
@@ -577,6 +580,7 @@ export default {
 	overflow: auto;
 	// padding: 0 8px 8px 8px;
 	border-radius: 0 0 4px 4px;
+	padding-top: 2px;
 	overflow-x: hidden;
 
 	// ::after {
@@ -590,8 +594,16 @@ export default {
 		// height: 40px;
 		// padding: 0;
 		padding-top: 0;
+		// margin-bottom: 2px;
 		// display: flex;
 		// align-items: flex-end;
+	}
+
+	.editing-text-field {
+		// margin-bottom: 2px;
+		// своства ниже чтобы при входе в режим редактирвоания текст не прыгал
+		position: relative;
+		bottom: 4px;
 	}
 }
 
@@ -759,6 +771,18 @@ export default {
 	// свойство ниже делает задержку при bounceOutRight во время leave
 	// transition: all 0.8s ease;
 	// display: inline-block;
+	// position: relative;
+	overflow: visible;
+
+	.v-label {
+		align-items: start;
+		position: relative;
+		top: 3px;
+	}
+
+	.v-selection-control {
+		align-items: start;
+	}
 
 	.task-checkbox-pencil {
 		// height:24px;
@@ -799,7 +823,8 @@ export default {
 	.task-checkbox-button img {
 		max-height: 20px;
 		max-width: 20px;
-		// overflow: hidden;
+		// position: relative;
+		// z-index: 999;
 	}
 
 	.task-checkbox-button:hover {

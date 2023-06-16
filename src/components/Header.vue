@@ -284,10 +284,13 @@ export default {
 /* // анимация для note */
 .bounce-enter-active {
 	animation: bounce-in 0.3s;
+	/* animation-delay: 5s; */
 }
 
 .bounce-leave-active {
 	animation: bounce-in 0.3s reverse;
+	/* animation-fill-mode: forwards; */
+	/* animation-delay: 5s; */
 }
 
 @keyframes bounce-in {
