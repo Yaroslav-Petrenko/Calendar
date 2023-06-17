@@ -285,6 +285,7 @@ export default {
 				errorMessages.value = 'Минимальная длина 5 символов'
 				return false
 			}
+			// ниже возможно стоит присвоить null вместо пустой строки
 			errorMessages.value = ''
 		}
 

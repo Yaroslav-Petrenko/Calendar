@@ -73,11 +73,21 @@
 			color="#1d1d24"
 		>
 			<div class="d-flex justify-space-between">
+				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
 				<Search
+					v-if="tab != 'Задачи'"
 					:tab="tab"
 					@emitSearchValue="setSearch($event)"
 				/>
-				<Filter @select="setSelect($event)" />
+				<Filter
+					v-if="tab === 'Заметки'"
+					@select="setSelect($event)"
+				/>
+				<!-- TODO:ПРОСТО БЛОК-ЗАГЛУШКА ЧТОБЫ КАРТОЧКИ НЕ ПРЫГАЛИ -->
+				<v-card
+					v-else
+					height="78"
+				></v-card>
 			</div>
 
 			<!-- <v-data-table
@@ -136,18 +146,16 @@
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
-						<Goals
+						<Goals />
+						<Goals />
+						<Goals />
+						<!-- <Goals
 							v-for="item in cards"
 							:key="item.id"
 							:date="item.date"
 							:tasks="item.tasks"
 							:cardId="item.id"
 							:allDone="item.allDone"
-						/>
-						<!-- <Goals
-							v-for="item in filteredGoals({ search, select })"
-							:title="item.title"
-							:text="item.text"
 						/> -->
 					</v-row>
 				</v-window-item>
@@ -215,7 +223,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Задачи')
+		const tab = ref('Цели')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
