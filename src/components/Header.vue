@@ -146,9 +146,12 @@
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
-						<Goals />
-						<Goals />
-						<Goals />
+						<Goals
+							v-for="item in goalsCards"
+							:key="item.id"
+							:tasks="item.tasks"
+							:cardId="item.id"
+						/>
 						<!-- <Goals
 							v-for="item in cards"
 							:key="item.id"
@@ -261,7 +264,7 @@ export default {
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		const cards = computed(() => store.getters['tasks/cards'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
-		const filteredGoals = computed(() => store.getters['goals/filteredGoals'])
+		const goalsCards = computed(() => store.getters['goals/goals'])
 		// console.log('filteredNotes', filteredNotes.value(''))
 
 
@@ -277,7 +280,7 @@ export default {
 			// allGoals,
 			filteredNotes,
 			filteredTasks,
-			filteredGoals,
+			goalsCards,
 			setSearch,
 			search,
 			setSelect,

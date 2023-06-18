@@ -5,7 +5,6 @@
 			side="end"
 		>
 			<v-timeline-item
-				fill-dot
 				class="mb-12"
 				dot-color="orange"
 				size="large"
@@ -19,11 +18,12 @@
 					label="Leave a comment..."
 					density="compact"
 					@keydown.enter="comment"
+
 				>
 					<template v-slot:append>
 						<v-btn
 							class="mx-0"
-							variant="text"
+							color="rgb(70, 90, 247"
 							@click="comment"
 						>
 							Post
@@ -33,18 +33,18 @@
 			</v-timeline-item>
 
 			<!-- <v-slide-x-transition group> -->
-				<v-timeline-item
-					v-for="event in events"
-					:key="event.id"
-					class="mb-4"
-					:dot-color="getRandomColor"
-					size="small"
-				>
-					<div class="d-flex justify-space-between flex-grow-1">
-						<div>{{ getRandomColor }}</div>
-						<!-- <div class="flex-shrink-0">{{ event.time }}</div> -->
-					</div>
-				</v-timeline-item>
+			<v-timeline-item
+				v-for="event in tasks"
+				:key="event.id"
+				class="mb-4"
+				:dot-color="event.color"
+				size="small"
+			>
+				<div class="d-flex justify-space-between flex-grow-1">
+					<div>{{ getRandomColor }}</div>
+					<!-- <div class="flex-shrink-0">{{ event.time }}</div> -->
+				</div>
+			</v-timeline-item>
 			<!-- </v-slide-x-transition> -->
 
 			<v-timeline-item
@@ -152,7 +152,30 @@
 import { ref, reactive, computed, onMounted, toRef, watch } from 'vue'
 import { useStore } from 'vuex'
 export default {
+	props: {
+		tasks: {
+			type: Array,
+			required: true
+		},
+		cardId: {
+			type: String,
+			required: true
+		},
+		// date: {
+		// 	type: String,
+		// 	required: true
+		// },
+		// allDone: {
+		// 	type: Boolean,
+		// 	required: true
+		// },
+		// cards: {
+		// 	type: Object,
+		// 	required: true
+		// },
+	},
 	setup() {
+		const store = useStore()
 		const events = reactive([])
 		const input = ref(null)
 		const nonce = ref(0)
@@ -161,15 +184,10 @@ export default {
 			return events.slice().reverse()
 		})
 
+		const goals = computed(() => store.getters['goals/goals'])
+
 		const comment = () => {
-			const time = (new Date()).toTimeString()
-			events.push({
-				id: nonce.value++,
-				text: input.value,
-				time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-					return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-				}),
-			})
+		store.dispatch('goals/')
 
 			input.value = null
 		}

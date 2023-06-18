@@ -1,63 +1,25 @@
 export default {
 	namespaced: true,
 	state: {
-		category: 'Задачи',
+		category: 'Цели',
 		cards: [
 			{
 				id: '100',
-				date: 'Вчера, ',
-				allDone: true,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: 'purple' },
+					{ id: '1', text: 'Прочитал 75', done: true, editing: false, color: 'pink' },
+					{ id: '2', text: 'Прочитал 50', done: true, editing: false, color: 'orange' },
+					{ id: '3', text: 'Прочитал 25', done: true, editing: false, color: 'orange' },
 				],
 			},
 			{
 				id: '101',
-				date: 'Сегодня, ',
-				allDone: false,
-				// subTitle: 'Задачи subTitle',, editing: false
-				tasks: [
-					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
-					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					{ id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					{ id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					{ id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					{ id: '7', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '8', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '9', text: 'Выпить пива, поностальгировать', done: true, editing: false },
-				],
-			},
-			{
-				id: '102',
-				date: 'Завтра, ',
-				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-				],
-			},
-			{
-				id: '103',
-				date: 'Послезавтра, ',
-				allDone: false,
-				// subTitle: 'Задачи subTitle',
-				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false, color: 'purple' },
+					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false, color: 'purple' },
+					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false, color: 'purple' },
 				],
 			},
 		]
@@ -67,18 +29,47 @@ export default {
 			return state.notes.id
 		},
 		// allGoals: state => state.cards,
-		filteredGoals: state => conditions => state.cards.filter(item => {
-			// if (conditions) return 
-			// console.log(Object.values(item))
-			// console.log('Синий кит'.indexOf('ний') !== -1); // true
-			return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
-		})
+		// filteredGoals: state => conditions => state.cards.filter(item => {
+		// 	// if (conditions) return 
+		// 	// console.log(Object.values(item))
+		// 	// console.log('Синий кит'.indexOf('ний') !== -1); // true
+		// 	return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
+		// })
+		goals: state => state.cards
 	},
 	mutations: {
+		// comment: () => {
+		// 	const time = (new Date()).toTimeString()
+		// 	events.push({
+		// 		id: nonce.value++,
+		// 		text: input.value,
+		// 		time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+		// 			return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+		// 		}),
+		// 	})
 
+		// 	input.value = null
+		// },
+		addGoal({ cards }, { text, cardId }) {
+			const selectedCard = cards.find(item => item.id === cardId)
+			const time = (new Date()).toTimeString()
+			const item = {
+				id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
+				text,
+				time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+					return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+				}),
+			}
+			// console.log('selectedCard', selectedCard)
+			selectedCard.tasks.push(item)
+			// selectedCard.allDone = false
+
+		},
 	},
 	actions: {
-
+		createGoal(store, obj) {
+			store.commit('addGoal', obj)
+		},
 	},
 }
 
