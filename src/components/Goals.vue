@@ -1,146 +1,42 @@
 <template>
 	<v-container style="max-width: 600px;">
+		<!-- TODO:ПОЛЕ ЗАГОЛОВКА ДЛЯ ДОБАВЛЕНИЯ НОВОГО ЭТАПА -->
+		<v-text-field
+			v-model="input"
+			hide-details
+			label="Leave a comment..."
+			density="compact"
+			@keydown.enter="comment"
+		>
+			<template v-slot:append>
+				<v-btn
+					class="mx-0"
+					color="rgb(70, 90, 247"
+					@click="comment"
+				>
+					Post
+				</v-btn>
+			</template>
+		</v-text-field>
+		<!-- TODO -->
+
 		<v-timeline
 			density="compact"
 			side="end"
 		>
 			<v-timeline-item
-				class="mb-12"
-				dot-color="orange"
-				size="large"
-			>
-				<template v-slot:icon>
-					<span>МС</span>
-				</template>
-				<v-text-field
-					v-model="input"
-					hide-details
-					label="Leave a comment..."
-					density="compact"
-					@keydown.enter="comment"
-
-				>
-					<template v-slot:append>
-						<v-btn
-							class="mx-0"
-							color="rgb(70, 90, 247"
-							@click="comment"
-						>
-							Post
-						</v-btn>
-					</template>
-				</v-text-field>
-			</v-timeline-item>
-
-			<!-- <v-slide-x-transition group> -->
-			<v-timeline-item
 				v-for="event in tasks"
 				:key="event.id"
 				class="mb-4"
 				:dot-color="event.color"
-				size="small"
+				:size="event.size"
 			>
 				<div class="d-flex justify-space-between flex-grow-1">
-					<div>{{ getRandomColor }}</div>
-					<!-- <div class="flex-shrink-0">{{ event.time }}</div> -->
-				</div>
-			</v-timeline-item>
-			<!-- </v-slide-x-transition> -->
-
-			<v-timeline-item
-				class="mb-6"
-				hide-dot
-			>
-				<span>TODAY</span>
-			</v-timeline-item>
-
-			<v-timeline-item
-				class="mb-4"
-				dot-color="grey"
-				size="small"
-			>
-				<div class="d-flex justify-space-between flex-grow-1">
+					<div class="flex-grow-1">
+						{{ event.text }}
+					</div>
 					<div>
-						This order was archived.
-					</div>
-					<div class="flex-shrink-0">
-						15:26 EDT
-					</div>
-				</div>
-			</v-timeline-item>
-
-			<v-timeline-item
-				class="mb-4"
-				dot-color="primary"
-				size="small"
-			>
-				<div class="d-flex justify-space-between flex-grow-1">
-					<div>
-						<v-chip
-							class="ms-0"
-							color="purple"
-							label
-							size="small"
-						>
-							APP
-						</v-chip>
-						Digital Downloads fulfilled 1 item.
-					</div>
-					<div class="flex-shrink-0">
-						15:25 EDT
-					</div>
-				</div>
-			</v-timeline-item>
-
-			<v-timeline-item
-				class="mb-4"
-				dot-color="grey"
-				size="small"
-			>
-				<div class="d-flex justify-space-between flex-grow-1">
-					<div>
-						Order confirmation email was sent to John Leider (john@google.com).
-					</div>
-					<div class="flex-shrink-0">
-						15:25 EDT
-					</div>
-				</div>
-			</v-timeline-item>
-
-			<v-timeline-item
-				class="mb-4"
-				hide-dot
-			>
-				<v-btn variant="outlined">
-					Resend Email
-				</v-btn>
-			</v-timeline-item>
-
-			<v-timeline-item
-				class="mb-4"
-				dot-color="grey"
-				size="small"
-			>
-				<div class="d-flex justify-space-between flex-grow-1">
-					<div>
-						A $15.00 USD payment was processed on PayPal Express Checkout
-					</div>
-					<div class="flex-shrink-0">
-						15:25 EDT
-					</div>
-				</div>
-			</v-timeline-item>
-
-			<v-timeline-item
-				dot-color="grey"
-				size="small"
-			>
-				<div class="d-flex justify-space-between flex-grow-1">
-					<div>
-						John Leider placed this order on Online Store (checkout #1937432132572).
-					</div>
-					<div class="flex-shrink-0">
-						15:25 EDT
+						{{ event.time }}
 					</div>
 				</div>
 			</v-timeline-item>
@@ -161,18 +57,6 @@ export default {
 			type: String,
 			required: true
 		},
-		// date: {
-		// 	type: String,
-		// 	required: true
-		// },
-		// allDone: {
-		// 	type: Boolean,
-		// 	required: true
-		// },
-		// cards: {
-		// 	type: Object,
-		// 	required: true
-		// },
 	},
 	setup() {
 		const store = useStore()
@@ -187,13 +71,13 @@ export default {
 		const goals = computed(() => store.getters['goals/goals'])
 
 		const comment = () => {
-		store.dispatch('goals/')
+			store.dispatch('goals/')
 
 			input.value = null
 		}
 		const getRandomDotColor = () => {
 			// определяю геттер внутри функции, чтобы избежать кеширования его результата
-			console.log('Вызов')
+			// console.log('Вызов')
 			const colorPalete = ['pink', 'purple', 'blue', 'orange', 'info', 'error']
 			const getRandomColor = computed(() => {
 				return colorPalete[Math.floor(Math.random() * colorPalete.length)]
@@ -204,7 +88,7 @@ export default {
 		const getRandomColor = computed(() => {
 			const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
 			reverse()
-			console.log('colorPalette', colorPalete)
+			// console.log('colorPalette', colorPalete)
 			return item
 		})
 		const reverse = () => colorPalete = colorPalete.pop()
@@ -223,3 +107,9 @@ export default {
 	}
 }
 </script>
+
+<style>
+.v-timeline-item__body {
+	width: 100%;
+}
+</style>
