@@ -7,7 +7,7 @@ export default {
 				id: '100',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: 'orange', size: "large", time: '15:26 EDT' },
+					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: '#1867C0', size: "35", time: '15:26 EDT' },
 					{ id: '1', text: 'Прочитал 75 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					{ id: '2', text: 'Прочитал 50 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 				// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -19,9 +19,12 @@ export default {
 				id: '101',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false, color: '#1867C0' },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false, color: '#1867C0' },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false, color: '#1867C0' },
+					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: 'orange', size: "large", time: '15:26 EDT' },
+					{ id: '1', text: 'Прочитал 75 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					{ id: '2', text: 'Прочитал 50 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 				],
 			},
 		]

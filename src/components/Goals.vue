@@ -1,7 +1,7 @@
 <template>
 	<v-container style="max-width: 600px;">
 		<!-- TODO:ПОЛЕ ЗАГОЛОВКА ДЛЯ ДОБАВЛЕНИЯ НОВОГО ЭТАПА -->
-		<v-text-field
+		<!-- <v-text-field
 			v-model="input"
 			hide-details
 			label="Leave a comment..."
@@ -17,7 +17,7 @@
 					Post
 				</v-btn>
 			</template>
-		</v-text-field>
+		</v-text-field> -->
 		<!-- TODO -->
 
 		<v-timeline
@@ -25,11 +25,35 @@
 			side="end"
 		>
 			<v-timeline-item
+				dot-color="orange"
+				size="large"
+			>
+				<v-text-field
+					v-model="input"
+					hide-details
+					label="Leave a comment..."
+					density="compact"
+					@keydown.enter="comment"
+				>
+					<template v-slot:append>
+						<v-btn
+							class="mx-0"
+							color="rgb(70, 90, 247"
+							@click="comment"
+						>
+							Post
+						</v-btn>
+					</template>
+				</v-text-field>
+			</v-timeline-item>
+
+			<v-timeline-item
 				v-for="event in tasks"
 				:key="event.id"
 				class="mb-4"
 				:dot-color="event.color"
 				:size="event.size"
+				:fill-dot="false"
 			>
 				<div class="d-flex justify-space-between flex-grow-1">
 					<div class="flex-grow-1">
