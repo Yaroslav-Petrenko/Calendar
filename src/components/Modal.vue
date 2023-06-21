@@ -12,7 +12,7 @@
 				class="ml-3"
 				height="47px"
 				size="large"
-			>Добавить заметку</v-btn>
+			>Добавить {{ buttonText }}</v-btn>
 		</template>
 		<template v-slot:default="{ isActive }">
 			<v-card>
@@ -21,7 +21,11 @@
 					title="Добавьте заметку"
 				></v-toolbar>
 				<v-card-text>
-					<NoteForm @closeModal="isActive.value = false" />
+
+					<slot name="content">
+					
+					</slot>
+
 				</v-card-text>
 				<v-card-actions class="justify-end">
 					<v-btn
@@ -37,19 +41,18 @@
 </template>
 
 <script>
-import NoteForm from './NoteForm.vue'
+// import NoteForm from './NoteForm.vue'
 import { reactive, ref } from 'vue'
 export default {
-
-	components: {
-		NoteForm
-	},
-	// props: {
-	// 	setActive: {
-	// 		type: Object,
-	// 		required: true
-	// 	},
+	// components: {
+	// 	NoteForm
 	// },
+	props: {
+		buttonText: {
+			type: String,
+			required: true
+		},
+	},
 	setup(props, context) {
 		// console.log('context', context.slots.default())
 		// const someValue = 42

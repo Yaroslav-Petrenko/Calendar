@@ -74,11 +74,20 @@
 		>
 			<div class="d-flex justify-space-between">
 				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
-				<Search
+				<div
 					v-if="tab != 'Задачи'"
-					:tab="tab"
-					@emitSearchValue="setSearch($event)"
-				/>
+					class="d-flex align-center"
+				>
+					<Search
+						:tab="tab"
+						@emitSearchValue="setSearch($event)"
+					/>
+					<Modal :buttonText="setModalButtonText">
+						<template v-slot:content>
+							<NoteForm @closeModal="isActive.value = false" />
+						</template>
+					</Modal>
+				</div>
 				<Filter
 					v-if="tab === 'Заметки'"
 					@select="setSelect($event)"
@@ -111,7 +120,7 @@
 							appear
 						>
 							<Notes
-								v-for="item in filteredNotes({ search, select })"
+								v-for=" item  in  filteredNotes({ search, select }) "
 								:key="item.id"
 								:text="item.text"
 								:borderColor="item.borderColor"
@@ -134,7 +143,7 @@
 							:id="item.id"
 						/> -->
 						<Tasks
-							v-for="item in cards"
+							v-for=" item  in  cards "
 							:key="item.id"
 							:date="item.date"
 							:tasks="item.tasks"
@@ -147,7 +156,7 @@
 				<v-window-item value="Цели">
 					<v-row>
 						<Goals
-							v-for="item in goalsCards"
+							v-for=" item  in  goalsCards "
 							:key="item.id"
 							:tasks="item.tasks"
 							:cardId="item.id"
@@ -212,6 +221,8 @@ import Search from './Search.vue'
 import Filter from './Filter.vue'
 import Tasks from './Tasks.vue'
 import Goals from './Goals.vue'
+import Modal from './Modal.vue'
+import NoteForm from './NoteForm.vue'
 
 export default {
 	components: {
@@ -219,7 +230,9 @@ export default {
 		Search,
 		Filter,
 		Tasks,
-		Goals
+		Goals,
+		Modal,
+		NoteForm
 	},
 	setup() {
 
@@ -251,7 +264,13 @@ export default {
 			select.value = e.value
 		}
 
-
+		const setModalButtonText = computed(() => {
+			switch (tab.value) {
+				case 'Заметки': return 'заметку'
+				case 'Задачи': return 'задачу'
+				case 'Цели': return 'цель'
+			}
+		})
 
 		// const update = ($event) => {
 
@@ -285,7 +304,8 @@ export default {
 			search,
 			setSelect,
 			select,
-			cards
+			cards,
+			setModalButtonText
 		}
 	}
 }

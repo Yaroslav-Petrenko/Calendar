@@ -7,21 +7,21 @@ export default {
 				id: '100',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: '#1867C0', size: "35", time: '15:26 EDT' },
-					{ id: '1', text: 'Прочитал 75 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					{ id: '2', text: 'Прочитал 50 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-				// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-				// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-				// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '15:26 EDT' },
+					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
+					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '15:26 EDT' },
+					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 				],
 			},
 			{
 				id: '101',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: true, editing: false, color: 'orange', size: "large", time: '15:26 EDT' },
-					{ id: '1', text: 'Прочитал 75 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					{ id: '2', text: 'Прочитал 50 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '15:26 EDT' },
+					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
+					{ id: '3', text: 'Прочитал 50 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -70,11 +70,21 @@ export default {
 			// selectedCard.allDone = false
 
 		},
+		changeGoal({ cards }, { cardId, taskId }) {
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
+			const selectedCard = cards.find(item => item.id === cardId)
+			const elem = selectedCard.tasks.find(e => e.id == taskId)
+			elem.done = !elem.done
+		}
 	},
 	actions: {
 		createGoal(store, obj) {
 			store.commit('addGoal', obj)
 		},
+		changeGoal(store, obj) {
+			store.commit('changeGoal', obj)
+		}
 	},
 }
 

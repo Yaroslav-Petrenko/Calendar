@@ -23,46 +23,49 @@
 		<v-timeline
 			density="compact"
 			side="end"
+			truncate-line="start"
 		>
-			<v-timeline-item
-				dot-color="orange"
-				size="large"
-			>
-				<v-text-field
-					v-model="input"
-					hide-details
-					label="Leave a comment..."
-					density="compact"
-					@keydown.enter="comment"
-				>
-					<template v-slot:append>
-						<v-btn
-							class="mx-0"
-							color="rgb(70, 90, 247"
-							@click="comment"
-						>
-							Post
-						</v-btn>
-					</template>
-				</v-text-field>
-			</v-timeline-item>
+
 
 			<v-timeline-item
 				v-for="event in tasks"
 				:key="event.id"
-				class="mb-4"
-				:dot-color="event.color"
+				class="mb-4 time-line-item"
+				:dot-color="event.done ? '#1867C0' : 'grey-darken-2'"
 				:size="event.size"
 				:fill-dot="false"
+				:rounded="5"
+				@click="setDone(cardId, event.id)"
 			>
 				<div class="d-flex justify-space-between flex-grow-1">
 					<div class="flex-grow-1">
 						{{ event.text }}
 					</div>
+
+					<!-- <div>
+						<v-btn
+							class="mx-0 time-line-btn-done"
+							variant="text"
+							density="compact"
+							color="grey-darken-1"
+							@click="comment"
+						>
+							сделано
+						</v-btn>
+					</div> -->
+
 					<div>
 						{{ event.time }}
 					</div>
+
 				</div>
+
+				<!-- <template v-slot:append> -->
+
+				<!-- </template> -->
+
+
+
 			</v-timeline-item>
 		</v-timeline>
 	</v-container>
@@ -94,10 +97,12 @@ export default {
 
 		const goals = computed(() => store.getters['goals/goals'])
 
-		const comment = () => {
-			store.dispatch('goals/')
+		const setDone = (cardId, taskId) => {
+			store.dispatch('goals/changeGoal', { cardId, taskId })
+			// console.log('cardId', cardId)
+			// console.log('taskId', taskId)
 
-			input.value = null
+			// input.value = null
 		}
 		const getRandomDotColor = () => {
 			// определяю геттер внутри функции, чтобы избежать кеширования его результата
@@ -124,7 +129,7 @@ export default {
 			events,
 			input,
 			nonce,
-			comment,
+			setDone,
 			getRandomColor
 
 		}
@@ -136,4 +141,19 @@ export default {
 .v-timeline-item__body {
 	width: 100%;
 }
+
+.time-line-item {
+	cursor: pointer;
+	user-select: none;
+}
+
+.time-line-item:hover .time-line-btn-done {
+	/* visibility: visible; */
+}
+
+.time-line-btn-done {
+	/* visibility: hidden; */
+}
+
+.time-line-btn-done {}
 </style>

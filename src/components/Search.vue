@@ -2,7 +2,7 @@
 	<v-card
 		color="#1d1d24"
 		elevation="0"
-		width="770"
+		width="514"
 	>
 		<v-card-title class="search d-flex align-center ">
 			<!-- Nutrition -->
@@ -20,11 +20,11 @@
 			</v-text-field>
 
 
-			<Modal>
+			<!-- <Modal> -->
 				<!-- <template v-slot:modal-content="{ isActive }" >
 					 <NoteForm/>
 				</template> -->
-			</Modal>
+			<!-- </Modal> -->
 
 			<!-- <Filter/> -->
 		</v-card-title>
@@ -43,13 +43,13 @@
 <script>
 import { ref, reactive, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
-import Modal from './Modal.vue'
+// import Modal from './Modal.vue'
 import Filter from './Filter.vue'
 // import NoteForm from './NoteForm.vue'
 // import { props } from 'vue'
 export default {
 	components: {
-		Modal,
+		// Modal,
 		Filter
 		// NoteForm
 	},
