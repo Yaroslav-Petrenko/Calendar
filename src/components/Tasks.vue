@@ -720,6 +720,10 @@ export default {
 	animation-fill-mode: forwards;
 	// animation-delay: 2s;
 }
+// 
+// .flip-list-move {
+//   transition: transform 0.3s ease;
+// }
 
 @keyframes bounceOutRight {
 	20% {

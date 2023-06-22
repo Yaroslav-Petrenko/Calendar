@@ -83,10 +83,18 @@
 						@emitSearchValue="setSearch($event)"
 					/>
 					<Modal :buttonText="setModalButtonText">
-						<template v-slot:content>
-							<NoteForm @closeModal="isActive.value = false" />
+						<template v-slot:modal-content="{ isActive }">
+							<NoteForm
+								v-if="tab === 'Заметки'"
+								@closeModal="isActive.value = false"
+							/>
+							<GoalsForm
+								v-else="tab === 'Цели'"
+								@closeModal="isActive.value = false"
+							/>
 						</template>
 					</Modal>
+
 				</div>
 				<Filter
 					v-if="tab === 'Заметки'"
@@ -98,7 +106,7 @@
 					height="78"
 				></v-card>
 			</div>
-
+			<!-- isActive {{ isActive }} -->
 			<!-- <v-data-table
 					:headers="headers"
 					:items="desserts"
@@ -223,6 +231,7 @@ import Tasks from './Tasks.vue'
 import Goals from './Goals.vue'
 import Modal from './Modal.vue'
 import NoteForm from './NoteForm.vue'
+import GoalsForm from './GoalsForm.vue'
 
 export default {
 	components: {
@@ -232,7 +241,8 @@ export default {
 		Tasks,
 		Goals,
 		Modal,
-		NoteForm
+		NoteForm,
+		GoalsForm
 	},
 	setup() {
 

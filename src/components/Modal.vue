@@ -18,12 +18,12 @@
 			<v-card>
 				<v-toolbar
 					color="#7858d7"
-					title="Добавьте заметку"
+					:title="'Добавить ' + buttonText"
 				></v-toolbar>
 				<v-card-text>
 
-					<slot name="content">
-					
+					<slot name="modal-content" :isActive="isActive">
+
 					</slot>
 
 				</v-card-text>
@@ -52,6 +52,7 @@ export default {
 			type: String,
 			required: true
 		},
+		// modelValue
 	},
 	setup(props, context) {
 		// console.log('context', context.slots.default())

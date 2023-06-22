@@ -55,7 +55,15 @@ export default {
 
 		// 	input.value = null
 		// },
-		addGoal({ cards }, { text, cardId }) {
+		addGoal({ cards }, arr) {
+			let maxId = 0;
+			cards.forEach(item => maxId = Math.max(item.id, maxId))
+			console.log('maxId', maxId)
+			console.log('arr', arr)
+			cards.push({})
+
+		},
+		addGoalField({ cards }, { text, cardId }) {
 			const selectedCard = cards.find(item => item.id === cardId)
 			const time = (new Date()).toTimeString()
 			const item = {
