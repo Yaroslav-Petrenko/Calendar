@@ -7,9 +7,9 @@ export default {
 				id: '100',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '15:26 EDT' },
-					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
-					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '15:26 EDT' },
+					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
+					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '' },
+					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '' },
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -19,9 +19,9 @@ export default {
 				id: '101',
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '15:26 EDT' },
-					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
-					{ id: '3', text: 'Прочитал 50 книг', done: false, editing: false, size: "small", time: '15:26 EDT' },
+					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
+					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '' },
+					{ id: '3', text: 'Прочитал 50 книг', done: false, editing: false, size: "small", time: '' },
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -60,7 +60,41 @@ export default {
 			cards.forEach(item => maxId = Math.max(item.id, maxId))
 			console.log('maxId', maxId)
 			console.log('arr', arr)
-			cards.push({})
+			let currTaskId = 0
+			// const tasks = 
+			class Task {
+				constructor(text) {
+					this.id = currTaskId++
+					this.text = text
+					this.done = false
+					this.editing = false
+					this.size = 'small'
+					//ниже часть не нужна потому что время я буду добавлять в момент выполнения цели, а не в момент её создания, то есть при событии setDone надо добавлять время
+					// this.time = time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+					// 	return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+					// })
+				}
+				showText() {
+					console.log('this.id', this.id)
+				}
+			}
+			// arr.forEach(item => )
+
+			const newTask = new Task('lalala')
+			console.log('newTask', newTask)
+			newTask.showText()
+
+			// const item = {
+			// 	id: maxId,
+			// 	tasks: [],
+			// 	text: arr.forEach(),
+			// 	time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+			// 		return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+			// 	}),
+			// }
+
+
+			// cards.push(item)
 
 		},
 		addGoalField({ cards }, { text, cardId }) {
@@ -84,6 +118,27 @@ export default {
 			const selectedCard = cards.find(item => item.id === cardId)
 			const elem = selectedCard.tasks.find(e => e.id == taskId)
 			elem.done = !elem.done
+
+
+			const currentDate = new Date();
+			// Получаем часы, минуты, день, месяц и год из объекта Date
+			const hours = currentDate.getHours();
+			const minutes = currentDate.getMinutes();
+			const day = currentDate.getDate();
+			const month = currentDate.getMonth() + 1; // Месяцы начинаются с 0, поэтому добавляем 1
+			const year = currentDate.getFullYear() % 100; // Получаем двузначный год
+
+			// Форматируем время и дату в нужный формат
+			const formattedTime = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+			const formattedDate = `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
+
+
+			if (elem.done) {
+				elem.time = `${formattedTime} ${formattedDate}`
+			} else {
+				elem.time = ''
+			}
+			
 		}
 	},
 	actions: {

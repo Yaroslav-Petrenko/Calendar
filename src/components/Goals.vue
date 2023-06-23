@@ -37,7 +37,7 @@
 				:rounded="5"
 				@click="setDone(cardId, event.id)"
 			>
-				<div class="d-flex justify-space-between flex-grow-1">
+				<div class="d-flex justify-space-between flex-grow-1 ">
 					<div class="flex-grow-1">
 						{{ event.text }}
 					</div>
@@ -54,7 +54,7 @@
 						</v-btn>
 					</div> -->
 
-					<div>
+					<div class="goals-time">
 						{{ event.time }}
 					</div>
 
@@ -138,6 +138,11 @@ export default {
 </script>
 
 <style>
+.goals-time {
+	color: #1867C0;
+	font-weight: 500;
+	/* font-size: 18px; */
+}
 .v-timeline-item__body {
 	width: 100%;
 }

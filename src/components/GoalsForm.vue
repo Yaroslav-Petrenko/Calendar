@@ -90,11 +90,7 @@ export default {
 	},
 	setup(_, { emit }) {
 		const store = useStore()
-
 		const createGoal = () => {
-			// if (text.value.length < 5) return
-
-	
 			store.dispatch('goals/createGoal',
 				{
 					arr: textFieldsValue
@@ -107,7 +103,7 @@ export default {
 		// 	const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
 		// 	return path
 		// }
-		const textFieldsValue = reactive([''])
+		const textFieldsValue = reactive(['Вторая цель', 'Третья цель'])
 		const addField = () => {
 			textFieldsValue.push('')
 		}
@@ -119,7 +115,7 @@ export default {
 
 
 		const valid = ref(true)
-		const mainGoal = ref('')
+		const mainGoal = ref('Главная цель')
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		// const cbxRandonIcon = ref(false)
 
