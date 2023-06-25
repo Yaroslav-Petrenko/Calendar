@@ -168,6 +168,7 @@
 							:key="item.id"
 							:tasks="item.tasks"
 							:cardId="item.id"
+							:allDone="item.allDone"
 						/>
 						<!-- <Goals
 							v-for="item in cards"

@@ -5,11 +5,13 @@ export default {
 		cards: [
 			{
 				id: '100',
+				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
 					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '' },
-					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '' },
+					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '14:59 23.06.23' },
+					
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -17,6 +19,7 @@ export default {
 			},
 			{
 				id: '101',
+				allDone: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
@@ -119,6 +122,10 @@ export default {
 			const elem = selectedCard.tasks.find(e => e.id == taskId)
 			elem.done = !elem.done
 
+			// проверяю если все goals done -> ставлю/снимаю галочку allDone
+			const checkAllDone = selectedCard.tasks.every(val => val.done === true)
+			if (checkAllDone) selectedCard.allDone = true
+			else selectedCard.allDone = false
 
 			const currentDate = new Date();
 			// Получаем часы, минуты, день, месяц и год из объекта Date

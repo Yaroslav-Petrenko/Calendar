@@ -27,47 +27,51 @@
 		>
 
 
-			<v-timeline-item
-				v-for="event in tasks"
-				:key="event.id"
-				class="mb-4 time-line-item"
-				:dot-color="event.done ? '#1867C0' : 'grey-darken-2'"
-				:size="event.size"
-				:fill-dot="false"
-				:rounded="5"
-				@click="setDone(cardId, event.id)"
-			>
-				<div class="d-flex justify-space-between flex-grow-1 ">
-					<div class="flex-grow-1">
-						{{ event.text }}
-					</div>
+			<transition-group name="bounce">
+				<v-timeline-item
+					v-for="event in tasks"
+					:key="event.id"
+					class="mb-4 time-line-item"
+					:dot-color="getDotColor(event.done, allDone)"
+					:size="event.size"
+					:fill-dot="false"
+					:rounded="5"
+					@click="setDone(cardId, event.id)"
+				>
+					<div class="d-flex justify-space-between flex-grow-1 ">
+						<div class="flex-grow-1">
+							{{ event.text }}
+							<!-- {{ getDotColor(event.done, allDone) }} -->
+						</div>
 
-					<!-- <div>
-						<v-btn
-							class="mx-0 time-line-btn-done"
-							variant="text"
-							density="compact"
-							color="grey-darken-1"
-							@click="comment"
+						<transition
+							name="bounce"
+							:duration="200"
 						>
-							сделано
-						</v-btn>
-					</div> -->
-
-					<div class="goals-time">
-						{{ event.time }}
+							<div
+								v-if="event.time"
+								class="goals-time"
+							>
+								{{ event.time }}
+							</div>
+						</transition>
 					</div>
+					<!-- <template v-slot:append> -->
+					<!-- </template> -->
+				</v-timeline-item>
+			</transition-group>
 
-				</div>
-
-				<!-- <template v-slot:append> -->
-
-				<!-- </template> -->
-
-
-
-			</v-timeline-item>
 		</v-timeline>
+		<transition7
+			name="bounce"
+			:duration="200"
+			mode="out-in"
+		>
+			<div
+				v-if="allDone"
+				class="all-done"
+			>ВЫПОЛНЕНО</div>
+		</transition7>
 	</v-container>
 </template>
 
@@ -82,6 +86,10 @@ export default {
 		},
 		cardId: {
 			type: String,
+			required: true
+		},
+		allDone: {
+			type: Boolean,
 			required: true
 		},
 	},
@@ -104,33 +112,39 @@ export default {
 
 			// input.value = null
 		}
-		const getRandomDotColor = () => {
-			// определяю геттер внутри функции, чтобы избежать кеширования его результата
-			// console.log('Вызов')
-			const colorPalete = ['pink', 'purple', 'blue', 'orange', 'info', 'error']
-			const getRandomColor = computed(() => {
-				return colorPalete[Math.floor(Math.random() * colorPalete.length)]
-			})
-			return getRandomColor.value
-		}
-		let colorPalete = ['pink', 'purple', 'blue', 'orange', 'info', 'error']
-		const getRandomColor = computed(() => {
-			const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
-			reverse()
+
+
+		// const getDotColor = computed(() => {
+		// 	const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
+		// 	reverse()
+		// 	// console.log('colorPalette', colorPalete)
+		// 	return item
+		// })
+		const getDotColor = (eventDone, allDone) => {
+			console.log('Вызов')
+			// console.log('eventDone', eventDone)
+			// console.log('allDone', allDone)
+			if (allDone) return 'green-darken-2'
+			if (eventDone) return '#1867C0'
+			else return 'grey-darken-2'
+			// const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
+			// reverse()
 			// console.log('colorPalette', colorPalete)
-			return item
-		})
-		const reverse = () => colorPalete = colorPalete.pop()
+			// return item
+		}
+
+
+
+		// const reverse = () => colorPalete = colorPalete.pop()
 
 
 		return {
-			getRandomDotColor,
 			timeline,
 			events,
 			input,
 			nonce,
 			setDone,
-			getRandomColor
+			getDotColor
 
 		}
 	}
@@ -142,7 +156,9 @@ export default {
 	color: #1867C0;
 	font-weight: 500;
 	/* font-size: 18px; */
+
 }
+
 .v-timeline-item__body {
 	width: 100%;
 }
@@ -150,6 +166,33 @@ export default {
 .time-line-item {
 	cursor: pointer;
 	user-select: none;
+
+	/* transition: all 0.5s linear; */
+	/* &::after {
+		content: 'выполнено';
+		position: absolute;
+		color: rgb(56, 142, 60, 0.50);
+		font-size: 45px;
+		top: 50%;
+		right: 50%;
+		transform: translate(50%, -50%);
+		letter-spacing: 15px;
+		text-transform: uppercase;
+		z-index: 0;
+	} */
+}
+
+.all-done {
+	content: 'выполнено';
+	position: absolute;
+	color: rgb(56, 142, 60, 0.50);
+	font-size: 45px;
+	top: 50%;
+	/* right: 50%; */
+	transform: translate(20%, -50%);
+	letter-spacing: 15px;
+	text-transform: uppercase;
+	z-index: -1;
 }
 
 .time-line-item:hover .time-line-btn-done {
@@ -160,5 +203,4 @@ export default {
 	/* visibility: hidden; */
 }
 
-.time-line-btn-done {}
-</style>
+.time-line-btn-done {}</style>
