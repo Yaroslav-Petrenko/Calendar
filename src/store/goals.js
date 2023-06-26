@@ -11,7 +11,7 @@ export default {
 					{ id: '1', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
 					{ id: '2', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '' },
 					{ id: '3', text: 'Прочитал 50 книг', done: true, editing: false, size: "small", time: '14:59 23.06.23' },
-					
+
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -61,31 +61,39 @@ export default {
 		addGoal({ cards }, arr) {
 			let maxId = 0;
 			cards.forEach(item => maxId = Math.max(item.id, maxId))
-			console.log('maxId', maxId)
-			console.log('arr', arr)
+			const newCard = { id: String(++maxId), allDone: false, tasks: [] }
+			cards.push(newCard)
+			// console.log('maxId', maxId)
+			// console.log('arr', Array.isArray(arr))
 			let currTaskId = 0
-			// const tasks = 
+			// const tasks =
+
+
+
 			class Task {
+				static isFirstTask = true;
+
 				constructor(text) {
 					this.id = currTaskId++
 					this.text = text
 					this.done = false
 					this.editing = false
-					this.size = 'small'
+					this.size = Task.isFirstTask ? 'large' : 'small';
+					if (Task.isFirstTask) {
+						Task.isFirstTask = false;
+					}
 					//ниже часть не нужна потому что время я буду добавлять в момент выполнения цели, а не в момент её создания, то есть при событии setDone надо добавлять время
 					// this.time = time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
 					// 	return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
 					// })
 				}
-				showText() {
-					console.log('this.id', this.id)
-				}
 			}
-			// arr.forEach(item => )
+			// создаю новые такси в новой карте
+			arr.forEach(item => newCard.tasks.push(new Task(item)))
 
 			const newTask = new Task('lalala')
-			console.log('newTask', newTask)
-			newTask.showText()
+			// console.log('newTask', newTask)
+			// newTask.showText()
 
 			// const item = {
 			// 	id: maxId,
@@ -145,12 +153,12 @@ export default {
 			} else {
 				elem.time = ''
 			}
-			
+
 		}
 	},
 	actions: {
-		createGoal(store, obj) {
-			store.commit('addGoal', obj)
+		createGoal(store, arr) {
+			store.commit('addGoal', arr)
 		},
 		changeGoal(store, obj) {
 			store.commit('changeGoal', obj)

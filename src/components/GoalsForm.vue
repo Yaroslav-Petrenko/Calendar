@@ -6,24 +6,22 @@
 
 		<v-form ref="form">
 			<v-text-field
-				v-model="mainGoal"
+				v-model="textFieldsValue[0]"
 				label="Главная цель"
 				required
 			></v-text-field>
-			<transition-group
-				name="flip-list"
-			>
+			<transition-group name="flip-list">
 				<v-text-field
 					v-for="(item, i) in textFieldsValue"
 					:key="i"
-					v-model="textFieldsValue[i]"
+					v-model="textFieldsValue[i + 1]"
 					label="Этап достижения"
 					required
 					@input.once="addField"
 				></v-text-field>
 			</transition-group>
 
-			<p>mainGoal {{ mainGoal }}</p>
+			<!-- <p>mainGoal {{ mainGoal }}</p> -->
 			<p>textFieldsValue {{ textFieldsValue }}</p>
 			<!-- <p>arr[1] {{ arr[1] }}</p> -->
 
@@ -91,10 +89,8 @@ export default {
 	setup(_, { emit }) {
 		const store = useStore()
 		const createGoal = () => {
-			store.dispatch('goals/createGoal',
-				{
-					arr: textFieldsValue
-				})
+
+			store.dispatch('goals/createGoal', textFieldsValue)
 			closeModal()
 		}
 
@@ -103,7 +99,7 @@ export default {
 		// 	const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
 		// 	return path
 		// }
-		const textFieldsValue = reactive(['Вторая цель', 'Третья цель'])
+		const textFieldsValue = reactive(['Главная цель','Вторая цель', 'Третья цель'])
 		const addField = () => {
 			textFieldsValue.push('')
 		}
@@ -115,7 +111,7 @@ export default {
 
 
 		const valid = ref(true)
-		const mainGoal = ref('Главная цель')
+		// const mainGoal = ref('Главная цель')
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		// const cbxRandonIcon = ref(false)
 
@@ -164,7 +160,7 @@ export default {
 
 		return {
 			valid,
-			mainGoal,
+			// mainGoal,
 			reset,
 			createGoal,
 			textFieldsValue,
@@ -250,6 +246,4 @@ export default {
 // 	/* animation-fill-mode: forwards; */
 // 	/* animation-delay: 5s; */
 // }
-
-
 </style>

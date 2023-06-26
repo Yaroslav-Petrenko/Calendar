@@ -62,16 +62,14 @@
 			</transition-group>
 
 		</v-timeline>
-		<transition7
-			name="bounce"
-			:duration="200"
-			mode="out-in"
+		<transition
+			name="goals-bounce"
 		>
 			<div
 				v-if="allDone"
 				class="all-done"
 			>ВЫПОЛНЕНО</div>
-		</transition7>
+		</transition>
 	</v-container>
 </template>
 
@@ -185,7 +183,7 @@ export default {
 .all-done {
 	content: 'выполнено';
 	position: absolute;
-	color: rgb(56, 142, 60, 0.50);
+	color: rgb(56, 142, 60, 0.60);
 	font-size: 45px;
 	top: 50%;
 	/* right: 50%; */
@@ -194,6 +192,32 @@ export default {
 	text-transform: uppercase;
 	z-index: -1;
 }
+/* // анимация для .all-done */
+.goals-bounce-enter-active {
+	animation: bounce-in-goals 0.2s;
+}
+
+.goals-bounce-leave-active {
+	animation: bounce-in-goals 0.2s reverse;
+}
+
+@keyframes bounce-in-goals {
+	0% {
+		transform: translate(20%, -50%) scale(0);
+	}
+
+	50% {
+		transform: translate(20%, -50%) scale(1.1);
+	}
+
+	100% {
+		transform: translate(20%, -50%) scale(1);
+	}
+}
+
+
+
+
 
 .time-line-item:hover .time-line-btn-done {
 	/* visibility: visible; */
