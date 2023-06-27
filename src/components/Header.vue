@@ -1,9 +1,13 @@
 <template>
 	<v-card class="content d-flex flex-column">
-		<v-card color="#27272f">
+		<v-card
+			color="#27272f"
+			elevation="0"
+		>
 			<v-card
 				class="ma-auto"
 				width="1300"
+				elevation="0"
 			>
 				<v-toolbar color="#27272f">
 
@@ -71,6 +75,7 @@
 			class="ma-auto flex-grow-1"
 			width="1300"
 			color="#1d1d24"
+			elevation="0"
 		>
 			<div class="d-flex justify-space-between">
 				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
@@ -150,21 +155,23 @@
 							:tasks="item.tasks"
 							:id="item.id"
 						/> -->
-						<Tasks
-							v-for=" item  in  cards "
-							:key="item.id"
-							:date="item.date"
-							:tasks="item.tasks"
-							:cardId="item.id"
-							:allDone="item.allDone"
-						/>
+						<div class="d-flex">
+							<Tasks
+								v-for=" item  in  cards "
+								:key="item.id"
+								:date="item.date"
+								:tasks="item.tasks"
+								:cardId="item.id"
+								:allDone="item.allDone"
+							/>
+						</div>
 						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
 						<Goals
-							v-for=" item  in  goalsCards "
+							v-for=" item in goalsCards "
 							:key="item.id"
 							:tasks="item.tasks"
 							:cardId="item.id"
@@ -368,5 +375,4 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */
-</style>
+	} */</style>

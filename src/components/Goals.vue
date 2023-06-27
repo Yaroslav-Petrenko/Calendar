@@ -1,5 +1,9 @@
 <template>
-	<v-container style="max-width: 600px;">
+	<v-card
+		class="time-line pa-4"
+		color="#1D1D24"
+		elevation="0"
+	>
 		<!-- TODO:ПОЛЕ ЗАГОЛОВКА ДЛЯ ДОБАВЛЕНИЯ НОВОГО ЭТАПА -->
 		<!-- <v-text-field
 			v-model="input"
@@ -20,57 +24,57 @@
 		</v-text-field> -->
 		<!-- TODO -->
 
-		<v-timeline
-			density="compact"
-			side="end"
-			truncate-line="start"
-		>
-
-
-			<transition-group name="bounce">
-				<v-timeline-item
-					v-for="event in tasks"
-					:key="event.id"
-					class="mb-4 time-line-item"
-					:dot-color="getDotColor(event.done, allDone)"
-					:size="event.size"
-					:fill-dot="false"
-					:rounded="5"
-					@click="setDone(cardId, event.id)"
-				>
-					<div class="d-flex justify-space-between flex-grow-1 ">
-						<div class="flex-grow-1">
-							{{ event.text }}
-							<!-- {{ getDotColor(event.done, allDone) }} -->
-						</div>
-
-						<transition
-							name="bounce"
-							:duration="200"
-						>
-							<div
-								v-if="event.time"
-								class="goals-time"
-							>
-								{{ event.time }}
+		<div >
+			<v-timeline
+				density="compact"
+				side="end"
+				truncate-line="start"
+			>
+				<transition-group name="bounce">
+					<v-timeline-item
+						v-for="event in tasks"
+						:key="event.id"
+						class="mb-4 time-line-item"
+						:dot-color="getDotColor(event.done, allDone)"
+						:size="event.size"
+						:fill-dot="false"
+						:rounded="5"
+						@click="setDone(cardId, event.id)"
+					>
+						<div class="d-flex justify-space-between flex-grow-1 ">
+							<div class="flex-grow-1">
+								{{ event.text }}
+								<!-- {{ getDotColor(event.done, allDone) }} -->
 							</div>
-						</transition>
-					</div>
-					<!-- <template v-slot:append> -->
-					<!-- </template> -->
-				</v-timeline-item>
-			</transition-group>
-
-		</v-timeline>
-		<transition
-			name="goals-bounce"
-		>
+							<transition
+								name="bounce"
+								:duration="200"
+							>
+								<div
+									v-if="event.time"
+									class="goals-time"
+								>
+									{{ event.time }}
+								</div>
+							</transition>
+						</div>
+						<!-- <template v-slot:append> -->
+						<!-- </template> -->
+					</v-timeline-item>
+				</transition-group>
+			</v-timeline>
+		</div>
+		<transition name="goals-bounce">
 			<div
 				v-if="allDone"
 				class="all-done"
 			>ВЫПОЛНЕНО</div>
 		</transition>
-	</v-container>
+		<v-card >
+			<v-btn>редактировать</v-btn>
+			<v-btn>а архив</v-btn>
+		</v-card>
+	</v-card>
 </template>
 
 <script>
@@ -150,9 +154,20 @@ export default {
 </script>
 
 <style>
+.time-line {
+	/* центрирую карточки по левому краю */
+	margin-left: 0;
+	position: relative;
+	min-width: 600px;
+}
+
+
 .goals-time {
 	color: #1867C0;
 	font-weight: 500;
+	/* height: 100px; */
+	/* min-width: 120px; */
+
 	/* font-size: 18px; */
 
 }
@@ -192,6 +207,7 @@ export default {
 	text-transform: uppercase;
 	z-index: -1;
 }
+
 /* // анимация для .all-done */
 .goals-bounce-enter-active {
 	animation: bounce-in-goals 0.2s;
@@ -227,4 +243,5 @@ export default {
 	/* visibility: hidden; */
 }
 
-.time-line-btn-done {}</style>
+.time-line-btn-done {}
+</style>

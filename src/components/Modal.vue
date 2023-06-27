@@ -15,7 +15,7 @@
 			>Добавить {{ buttonText }}</v-btn>
 		</template>
 		<template v-slot:default="{ isActive }">
-			<v-card>
+			<v-card >
 				<v-toolbar
 					color="#7858d7"
 					:title="'Добавить ' + buttonText"

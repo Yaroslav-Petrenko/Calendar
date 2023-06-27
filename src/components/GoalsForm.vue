@@ -5,24 +5,24 @@
 	>
 
 		<v-form ref="form">
-			<v-text-field
+			<!-- <v-text-field
 				v-model="textFieldsValue[0]"
 				label="Главная цель"
 				required
-			></v-text-field>
+			></v-text-field> -->
 			<transition-group name="flip-list">
 				<v-text-field
 					v-for="(item, i) in textFieldsValue"
 					:key="i"
-					v-model="textFieldsValue[i + 1]"
-					label="Этап достижения"
+					v-model="textFieldsValue[i]"
+					:label="i == 0 ? 'Главная цель' : 'Этап достижения'"
 					required
 					@input.once="addField"
 				></v-text-field>
 			</transition-group>
 
 			<!-- <p>mainGoal {{ mainGoal }}</p> -->
-			<p>textFieldsValue {{ textFieldsValue }}</p>
+			<!-- <p>textFieldsValue {{ textFieldsValue }}</p> -->
 			<!-- <p>arr[1] {{ arr[1] }}</p> -->
 
 			<!-- <v-textarea
@@ -99,7 +99,7 @@ export default {
 		// 	const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
 		// 	return path
 		// }
-		const textFieldsValue = reactive(['Главная цель','Вторая цель', 'Третья цель'])
+		const textFieldsValue = reactive(['Бегать 30 дней подряд', 'Бегать 20 дней подряд', 'Бегать 10 дней подряд', ''])
 		const addField = () => {
 			textFieldsValue.push('')
 		}
