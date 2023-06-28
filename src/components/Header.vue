@@ -133,7 +133,7 @@
 							appear
 						>
 							<Notes
-								v-for=" item  in  filteredNotes({ search, select }) "
+								v-for="item in filteredNotes({ search, select }) "
 								:key="item.id"
 								:text="item.text"
 								:borderColor="item.borderColor"
@@ -155,28 +155,34 @@
 							:tasks="item.tasks"
 							:id="item.id"
 						/> -->
-						<div class="d-flex">
-							<Tasks
-								v-for=" item  in  cards "
-								:key="item.id"
-								:date="item.date"
-								:tasks="item.tasks"
-								:cardId="item.id"
-								:allDone="item.allDone"
-							/>
-						</div>
+						<Tasks
+							v-for=" item  in  cards "
+							:key="item.id"
+							:date="item.date"
+							:tasks="item.tasks"
+							:cardId="item.id"
+							:allDone="item.allDone"
+						/>
 						<!-- {{ filteredTasks({ search })[0].date }} -->
 					</v-row>
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
-						<Goals
-							v-for=" item in goalsCards "
-							:key="item.id"
-							:tasks="item.tasks"
-							:cardId="item.id"
-							:allDone="item.allDone"
-						/>
+						<!-- <div class="d-flex"> -->
+						<transition-group
+							name="bounce"
+							appear
+						>
+							<Goals
+								v-for=" item in goalsCards "
+								:key="item.id"
+								:tasks="item.tasks"
+								:cardId="item.id"
+								:allDone="item.allDone"
+								mode="out-in"
+							/>
+						</transition-group>
+						<!-- </div> -->
 						<!-- <Goals
 							v-for="item in cards"
 							:key="item.id"
@@ -301,7 +307,7 @@ export default {
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		const cards = computed(() => store.getters['tasks/cards'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
-		const goalsCards = computed(() => store.getters['goals/goals'])
+		const goalsCards = computed(() => store.getters['goals/filteredGoals'])
 		// console.log('filteredNotes', filteredNotes.value(''))
 
 
@@ -375,4 +381,5 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */</style>
+	} */
+</style>

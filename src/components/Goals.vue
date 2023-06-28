@@ -1,30 +1,12 @@
 <template>
 	<v-card
-		class="time-line pa-4"
+		class="time-line d-flex flex-column pa-4"
 		color="#1D1D24"
 		elevation="0"
 	>
-		<!-- TODO:ПОЛЕ ЗАГОЛОВКА ДЛЯ ДОБАВЛЕНИЯ НОВОГО ЭТАПА -->
-		<!-- <v-text-field
-			v-model="input"
-			hide-details
-			label="Leave a comment..."
-			density="compact"
-			@keydown.enter="comment"
-		>
-			<template v-slot:append>
-				<v-btn
-					class="mx-0"
-					color="rgb(70, 90, 247"
-					@click="comment"
-				>
-					Post
-				</v-btn>
-			</template>
-		</v-text-field> -->
-		<!-- TODO -->
 
-		<div >
+
+		<div class="time-line__block flex-grow-1">
 			<v-timeline
 				density="compact"
 				side="end"
@@ -70,10 +52,19 @@
 				class="all-done"
 			>ВЫПОЛНЕНО</div>
 		</transition>
-		<v-card >
-			<v-btn>редактировать</v-btn>
-			<v-btn>а архив</v-btn>
-		</v-card>
+		<v-card-actions class="pt-0 d-flex justify-space-between">
+			<v-btn
+				variant="flat"
+				color="blue-grey-darken-3"
+				size="small"
+			>редактировать</v-btn>
+			<v-btn
+				variant="plain"
+				color="amber-accent-4"
+				size="small"
+				@click="toArchive(cardId)"
+			>в архив</v-btn>
+		</v-card-actions>
 	</v-card>
 </template>
 
@@ -115,6 +106,10 @@ export default {
 			// input.value = null
 		}
 
+		const toArchive = (id) => {
+			store.dispatch('goals/sendToArchive', id)
+		}
+
 
 		// const getDotColor = computed(() => {
 		// 	const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
@@ -146,19 +141,26 @@ export default {
 			input,
 			nonce,
 			setDone,
-			getDotColor
+			getDotColor,
+			toArchive
 
 		}
 	}
 }
 </script>
 
-<style>
+<style lang="scss">
 .time-line {
 	/* центрирую карточки по левому краю */
 	margin-left: 0;
 	position: relative;
 	min-width: 600px;
+
+	/* height: 100%; */
+	&__block {
+		// height: 100%;
+		// font-size: 35px;
+	}
 }
 
 
@@ -202,7 +204,7 @@ export default {
 	font-size: 45px;
 	top: 50%;
 	/* right: 50%; */
-	transform: translate(20%, -50%);
+	transform: translate(20%, -92%);
 	letter-spacing: 15px;
 	text-transform: uppercase;
 	z-index: -1;
@@ -219,15 +221,15 @@ export default {
 
 @keyframes bounce-in-goals {
 	0% {
-		transform: translate(20%, -50%) scale(0);
+		transform: translate(20%, -92%) scale(0);
 	}
 
 	50% {
-		transform: translate(20%, -50%) scale(1.1);
+		transform: translate(20%, -92%) scale(1.1);
 	}
 
 	100% {
-		transform: translate(20%, -50%) scale(1);
+		transform: translate(20%, -92%) scale(1);
 	}
 }
 

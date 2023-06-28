@@ -6,12 +6,13 @@ export default {
 			{
 				id: '100',
 				allDone: true,
+				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 50 книг за год', done: true, size: "large", time: '20:25 22.10.22' },
-					{ id: '1', text: 'Прочитал 30 книг', done: true, size: "small", time: '18:36 23.07.22' },
-					{ id: '2', text: 'Прочитал 20 книг', done: true, size: "small", time: '14:59 23.05.22' },
-					{ id: '3', text: 'Прочитал 10 книг', done: true, size: "small", time: '15:23 22.03.22' },
+					{ id: '0', text: 'Прочитать 50 книг за год', done: true, editing: false, size: "large", time: '20:25 22.10.22' },
+					{ id: '1', text: 'Прочитал 30 книг', done: true, editing: false, size: "small", time: '18:36 23.07.22' },
+					{ id: '2', text: 'Прочитал 20 книг', done: true, editing: false, size: "small", time: '14:59 23.05.22' },
+					{ id: '3', text: 'Прочитал 10 книг', done: true, editing: false, size: "small", time: '15:23 22.03.22' },
 
 					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
 					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
@@ -21,6 +22,7 @@ export default {
 			{
 				id: '101',
 				allDone: false,
+				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '0', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
@@ -39,12 +41,15 @@ export default {
 		},
 		// allGoals: state => state.cards,
 		// filteredGoals: state => conditions => state.cards.filter(item => {
-		// 	// if (conditions) return 
-		// 	// console.log(Object.values(item))
-		// 	// console.log('Синий кит'.indexOf('ний') !== -1); // true
+		// if (conditions) return 
+		// console.log(Object.values(item))
+		// console.log('Синий кит'.indexOf('ний') !== -1); // true
 		// 	return (item.text.toLowerCase().indexOf(conditions.toLowerCase()) !== -1)
 		// })
-		goals: state => state.cards
+		// goals: state => state.cards,
+		filteredGoals: state => state.cards.filter(item => item.archive === false)
+
+
 	},
 	mutations: {
 		// comment: () => {
@@ -65,7 +70,12 @@ export default {
 
 			let maxId = 0;
 			cards.forEach(item => maxId = Math.max(item.id, maxId))
-			const newCard = { id: String(++maxId), allDone: false, tasks: [] }
+			const newCard = {
+				id: String(++maxId),
+				allDone: false,
+				archive: false,
+				tasks: []
+			}
 			cards.push(newCard)
 			// console.log('maxId', maxId)
 			// console.log('arr', Array.isArray(arr))
@@ -81,7 +91,7 @@ export default {
 					this.id = String(currTaskId++)
 					this.text = text
 					this.done = false
-					this.editing = false
+					// this.editing = false
 					this.size = Task.isFirstTask ? 'large' : 'small';
 					if (Task.isFirstTask) {
 						Task.isFirstTask = false;
@@ -95,7 +105,7 @@ export default {
 			// создаю новые такси в новой карте
 			formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
 
-			const newTask = new Task('lalala')
+			// const newTask = new Task('lalala')
 			// console.log('newTask', newTask)
 			// newTask.showText()
 
@@ -158,6 +168,11 @@ export default {
 				elem.time = ''
 			}
 
+		},
+		changeGoalArchive(state, id) {
+			const elem = state.cards.find(item => item.id === id)
+			console.log('elem', elem)
+			elem.archive = !elem.archive
 		}
 	},
 	actions: {
@@ -166,7 +181,10 @@ export default {
 		},
 		changeGoal(store, obj) {
 			store.commit('changeGoal', obj)
-		}
+		},
+		sendToArchive(store, id) {
+			store.commit('changeGoalArchive', id)
+		},
 	},
 }
 
