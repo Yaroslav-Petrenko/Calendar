@@ -6,23 +6,33 @@
 		width="auto"
 	>
 		<template v-slot:activator="{ props }">
-			<v-btn
-				color="#465af7"
-				v-bind="props"
-				class="ml-3"
-				height="47px"
-				size="large"
-			>Добавить {{ buttonText }}</v-btn>
+			<slot
+				name="modal-open-button"
+				:props="props"
+			>
+				<v-btn
+					color="#465af7"
+					v-bind="props"
+					class="ml-3"
+					height="47px"
+					size="large"
+				>
+					{{ buttonText }}
+				</v-btn>
+			</slot>
 		</template>
 		<template v-slot:default="{ isActive }">
-			<v-card >
+			<v-card>
 				<v-toolbar
 					color="#7858d7"
 					:title="'Добавить ' + buttonText"
 				></v-toolbar>
 				<v-card-text>
 
-					<slot name="modal-content" :isActive="isActive">
+					<slot
+						name="modal-content"
+						:isActive="isActive"
+					>
 
 					</slot>
 
@@ -120,5 +130,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #253861;
-}
-</style>
+}</style>

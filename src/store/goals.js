@@ -52,18 +52,6 @@ export default {
 
 	},
 	mutations: {
-		// comment: () => {
-		// 	const time = (new Date()).toTimeString()
-		// 	events.push({
-		// 		id: nonce.value++,
-		// 		text: input.value,
-		// 		time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-		// 			return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-		// 		}),
-		// 	})
-
-		// 	input.value = null
-		// },
 		addGoal({ cards }, arr) {
 			// убираю последний элемент массива - пустую строку
 			const formattedArr = arr.slice(0, -1)
@@ -86,40 +74,18 @@ export default {
 
 			class Task {
 				static isFirstTask = true;
-
 				constructor(text) {
 					this.id = String(currTaskId++)
 					this.text = text
 					this.done = false
-					// this.editing = false
 					this.size = Task.isFirstTask ? 'large' : 'small';
 					if (Task.isFirstTask) {
 						Task.isFirstTask = false;
 					}
-					//ниже часть не нужна потому что время я буду добавлять в момент выполнения цели, а не в момент её создания, то есть при событии setDone надо добавлять время
-					// this.time = time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-					// 	return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-					// })
 				}
 			}
 			// создаю новые такси в новой карте
 			formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
-
-			// const newTask = new Task('lalala')
-			// console.log('newTask', newTask)
-			// newTask.showText()
-
-			// const item = {
-			// 	id: maxId,
-			// 	tasks: [],
-			// 	text: arr.forEach(),
-			// 	time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-			// 		return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-			// 	}),
-			// }
-
-
-			// cards.push(item)
 
 		},
 		addGoalField({ cards }, { text, cardId }) {
@@ -137,7 +103,7 @@ export default {
 			// selectedCard.allDone = false
 
 		},
-		changeGoal({ cards }, { cardId, taskId }) {
+		markAsDone({ cards }, { cardId, taskId }) {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
 			const selectedCard = cards.find(item => item.id === cardId)
@@ -173,17 +139,26 @@ export default {
 			const elem = state.cards.find(item => item.id === id)
 			console.log('elem', elem)
 			elem.archive = !elem.archive
+		},
+		editGoal({ cards }, { textFieldsValue, cardId }) {
+			console.log('textFieldsValue', textFieldsValue)
+			console.log('cardId', cardId)
+			const selectedCard = cards.find(item => item.id === cardId)
+			selectedCard.tasks.forEach((item, i) => item.text = textFieldsValue[i])
 		}
 	},
 	actions: {
 		createGoal(store, arr) {
 			store.commit('addGoal', arr)
 		},
-		changeGoal(store, obj) {
-			store.commit('changeGoal', obj)
+		setDone(store, obj) {
+			store.commit('markAsDone', obj)
 		},
 		sendToArchive(store, id) {
 			store.commit('changeGoalArchive', id)
+		},
+		changeGoalTasks(store, obj) {
+			store.commit('editGoal', obj)
 		},
 	},
 }

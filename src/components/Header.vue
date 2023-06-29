@@ -290,9 +290,9 @@ export default {
 
 		const setModalButtonText = computed(() => {
 			switch (tab.value) {
-				case 'Заметки': return 'заметку'
-				case 'Задачи': return 'задачу'
-				case 'Цели': return 'цель'
+				case 'Заметки': return 'Добавить заметку'
+				case 'Задачи': return 'Добавить задачу'
+				case 'Цели': return 'Добавить цель'
 			}
 		})
 

@@ -53,11 +53,34 @@
 			>ВЫПОЛНЕНО</div>
 		</transition>
 		<v-card-actions class="pt-0 d-flex justify-space-between">
-			<v-btn
+			<!-- <v-btn
 				variant="flat"
 				color="blue-grey-darken-3"
 				size="small"
-			>редактировать</v-btn>
+			>редактировать</v-btn> -->
+
+
+			<Modal buttonText="Редактировать">
+				<template v-slot:modal-content="{ isActive }">
+					<EditGoalsForm
+						@closeModal="isActive.value = false"
+						:tasks="tasks"
+						:cardId="cardId"
+					/>
+				</template>
+				<template v-slot:modal-open-button="{ props }">
+					<v-btn
+						v-bind="props"
+						variant="flat"
+						color="blue-grey-darken-3"
+						size="small"
+					>редактировать</v-btn>
+				</template>
+			</Modal>
+
+
+
+
 			<v-btn
 				variant="plain"
 				color="amber-accent-4"
@@ -71,7 +94,13 @@
 <script>
 import { ref, reactive, computed, onMounted, toRef, watch } from 'vue'
 import { useStore } from 'vuex'
+import Modal from './Modal.vue'
+import EditGoalsForm from './EditGoalsForm.vue'
 export default {
+	components: {
+		Modal,
+		EditGoalsForm
+	},
 	props: {
 		tasks: {
 			type: Array,
@@ -99,7 +128,7 @@ export default {
 		const goals = computed(() => store.getters['goals/goals'])
 
 		const setDone = (cardId, taskId) => {
-			store.dispatch('goals/changeGoal', { cardId, taskId })
+			store.dispatch('goals/setDone', { cardId, taskId })
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
 
@@ -245,5 +274,4 @@ export default {
 	/* visibility: hidden; */
 }
 
-.time-line-btn-done {}
-</style>
+.time-line-btn-done {}</style>
