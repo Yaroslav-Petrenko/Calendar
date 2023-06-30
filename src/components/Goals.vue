@@ -13,36 +13,36 @@
 				truncate-line="start"
 			>
 				<transition-group name="bounce">
-					<v-timeline-item
-						v-for="event in tasks"
-						:key="event.id"
-						class="mb-4 time-line-item"
-						:dot-color="getDotColor(event.done, allDone)"
-						:size="event.size"
-						:fill-dot="false"
-						:rounded="5"
-						@click="setDone(cardId, event.id)"
-					>
-						<div class="d-flex justify-space-between flex-grow-1 ">
-							<div class="flex-grow-1">
-								{{ event.text }}
-								<!-- {{ getDotColor(event.done, allDone) }} -->
-							</div>
-							<transition
-								name="bounce"
-								:duration="200"
-							>
-								<div
-									v-if="event.time"
-									class="goals-time"
-								>
-									{{ event.time }}
-								</div>
-							</transition>
+				<v-timeline-item
+					v-for="event in tasks"
+					:key="event.id"
+					class="mb-4 time-line-item"
+					:dot-color="getDotColor(event.done, allDone)"
+					:size="event.size"
+					:fill-dot="false"
+					:rounded="5"
+					@click="setDone(cardId, event.id)"
+				>
+					<div class="d-flex justify-space-between flex-grow-1 ">
+						<div class="flex-grow-1">
+							{{ event.text }}
+							<!-- {{ getDotColor(event.done, allDone) }} -->
 						</div>
-						<!-- <template v-slot:append> -->
-						<!-- </template> -->
-					</v-timeline-item>
+						<transition
+							name="bounce"
+							:duration="200"
+						>
+							<div
+								v-if="event.time"
+								class="goals-time"
+							>
+								{{ event.time }}
+							</div>
+						</transition>
+					</div>
+					<!-- <template v-slot:append> -->
+					<!-- </template> -->
+				</v-timeline-item>
 				</transition-group>
 			</v-timeline>
 		</div>
@@ -184,13 +184,22 @@ export default {
 	margin-left: 0;
 	position: relative;
 	min-width: 600px;
+	// z-index: 999;
+	// overflow: visible;
 
 	/* height: 100%; */
 	&__block {
 		// height: 100%;
 		// font-size: 35px;
+		// z-index: 999;
+		// overflow: visible;
 	}
 }
+
+// .time-line__block {
+// 	z-index: 999;
+// 	overflow: visible;
+// }
 
 
 .goals-time {
@@ -274,4 +283,5 @@ export default {
 	/* visibility: hidden; */
 }
 
-.time-line-btn-done {}</style>
+.time-line-btn-done {}
+</style>

@@ -170,10 +170,11 @@
 					<v-row>
 						<!-- <div class="d-flex"> -->
 						<transition-group
-							name="bounce"
+							name="goals-fade"
 							appear
 						>
 							<Goals
+								class="goals-main"
 								v-for=" item in goalsCards "
 								:key="item.id"
 								:tasks="item.tasks"
@@ -362,7 +363,35 @@ export default {
 	}
 }
 
+/* // анимация для goals */
+.goals-fade-move,
+.goals-fade-enter-active,
+.goals-fade-leave-active {
+  transition: all 0.5s ease;
+	animation-fill-mode: forwards;
+  /* transition: all 0.3s linear; */
+}
 
+.goals-fade-enter-from,
+.goals-fade-leave-to {
+  opacity: 0;
+  /* transform: translate(-300px, 0); */
+  transform: scale(0.01);
+	/* transform: scaleY(10) translate(30px, 0); */
+}
+
+.goals-fade-leave-active {
+  position: absolute;
+	/* top: 300px; */
+	/* left: -300px; */
+}
+
+
+
+
+
+
+/*  */
 
 
 .content {

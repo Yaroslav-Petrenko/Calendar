@@ -728,7 +728,6 @@ export default {
 @keyframes bounceOutRight {
 	20% {
 		opacity: 1;
-
 		-webkit-transform: translate3d(-20px, 0, 0) scaleX(0.9);
 		transform: translate3d(-20px, 0, 0) scaleX(0.9);
 	}

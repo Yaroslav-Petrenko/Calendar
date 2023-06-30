@@ -9,28 +9,41 @@ export default {
 				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 50 книг за год', done: true, editing: false, size: "large", time: '20:25 22.10.22' },
-					{ id: '1', text: 'Прочитал 30 книг', done: true, editing: false, size: "small", time: '18:36 23.07.22' },
-					{ id: '2', text: 'Прочитал 20 книг', done: true, editing: false, size: "small", time: '14:59 23.05.22' },
-					{ id: '3', text: 'Прочитал 10 книг', done: true, editing: false, size: "small", time: '15:23 22.03.22' },
-
-					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					{ id: '0', text: 'Прочитать 50 книг за год', done: true, size: "large", time: '20:25 22.10.22' },
+					{ id: '1', text: 'Прочитал 30 книг', done: true, size: "small", time: '18:36 23.07.22' },
+					{ id: '2', text: 'Прочитал 20 книг', done: true, size: "small", time: '14:59 23.05.22' },
+					{ id: '3', text: 'Прочитал 10 книг', done: true, size: "small", time: '15:23 22.03.22' },
 				],
 			},
 			{
 				id: '101',
 				allDone: false,
 				archive: false,
-				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: false, editing: false, size: "large", time: '' },
-					{ id: '1', text: 'Прочитал 75 книг', done: false, editing: false, size: "small", time: '' },
-					{ id: '2', text: 'Прочитал 50 книг', done: false, editing: false, size: "small", time: '' },
-					// 	{ id: '3', text: 'Прочитал 25 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					// 	{ id: '4', text: 'Прочитал 10 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
-					// 	{ id: '5', text: 'Прочитал 0 книг', done: true, editing: false, color: '#1867C0', size: "small", time: '15:26 EDT' },
+					{ id: '0', text: 'Прочитать 100 книг', done: false, size: "large", time: '' },
+					{ id: '1', text: 'Прочитал 75 книг', done: true, size: "small", time: '15:23 22.03.22' },
+					{ id: '2', text: 'Прочитал 50 книг', done: true, size: "small", time: '15:23 29.02.22' },
+				],
+			},
+			{
+				id: '102',
+				allDone: false,
+				archive: false,
+				tasks: [
+					{ id: '0', text: 'Прочитать 50 книг за год', done: false, size: "large", time: '' },
+					{ id: '1', text: 'Прочитал 30 книг', done: true, size: "small", time: '20:56 23.07.22' },
+					{ id: '2', text: 'Прочитал 20 книг', done: true, size: "small", time: '14:59 23.05.22' },
+					{ id: '3', text: 'Прочитал 10 книг', done: true, size: "small", time: '15:23 22.03.22' },
+				],
+			},
+			{
+				id: '103',
+				allDone: false,
+				archive: false,
+				tasks: [
+					{ id: '0', text: 'Прочитать 100 книг', done: false, size: "large", time: '' },
+					{ id: '1', text: 'Прочитал 75 книг', done: false, size: "small", time: '' },
+					{ id: '2', text: 'Прочитал 50 книг', done: true, size: "small", time: '20:25 22.10.22' },
 				],
 			},
 		]
@@ -141,10 +154,13 @@ export default {
 			elem.archive = !elem.archive
 		},
 		editGoal({ cards }, { textFieldsValue, cardId }) {
-			console.log('textFieldsValue', textFieldsValue)
-			console.log('cardId', cardId)
+			// console.log('textFieldsValue', textFieldsValue)
+			// console.log('cardId', cardId)
 			const selectedCard = cards.find(item => item.id === cardId)
-			selectedCard.tasks.forEach((item, i) => item.text = textFieldsValue[i])
+			selectedCard.tasks.forEach((item, i) => {
+				if (textFieldsValue[i]) item.text = textFieldsValue[i]
+				else selectedCard.tasks.splice(i, 1)
+			})
 		}
 	},
 	actions: {

@@ -25,7 +25,7 @@
 			<v-card>
 				<v-toolbar
 					color="#7858d7"
-					:title="'Добавить ' + buttonText"
+					:title="buttonText"
 				></v-toolbar>
 				<v-card-text>
 
