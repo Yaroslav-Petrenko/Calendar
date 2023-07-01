@@ -227,7 +227,7 @@ export default {
 		// 	}
 		// }
 
-		const reset = async () => {
+		const reset = () => {
 
 			// await nextTick()
 			// console.log('form.value.reset()', form.value.reset)

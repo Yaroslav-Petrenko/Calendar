@@ -111,13 +111,10 @@ export default {
 			emit('closeModal')
 		}
 
+		// const valid = ref(true)
 
-
-		const valid = ref(true)
-		const reset = async () => {
-
-			// await nextTick()
-			// console.log('form.value.reset()', form.value.reset)
+		const form = ref(null)
+		const reset = () => {
 			form.value.reset()
 		}
 
@@ -126,7 +123,8 @@ export default {
 		// }
 
 		return {
-			valid,
+			// valid,
+			form,
 			// mainGoal,
 			reset,
 			// createGoal,

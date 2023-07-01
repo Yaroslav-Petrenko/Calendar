@@ -157,11 +157,18 @@ export default {
 			// console.log('textFieldsValue', textFieldsValue)
 			// console.log('cardId', cardId)
 			const selectedCard = cards.find(item => item.id === cardId)
-			selectedCard.tasks.forEach((item, i) => {
+
+
+			selectedCard.tasks.map((item, i) => {
+
+				console.log('item', item)
+				console.log('i', i)
 				if (textFieldsValue[i]) item.text = textFieldsValue[i]
 				else selectedCard.tasks.splice(i, 1)
 			})
-		}
+
+			
+		},
 	},
 	actions: {
 		createGoal(store, arr) {

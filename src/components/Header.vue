@@ -367,21 +367,21 @@ export default {
 .goals-fade-move,
 .goals-fade-enter-active,
 .goals-fade-leave-active {
-  transition: all 0.5s ease;
-	animation-fill-mode: forwards;
-  /* transition: all 0.3s linear; */
+	transition: all 0.5s ease;
+	/* animation-fill-mode: forwards; */
+	/* transition: all 0.3s linear; */
 }
 
 .goals-fade-enter-from,
 .goals-fade-leave-to {
-  opacity: 0;
-  /* transform: translate(-300px, 0); */
-  transform: scale(0.01);
+	opacity: 0;
+	/* transform: translate(-300px, 0); */
+	transform: scale(0.01);
 	/* transform: scaleY(10) translate(30px, 0); */
 }
 
 .goals-fade-leave-active {
-  position: absolute;
+	position: absolute;
 	/* top: 300px; */
 	/* left: -300px; */
 }
@@ -403,6 +403,7 @@ export default {
 	min-height: 100%;
 	overflow: hidden;
 }
+
 
 /* .app-title {
 	font-size: 40px;

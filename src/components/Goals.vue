@@ -60,7 +60,7 @@
 			>редактировать</v-btn> -->
 
 
-			<Modal buttonText="Редактировать">
+			<Modal buttonText="Редактирование цели">
 				<template v-slot:modal-content="{ isActive }">
 					<EditGoalsForm
 						@closeModal="isActive.value = false"
