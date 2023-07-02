@@ -41,9 +41,11 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: false, size: "large", time: '' },
-					{ id: '1', text: 'Прочитал 75 книг', done: false, size: "small", time: '' },
-					{ id: '2', text: 'Прочитал 50 книг', done: true, size: "small", time: '20:25 22.10.22' },
+					{ id: '0', text: 'Пробежать Марафон!', done: false, size: "large", time: '' },
+					{ id: '1', text: 'Пробежать 35 000 метров', done: false, size: "small", time: '' },
+					{ id: '2', text: 'Пробежать 30 000 метров', done: true, size: "small", time: '20:25 22.10.22' },
+					{ id: '3', text: 'Пробежать 25 000 метров', done: false, size: "small", time: '' },
+					{ id: '4', text: 'Пробежать 20 000 метров', done: false, size: "small", time: '' },
 				],
 			},
 		]
@@ -158,16 +160,41 @@ export default {
 			// console.log('cardId', cardId)
 			const selectedCard = cards.find(item => item.id === cardId)
 
+			const itemsForDelete = []
 
-			selectedCard.tasks.map((item, i) => {
 
-				console.log('item', item)
-				console.log('i', i)
-				if (textFieldsValue[i]) item.text = textFieldsValue[i]
-				else selectedCard.tasks.splice(i, 1)
+			selectedCard.tasks.forEach((item, i) => {
+
+				// console.log('item', item)
+				// console.log('i', i)
+				// debugger;
+				if (textFieldsValue[i]) {
+					// console.log('Попал в первый if')
+					// console.log('item.text = ', item.text)
+					// console.log('textFieldsValue[i] =', textFieldsValue[i])
+					item.text = textFieldsValue[i]
+				}
+				else {
+					// вместо удаления элемента и изменения массива, я записываю индексы элементов которые следует удалить
+					itemsForDelete.push(i)
+					// console.log('Попал во второй if')
+					// console.log('textFieldsValue[i] =', textFieldsValue[i])
+					// console.log('Перед удалением таска, карта выглядит вот так', selectedCard.tasks)
+
+					// const deletedItems = selectedCard.tasks.splice(i, 1) /* тут ключевая ошибка */
+
+					// console.log('Удаленные элементы методом splice', deletedItems)
+					// console.log('После удаления таска, карта выглядит вот так', selectedCard.tasks )
+				}
+			})
+			console.log('Индексы элементов которые следует удалить', itemsForDelete)
+			// делаю сортировку по индексам в обратном порядке, чтобы процедура удаления шла всегда с конца массива. Если она будет идти с начала, то индексы массива будут сдвигаться, и удаление будет некорректным
+			itemsForDelete.sort((a, b) => b - a);
+			console.log('Индексы элементов после сортировки', itemsForDelete)
+			itemsForDelete.forEach(item => {
+				selectedCard.tasks.splice(item, 1)
 			})
 
-			
 		},
 	},
 	actions: {

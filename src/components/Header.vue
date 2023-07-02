@@ -129,7 +129,7 @@
 						<!-- <v-card v-for="item in allCards" flat> -->
 						<!-- <v-card-text v-text="text"></v-card-text> -->
 						<transition-group
-							name="bounce"
+							name="notes-fade"
 							appear
 						>
 							<Notes
@@ -264,7 +264,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Цели')
+		const tab = ref('Заметки')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -381,6 +381,29 @@ export default {
 }
 
 .goals-fade-leave-active {
+	position: absolute;
+	/* top: 300px; */
+	/* left: -300px; */
+}
+
+/* // анимация для notes */
+.notes-fade-move,
+.notes-fade-enter-active,
+.notes-fade-leave-active {
+	transition: all 0.5s ease;
+	/* animation-fill-mode: forwards; */
+	/* transition: all 0.3s linear; */
+}
+
+.notes-fade-enter-from,
+.notes-fade-leave-to {
+	opacity: 0;
+	/* transform: translate(-300px, 0); */
+	transform: scale(0.01);
+	/* transform: scaleY(10) translate(30px, 0); */
+}
+
+.notes-fade-leave-active {
 	position: absolute;
 	/* top: 300px; */
 	/* left: -300px; */

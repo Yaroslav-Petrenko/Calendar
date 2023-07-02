@@ -147,7 +147,7 @@ export default {
 		// 	return item
 		// })
 		const getDotColor = (eventDone, allDone) => {
-			console.log('Вызов')
+			// console.log('Вызов')
 			// console.log('eventDone', eventDone)
 			// console.log('allDone', allDone)
 			if (allDone) return 'green-darken-2'
