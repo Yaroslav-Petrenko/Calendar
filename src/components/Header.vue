@@ -264,7 +264,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Заметки')
+		const tab = ref('Цели')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]

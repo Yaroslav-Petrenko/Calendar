@@ -9,7 +9,7 @@ export default {
 				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Прочитать 50 книг за год', done: true, size: "large", time: '20:25 22.10.22' },
+					{ id: '0', text: 'Первая цель', done: true, size: "large", time: '20:25 22.10.22' },
 					{ id: '1', text: 'Прочитал 30 книг', done: true, size: "small", time: '18:36 23.07.22' },
 					{ id: '2', text: 'Прочитал 20 книг', done: true, size: "small", time: '14:59 23.05.22' },
 					{ id: '3', text: 'Прочитал 10 книг', done: true, size: "small", time: '15:23 22.03.22' },
@@ -20,7 +20,7 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Прочитать 100 книг', done: false, size: "large", time: '' },
+					{ id: '0', text: 'Вторая цель', done: false, size: "large", time: '' },
 					{ id: '1', text: 'Прочитал 75 книг', done: true, size: "small", time: '15:23 22.03.22' },
 					{ id: '2', text: 'Прочитал 50 книг', done: true, size: "small", time: '15:23 29.02.22' },
 				],
@@ -30,7 +30,7 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Прочитать 50 книг за год', done: false, size: "large", time: '' },
+					{ id: '0', text: 'Третья цель', done: false, size: "large", time: '' },
 					{ id: '1', text: 'Прочитал 30 книг', done: true, size: "small", time: '20:56 23.07.22' },
 					{ id: '2', text: 'Прочитал 20 книг', done: true, size: "small", time: '14:59 23.05.22' },
 					{ id: '3', text: 'Прочитал 10 книг', done: true, size: "small", time: '15:23 22.03.22' },
@@ -41,7 +41,7 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Пробежать Марафон!', done: false, size: "large", time: '' },
+					{ id: '0', text: 'Четвертая цель', done: false, size: "large", time: '' },
 					{ id: '1', text: 'Пробежать 35 000 метров', done: false, size: "small", time: '' },
 					{ id: '2', text: 'Пробежать 30 000 метров', done: true, size: "small", time: '20:25 22.10.22' },
 					{ id: '3', text: 'Пробежать 25 000 метров', done: false, size: "small", time: '' },
@@ -196,6 +196,18 @@ export default {
 			})
 
 		},
+		deleteGoal(state, cardId) {
+			// const elem = state.cards.find(item => item.id === id)
+			// console.log('elem', elem)
+			// const idx = state.cards.indexOf(elem)
+			// console.log('idx', idx)
+			const idx = state.cards.findIndex(item => item.id === cardId)
+			console.log('idx', idx)
+			console.log('istate.cards', state.cards)
+			state.cards.splice(idx, 1)
+			console.log('istate.cards', state.cards)
+			
+		},
 	},
 	actions: {
 		createGoal(store, arr) {
@@ -209,6 +221,9 @@ export default {
 		},
 		changeGoalTasks(store, obj) {
 			store.commit('editGoal', obj)
+		},
+		deleteGoal(store, cardId) {
+			store.commit('deleteGoal', cardId)
 		},
 	},
 }

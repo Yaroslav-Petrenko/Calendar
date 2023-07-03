@@ -13,36 +13,36 @@
 				truncate-line="start"
 			>
 				<transition-group name="bounce">
-				<v-timeline-item
-					v-for="event in tasks"
-					:key="event.id"
-					class="mb-4 time-line-item"
-					:dot-color="getDotColor(event.done, allDone)"
-					:size="event.size"
-					:fill-dot="false"
-					:rounded="5"
-					@click="setDone(cardId, event.id)"
-				>
-					<div class="d-flex justify-space-between flex-grow-1 ">
-						<div class="flex-grow-1">
-							{{ event.text }}
-							<!-- {{ getDotColor(event.done, allDone) }} -->
-						</div>
-						<transition
-							name="bounce"
-							:duration="200"
-						>
-							<div
-								v-if="event.time"
-								class="goals-time"
-							>
-								{{ event.time }}
+					<v-timeline-item
+						v-for="event in tasks"
+						:key="event.id"
+						class="mb-4 time-line-item"
+						:dot-color="getDotColor(event.done, allDone)"
+						:size="event.size"
+						:fill-dot="false"
+						:rounded="5"
+						@click="setDone(cardId, event.id)"
+					>
+						<div class="d-flex justify-space-between flex-grow-1 ">
+							<div class="flex-grow-1">
+								{{ event.text }}
+								<!-- {{ getDotColor(event.done, allDone) }} -->
 							</div>
-						</transition>
-					</div>
-					<!-- <template v-slot:append> -->
-					<!-- </template> -->
-				</v-timeline-item>
+							<transition
+								name="bounce"
+								:duration="200"
+							>
+								<div
+									v-if="event.time"
+									class="goals-time"
+								>
+									{{ event.time }}
+								</div>
+							</transition>
+						</div>
+						<!-- <template v-slot:append> -->
+						<!-- </template> -->
+					</v-timeline-item>
 				</transition-group>
 			</v-timeline>
 		</div>
@@ -78,15 +78,20 @@
 				</template>
 			</Modal>
 
-
-
-
-			<v-btn
-				variant="plain"
-				color="amber-accent-4"
-				size="small"
-				@click="toArchive(cardId)"
-			>в архив</v-btn>
+			<div>
+				<v-btn
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="toArchive(cardId)"
+				>в архив</v-btn>
+				<v-btn
+					variant="plain"
+					color="blue-grey-lighten-2"
+					size="small"
+					@click="deleteGoal(cardId)"
+				>удалить</v-btn>
+			</div>
 		</v-card-actions>
 	</v-card>
 </template>
@@ -138,6 +143,9 @@ export default {
 		const toArchive = (id) => {
 			store.dispatch('goals/sendToArchive', id)
 		}
+		const deleteGoal = (cardId) => {
+			store.dispatch('goals/deleteGoal', cardId)
+		}
 
 
 		// const getDotColor = computed(() => {
@@ -171,7 +179,8 @@ export default {
 			nonce,
 			setDone,
 			getDotColor,
-			toArchive
+			toArchive,
+			deleteGoal
 
 		}
 	}
