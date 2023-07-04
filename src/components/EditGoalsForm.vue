@@ -42,16 +42,35 @@
 			</v-col> -->
 
 			<div class="d-flex flex-column">
-				<v-btn
-					color="blue-darken-3"
-					class="mt-4"
-					block
-					@click="editGoal()"
+				<transition
+					enter-active-class="animate__animated animate__flipInX"
+					leave-active-class="animate__animated animate__flipOutX"
+					:duration="500"
+					mode="out-in"
 				>
-					Сохранить
-				</v-btn>
+					<v-btn
+						v-if="arrayIsEmpty"
+						color="blue-darken-3"
+						class="mt-4"
+						block
+						@click="editGoal()"
+					>
+						Удалить цель
+					</v-btn>
+					<v-btn
+						v-else
+						color="blue-darken-3"
+						class="mt-4"
+						block
+						@click="editGoal()"
+					>
+						Сохранить
+					</v-btn>
+				</transition>
 
+				<!-- arrayIsEmpty {{ arrayIsEmpty }} -->
 				<v-btn
+				 :disabled="arrayIsEmpty"
 					color="error"
 					class="mt-4"
 					block
@@ -60,14 +79,14 @@
 					Очистить
 				</v-btn>
 			</div>
-			textFieldsValue {{ textFieldsValue }}
+			<!-- textFieldsValue {{ textFieldsValue }} -->
 			<!-- cardId {{ cardId }} -->
 		</v-form>
 	</v-sheet>
 </template>
 
 <script>
-import { ref, nextTick, computed, reactive, toRef } from 'vue'
+import { ref, nextTick, computed, reactive, toRef, watch } from 'vue'
 import { useStore } from 'vuex'
 import IconPack from './IconPack.vue'
 
@@ -101,10 +120,26 @@ export default {
 		const cardId = toRef(props, 'cardId')
 		tasks.value.forEach(item => textFieldsValue.push(item.text))
 
+		const arrayIsEmpty = ref(null)
 
+		watch(textFieldsValue, () => {
+			arrayIsEmpty.value = !textFieldsValue.some(item => item)
+			// console.log('arrayIsEmpty.value', arrayIsEmpty.value)
+		})
 		const editGoal = () => {
-			store.dispatch('goals/changeGoalTasks', { 'textFieldsValue': textFieldsValue, 'cardId': cardId.value })
-			closeModal()
+			// arrayIsEmpty = !textFieldsValue.some(item => item)
+			// console.log('arrayIsEmpty', arrayIsEmpty)
+
+			if (arrayIsEmpty.value) {
+				store.dispatch('goals/deleteGoal', cardId)
+			}
+			else {
+				store.dispatch('goals/changeGoalTasks', { 'textFieldsValue': textFieldsValue, 'cardId': cardId.value })
+				closeModal()
+			}
+
+			// store.dispatch('goals/changeGoalTasks', { 'textFieldsValue': textFieldsValue, 'cardId': cardId.value })
+			// closeModal()
 		}
 
 		const closeModal = () => {
@@ -129,7 +164,8 @@ export default {
 			reset,
 			// createGoal,
 			textFieldsValue,
-			editGoal
+			editGoal,
+			arrayIsEmpty
 			// addField
 
 		}
@@ -211,5 +247,4 @@ export default {
 // 	animation: bounce-in 0.5s reverse;
 // 	/* animation-fill-mode: forwards; */
 // 	/* animation-delay: 5s; */
-// }
-</style>
+// }</style>

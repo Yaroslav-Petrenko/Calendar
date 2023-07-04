@@ -159,12 +159,8 @@ export default {
 			// console.log('textFieldsValue', textFieldsValue)
 			// console.log('cardId', cardId)
 			const selectedCard = cards.find(item => item.id === cardId)
-
 			const itemsForDelete = []
-
-
 			selectedCard.tasks.forEach((item, i) => {
-
 				// console.log('item', item)
 				// console.log('i', i)
 				// debugger;
@@ -196,17 +192,9 @@ export default {
 			})
 
 		},
-		deleteGoal(state, cardId) {
-			// const elem = state.cards.find(item => item.id === id)
-			// console.log('elem', elem)
-			// const idx = state.cards.indexOf(elem)
-			// console.log('idx', idx)
-			const idx = state.cards.findIndex(item => item.id === cardId)
-			console.log('idx', idx)
-			console.log('istate.cards', state.cards)
-			state.cards.splice(idx, 1)
-			console.log('istate.cards', state.cards)
-			
+		deleteGoal({ cards }, cardId) {
+			const idx = cards.findIndex(item => item.id === cardId)
+			cards.splice(idx, 1)
 		},
 	},
 	actions: {
@@ -220,8 +208,27 @@ export default {
 			store.commit('changeGoalArchive', id)
 		},
 		changeGoalTasks(store, obj) {
+			// debugger
+			// let arrayIsEmpty = false
+			// obj.textFieldsValue.forEach(item => item == false ? arrayIsEmpty = true : arrayIsEmpty = false)
+
+			// const arrayIsEmpty = obj.textFieldsValue.every(item => item == true)
+			// const arrayIsEmpty = !obj.textFieldsValue.some(item => item)
+
+			// const arrayIsEmpty2 = obj.textFieldsValue.some(item => {
+			// 	if(item) return true
+			// })
+
+			// console.log('arrayIsEmpty', arrayIsEmpty)
+			// console.log('obj', obj)
+			// store.commit('deleteGoal', obj.cardId)
+			// setTimeout(() => { store.commit('deleteGoal', obj.cardId) }, 0)
+			// store.commit('deleteGoal', obj.cardId)
+			// if (arrayIsEmpty) store.commit('deleteGoal', obj.cardId)
+			// else store.commit('editGoal', obj)
 			store.commit('editGoal', obj)
 		},
+
 		deleteGoal(store, cardId) {
 			store.commit('deleteGoal', cardId)
 		},
