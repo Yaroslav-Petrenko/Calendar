@@ -11,7 +11,9 @@
 					:key="i"
 					v-model="textFieldsValue[i]"
 					:label="i == 0 ? 'Главная цель' : 'Этап достижения'"
+					@input.once="i === textFieldsValue.length - 1 ? addField() : null"
 				></v-text-field>
+
 			</transition-group>
 
 			<!-- <p>mainGoal {{ mainGoal }}</p> -->
@@ -70,7 +72,7 @@
 
 				<!-- arrayIsEmpty {{ arrayIsEmpty }} -->
 				<v-btn
-				 :disabled="arrayIsEmpty"
+					:disabled="arrayIsEmpty"
 					color="error"
 					class="mt-4"
 					block
@@ -110,15 +112,16 @@ export default {
 	setup(props, { emit }) {
 		const store = useStore()
 
-		// const createGoal = () => {
-		// 	store.dispatch('goals/createGoal', textFieldsValue)
-		// 	closeModal()
-		// }
+		const createGoal = () => {
+			store.dispatch('goals/createGoal', { 'arr': textFieldsValue, cardId: cardId.value })
+			closeModal()
+		}
 
 		const textFieldsValue = reactive([])
 		const tasks = toRef(props, 'tasks')
 		const cardId = toRef(props, 'cardId')
 		tasks.value.forEach(item => textFieldsValue.push(item.text))
+		textFieldsValue.push('')
 
 		const arrayIsEmpty = ref(null)
 
@@ -131,10 +134,10 @@ export default {
 			// console.log('arrayIsEmpty', arrayIsEmpty)
 
 			if (arrayIsEmpty.value) {
-				store.dispatch('goals/deleteGoal', cardId)
+				store.dispatch('goals/deleteGoal', cardId.value)
 			}
 			else {
-				store.dispatch('goals/changeGoalTasks', { 'textFieldsValue': textFieldsValue, 'cardId': cardId.value })
+				store.dispatch('goals/changeGoalTasks', { 'arr': textFieldsValue, 'cardId': cardId.value })
 				closeModal()
 			}
 
@@ -147,10 +150,13 @@ export default {
 		}
 
 		// const valid = ref(true)
-
 		const form = ref(null)
 		const reset = () => {
 			form.value.reset()
+		}
+		const addField = () => {
+			console.log('here')
+			textFieldsValue.push('')
 		}
 
 		// function resetValidation() {
@@ -162,10 +168,11 @@ export default {
 			form,
 			// mainGoal,
 			reset,
-			// createGoal,
 			textFieldsValue,
 			editGoal,
-			arrayIsEmpty
+			arrayIsEmpty,
+			addField,
+			createGoal
 			// addField
 
 		}
@@ -247,4 +254,5 @@ export default {
 // 	animation: bounce-in 0.5s reverse;
 // 	/* animation-fill-mode: forwards; */
 // 	/* animation-delay: 5s; */
-// }</style>
+// }
+</style>

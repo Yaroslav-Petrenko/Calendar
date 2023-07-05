@@ -17,7 +17,7 @@
 					v-model="textFieldsValue[i]"
 					:label="i == 0 ? 'Главная цель' : 'Этап достижения'"
 					required
-					@input.once="addField"
+					@input.once="addField()"
 				></v-text-field>
 			</transition-group>
 
@@ -88,9 +88,9 @@ export default {
 	},
 	setup(_, { emit }) {
 		const store = useStore()
-		const createGoal = () => {
 
-			store.dispatch('goals/createGoal', textFieldsValue)
+		const createGoal = () => {
+			store.dispatch('goals/createGoal', { 'arr': textFieldsValue })
 			closeModal()
 		}
 
@@ -147,10 +147,8 @@ export default {
 		// 	}
 		// }
 
-		const reset = async () => {
-
-			// await nextTick()
-			// console.log('form.value.reset()', form.value.reset)
+		const form = ref(null)
+		const reset = () => {
 			form.value.reset()
 		}
 
@@ -160,6 +158,7 @@ export default {
 
 		return {
 			valid,
+			form,
 			// mainGoal,
 			reset,
 			createGoal,

@@ -67,26 +67,18 @@ export default {
 
 	},
 	mutations: {
-		addGoal({ cards }, arr) {
+		addGoal({ cards }, { arr, cardId }) {
 			// убираю последний элемент массива - пустую строку
 			const formattedArr = arr.slice(0, -1)
 
-			let maxId = 0;
-			cards.forEach(item => maxId = Math.max(item.id, maxId))
 			const newCard = {
-				id: String(++maxId),
+				id: cardId || String(++maxId),
 				allDone: false,
 				archive: false,
 				tasks: []
 			}
-			cards.push(newCard)
-			// console.log('maxId', maxId)
-			// console.log('arr', Array.isArray(arr))
+
 			let currTaskId = 0
-			// const tasks =
-
-
-
 			class Task {
 				static isFirstTask = true;
 				constructor(text) {
@@ -99,25 +91,93 @@ export default {
 					}
 				}
 			}
-			// создаю новые такси в новой карте
-			formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
 
-		},
-		addGoalField({ cards }, { text, cardId }) {
-			const selectedCard = cards.find(item => item.id === cardId)
-			const time = (new Date()).toTimeString()
-			const item = {
-				id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
-				text,
-				time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-					return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-				}),
+			// console.log('arr', arr)
+			if (cardId) {
+				const selectedCard = cards.find(item => item.id === cardId)
+				const itemsForDelete = []
+				let maxTaskId = 0;
+				selectedCard.tasks.forEach(item => maxTaskId = Math.max(item.id, maxTaskId))
+				
+				
+		
+
+				// ниже я итерируюсь по таскам и меняю таски, но надо итерироваться по массиву. Далее записывать в существующий таск, или таска нет - создавать новый
+				// selectedCard.tasks.forEach((item, i) => {
+				// 	if (arr[i]) {
+				// 		item.text = arr[i]
+				// 	}
+				// 	else {
+				// 		// вместо удаления элемента и изменения массива, я записываю индексы элементов которые следует удалить
+				// 		itemsForDelete.push(i)
+				// 	}
+				// })
+			
+				// итерируюсь по массиву
+				arr.forEach((item, i) => {
+					if (selectedCard.tasks[i]) {
+						selectedCard.tasks[i].text = item
+						console.log('selectedCard.tasks[i].text', selectedCard.tasks[i].text)
+						console.log('item', item)
+					} else {
+
+					}
+				})
+
+
+
+
+				// делаю сортировку по индексам в обратном порядке, чтобы процедура удаления шла всегда с конца массива. Если она будет идти с начала, то индексы массива будут сдвигаться, и удаление будет некорректным
+				// itemsForDelete.sort((a, b) => b - a);
+				// itemsForDelete.forEach(item => {
+				// 	selectedCard.tasks.splice(item, 1)
+				// })
+			} else {
+				let maxId = 0;
+				cards.forEach(item => maxId = Math.max(item.id, maxId))
+				// const newCard = {
+				// 	id: String(++maxId),
+				// 	allDone: false,
+				// 	archive: false,
+				// 	tasks: []
+				// }
+				cards.push(newCard)
+
+				// let currTaskId = 0
+				// class Task {
+				// 	static isFirstTask = true;
+				// 	constructor(text) {
+				// 		this.id = String(currTaskId++)
+				// 		this.text = text
+				// 		this.done = false
+				// 		this.size = Task.isFirstTask ? 'large' : 'small';
+				// 		if (Task.isFirstTask) {
+				// 			Task.isFirstTask = false;
+				// 		}
+				// 	}
+				// }
+				// создаю новые такси в новой карте
+				formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
 			}
-			// console.log('selectedCard', selectedCard)
-			selectedCard.tasks.push(item)
-			// selectedCard.allDone = false
+
+
 
 		},
+		// addGoalField({ cards }, { text, cardId }) {
+		// 	const selectedCard = cards.find(item => item.id === cardId)
+		// 	const time = (new Date()).toTimeString()
+		// 	const item = {
+		// 		id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
+		// 		text,
+		// 		time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+		// 			return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+		// 		}),
+		// 	}
+		// 	// console.log('selectedCard', selectedCard)
+		// 	selectedCard.tasks.push(item)
+		// 	// selectedCard.allDone = false
+
+		// },
 		markAsDone({ cards }, { cardId, taskId }) {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
@@ -156,41 +216,22 @@ export default {
 			elem.archive = !elem.archive
 		},
 		editGoal({ cards }, { textFieldsValue, cardId }) {
-			// console.log('textFieldsValue', textFieldsValue)
-			// console.log('cardId', cardId)
 			const selectedCard = cards.find(item => item.id === cardId)
 			const itemsForDelete = []
 			selectedCard.tasks.forEach((item, i) => {
-				// console.log('item', item)
-				// console.log('i', i)
-				// debugger;
 				if (textFieldsValue[i]) {
-					// console.log('Попал в первый if')
-					// console.log('item.text = ', item.text)
-					// console.log('textFieldsValue[i] =', textFieldsValue[i])
 					item.text = textFieldsValue[i]
 				}
 				else {
 					// вместо удаления элемента и изменения массива, я записываю индексы элементов которые следует удалить
 					itemsForDelete.push(i)
-					// console.log('Попал во второй if')
-					// console.log('textFieldsValue[i] =', textFieldsValue[i])
-					// console.log('Перед удалением таска, карта выглядит вот так', selectedCard.tasks)
-
-					// const deletedItems = selectedCard.tasks.splice(i, 1) /* тут ключевая ошибка */
-
-					// console.log('Удаленные элементы методом splice', deletedItems)
-					// console.log('После удаления таска, карта выглядит вот так', selectedCard.tasks )
 				}
 			})
-			console.log('Индексы элементов которые следует удалить', itemsForDelete)
 			// делаю сортировку по индексам в обратном порядке, чтобы процедура удаления шла всегда с конца массива. Если она будет идти с начала, то индексы массива будут сдвигаться, и удаление будет некорректным
 			itemsForDelete.sort((a, b) => b - a);
-			console.log('Индексы элементов после сортировки', itemsForDelete)
 			itemsForDelete.forEach(item => {
 				selectedCard.tasks.splice(item, 1)
 			})
-
 		},
 		deleteGoal({ cards }, cardId) {
 			const idx = cards.findIndex(item => item.id === cardId)
@@ -198,8 +239,8 @@ export default {
 		},
 	},
 	actions: {
-		createGoal(store, arr) {
-			store.commit('addGoal', arr)
+		createGoal(store, obj) {
+			store.commit('addGoal', obj)
 		},
 		setDone(store, obj) {
 			store.commit('markAsDone', obj)
@@ -226,10 +267,13 @@ export default {
 			// store.commit('deleteGoal', obj.cardId)
 			// if (arrayIsEmpty) store.commit('deleteGoal', obj.cardId)
 			// else store.commit('editGoal', obj)
-			store.commit('editGoal', obj)
+			// store.commit('editGoal', obj)
+			store.commit('addGoal', obj)
+			// console.log('changeGoalTasks', obj)
 		},
 
 		deleteGoal(store, cardId) {
+			console.log('deleteGoal', cardId)
 			store.commit('deleteGoal', cardId)
 		},
 	},
