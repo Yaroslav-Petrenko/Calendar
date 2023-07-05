@@ -112,10 +112,10 @@ export default {
 	setup(props, { emit }) {
 		const store = useStore()
 
-		const createGoal = () => {
-			store.dispatch('goals/createGoal', { 'arr': textFieldsValue, cardId: cardId.value })
-			closeModal()
-		}
+		// const changeGoalTasks = () => {
+		// 	store.dispatch('goals/changeGoalTasks', { 'arr': textFieldsValue, cardId: cardId.value })
+		// 	closeModal()
+		// }
 
 		const textFieldsValue = reactive([])
 		const tasks = toRef(props, 'tasks')
@@ -172,7 +172,7 @@ export default {
 			editGoal,
 			arrayIsEmpty,
 			addField,
-			createGoal
+			// changeGoalTasks
 			// addField
 
 		}

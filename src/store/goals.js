@@ -67,16 +67,56 @@ export default {
 
 	},
 	mutations: {
-		addGoal({ cards }, { arr, cardId }) {
+		// createTasks({ cards }, arr) { 
+		// 	let currTaskId = 0
+		// 	class Task {
+		// 		static isFirstTask = true;
+		// 		constructor(text) {
+		// 			this.id = String(currTaskId++)
+		// 			this.text = text
+		// 			this.done = false
+		// 			this.size = Task.isFirstTask ? 'large' : 'small';
+		// 			if (Task.isFirstTask) {
+		// 				Task.isFirstTask = false;
+		// 			}
+		// 		}
+		// 	}
+		// },
+		addGoal({ cards }, arr) {
 			// убираю последний элемент массива - пустую строку
 			const formattedArr = arr.slice(0, -1)
 
+			let maxId = 0;
+			cards.forEach(item => maxId = Math.max(item.id, maxId))
 			const newCard = {
-				id: cardId || String(++maxId),
+				id: String(++maxId),
 				allDone: false,
 				archive: false,
 				tasks: []
 			}
+			cards.push(newCard)
+
+			let currTaskId = 0
+			class Task {
+				static isFirstTask = true;
+				constructor(text) {
+					this.id = String(currTaskId++)
+					this.text = text
+					this.done = false
+					this.size = Task.isFirstTask ? 'large' : 'small';
+					if (Task.isFirstTask) {
+						Task.isFirstTask = false;
+					}
+				}
+			}
+			// создаю новые такси в новой карте
+			formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
+
+		},
+		editGoalTasks({ cards }, { arr, cardId }) {
+			// убираю последний элемент массива - пустую строку, нет смысла удалять пустую строку в разделе создания массива с тасками newTasksArr, я пропуская все пустые строки
+			// const formattedArr = arr.slice(0, -1)
+			const selectedCard = cards.find(item => item.id === cardId)
 
 			let currTaskId = 0
 			class Task {
@@ -92,92 +132,28 @@ export default {
 				}
 			}
 
-			// console.log('arr', arr)
-			if (cardId) {
-				const selectedCard = cards.find(item => item.id === cardId)
-				const itemsForDelete = []
-				let maxTaskId = 0;
-				selectedCard.tasks.forEach(item => maxTaskId = Math.max(item.id, maxTaskId))
-				
-				
-		
+			// на какое-то мгновение массив тасков становится пустым и это приводит к ошибке отсутствия key
+			// очищаю карту от старых тасков
+			// selectedCard.tasks.splice(0, selectedCard.tasks.length)
 
-				// ниже я итерируюсь по таскам и меняю таски, но надо итерироваться по массиву. Далее записывать в существующий таск, или таска нет - создавать новый
-				// selectedCard.tasks.forEach((item, i) => {
-				// 	if (arr[i]) {
-				// 		item.text = arr[i]
-				// 	}
-				// 	else {
-				// 		// вместо удаления элемента и изменения массива, я записываю индексы элементов которые следует удалить
-				// 		itemsForDelete.push(i)
-				// 	}
-				// })
-			
-				// итерируюсь по массиву
-				arr.forEach((item, i) => {
-					if (selectedCard.tasks[i]) {
-						selectedCard.tasks[i].text = item
-						console.log('selectedCard.tasks[i].text', selectedCard.tasks[i].text)
-						console.log('item', item)
-					} else {
+			// // пушу новые такси в карту
+			// formattedArr.forEach((item, i) => {
+			// 	if (item) {
+			// 		selectedCard.tasks.push(new Task(item))
+			// 	}
+			// })
 
-					}
-				})
-
-
-
-
-				// делаю сортировку по индексам в обратном порядке, чтобы процедура удаления шла всегда с конца массива. Если она будет идти с начала, то индексы массива будут сдвигаться, и удаление будет некорректным
-				// itemsForDelete.sort((a, b) => b - a);
-				// itemsForDelete.forEach(item => {
-				// 	selectedCard.tasks.splice(item, 1)
-				// })
-			} else {
-				let maxId = 0;
-				cards.forEach(item => maxId = Math.max(item.id, maxId))
-				// const newCard = {
-				// 	id: String(++maxId),
-				// 	allDone: false,
-				// 	archive: false,
-				// 	tasks: []
-				// }
-				cards.push(newCard)
-
-				// let currTaskId = 0
-				// class Task {
-				// 	static isFirstTask = true;
-				// 	constructor(text) {
-				// 		this.id = String(currTaskId++)
-				// 		this.text = text
-				// 		this.done = false
-				// 		this.size = Task.isFirstTask ? 'large' : 'small';
-				// 		if (Task.isFirstTask) {
-				// 			Task.isFirstTask = false;
-				// 		}
-				// 	}
-				// }
-				// создаю новые такси в новой карте
-				formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
-			}
-
-
-
+			// создаю массив с новыми тасками
+			const newTasksArr = []
+			arr.forEach((item, i) => {
+				// пустые строки пропускаем
+				if (item) {
+					newTasksArr.push(new Task(item))
+				}
+			})
+			// просто заменяю старый массив с тасками на новый
+			selectedCard.tasks = newTasksArr
 		},
-		// addGoalField({ cards }, { text, cardId }) {
-		// 	const selectedCard = cards.find(item => item.id === cardId)
-		// 	const time = (new Date()).toTimeString()
-		// 	const item = {
-		// 		id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
-		// 		text,
-		// 		time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
-		// 			return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
-		// 		}),
-		// 	}
-		// 	// console.log('selectedCard', selectedCard)
-		// 	selectedCard.tasks.push(item)
-		// 	// selectedCard.allDone = false
-
-		// },
 		markAsDone({ cards }, { cardId, taskId }) {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
@@ -268,7 +244,7 @@ export default {
 			// if (arrayIsEmpty) store.commit('deleteGoal', obj.cardId)
 			// else store.commit('editGoal', obj)
 			// store.commit('editGoal', obj)
-			store.commit('addGoal', obj)
+			store.commit('editGoalTasks', obj)
 			// console.log('changeGoalTasks', obj)
 		},
 
