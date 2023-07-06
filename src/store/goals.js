@@ -67,35 +67,10 @@ export default {
 
 	},
 	mutations: {
-		// createTasks({ cards }, arr) { 
-		// 	let currTaskId = 0
-		// 	class Task {
-		// 		static isFirstTask = true;
-		// 		constructor(text) {
-		// 			this.id = String(currTaskId++)
-		// 			this.text = text
-		// 			this.done = false
-		// 			this.size = Task.isFirstTask ? 'large' : 'small';
-		// 			if (Task.isFirstTask) {
-		// 				Task.isFirstTask = false;
-		// 			}
-		// 		}
-		// 	}
-		// },
-		addGoal({ cards }, arr) {
-			// убираю последний элемент массива - пустую строку
-			const formattedArr = arr.slice(0, -1)
-
-			let maxId = 0;
-			cards.forEach(item => maxId = Math.max(item.id, maxId))
-			const newCard = {
-				id: String(++maxId),
-				allDone: false,
-				archive: false,
-				tasks: []
+		createGoalTasks({ cards }, { arr, cardId }) {
+			if (cardId) {
+				const selectedCard = cards.find(item => item.id === cardId)
 			}
-			cards.push(newCard)
-
 			let currTaskId = 0
 			class Task {
 				static isFirstTask = true;
@@ -109,8 +84,33 @@ export default {
 					}
 				}
 			}
-			// создаю новые такси в новой карте
-			formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
+		},
+		addGoal({ cards }) {
+			let maxId = 0;
+			cards.forEach(item => maxId = Math.max(item.id, maxId))
+			const newCard = {
+				id: String(++maxId),
+				allDone: false,
+				archive: false,
+				tasks: []
+			}
+			cards.push(newCard)
+
+			// let currTaskId = 0
+			// class Task {
+			// 	static isFirstTask = true;
+			// 	constructor(text) {
+			// 		this.id = String(currTaskId++)
+			// 		this.text = text
+			// 		this.done = false
+			// 		this.size = Task.isFirstTask ? 'large' : 'small';
+			// 		if (Task.isFirstTask) {
+			// 			Task.isFirstTask = false;
+			// 		}
+			// 	}
+			// }
+			// // создаю новые такси в новой карте
+			// formattedArr.forEach(item => newCard.tasks.push(new Task(item)))
 
 		},
 		editGoalTasks({ cards }, { arr, cardId }) {
@@ -216,7 +216,8 @@ export default {
 	},
 	actions: {
 		createGoal(store, obj) {
-			store.commit('addGoal', obj)
+			store.commit('addGoal')
+			store.commit('createGoalTasks', obj)
 		},
 		setDone(store, obj) {
 			store.commit('markAsDone', obj)
