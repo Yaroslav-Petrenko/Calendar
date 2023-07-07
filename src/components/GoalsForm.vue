@@ -17,7 +17,7 @@
 					v-model="textFieldsValue[i]"
 					:label="i == 0 ? 'Главная цель' : 'Этап достижения'"
 					required
-					@input.once="addField()"
+					@input.once="i === textFieldsValue.length - 1 ? addField() : null"
 				></v-text-field>
 			</transition-group>
 
@@ -90,7 +90,7 @@ export default {
 		const store = useStore()
 
 		const createGoal = () => {
-			store.dispatch('goals/createGoal', { 'arr': textFieldsValue })
+			store.dispatch('goals/createGoal', textFieldsValue)
 			closeModal()
 		}
 

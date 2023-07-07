@@ -137,7 +137,7 @@ export default {
 				store.dispatch('goals/deleteGoal', cardId.value)
 			}
 			else {
-				store.dispatch('goals/changeGoalTasks', { 'arr': textFieldsValue, 'cardId': cardId.value })
+				store.dispatch('goals/editGoalTasks', { 'arr': textFieldsValue, 'cardId': cardId.value })
 				closeModal()
 			}
 
