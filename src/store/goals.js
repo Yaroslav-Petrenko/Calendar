@@ -100,12 +100,12 @@ export default {
 				if (text) {
 					const done = selectedCard.tasks[i]?.done || false
 					const time = selectedCard.tasks[i]?.time || ''
-					console.log('i', i)
-					console.log('done', done)
+					// console.log('i', i)
+					// console.log('done', done)
 					newTasksArr.push(new Task(text, done, time))
 				} 
 			})
-			// просто заменяю старый массив с тасками на новый
+			// заменяю старый массив с тасками на новый
 			selectedCard.tasks = newTasksArr
 	},
 	addGoal({ cards }, cardId) {

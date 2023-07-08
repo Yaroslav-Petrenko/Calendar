@@ -7,6 +7,7 @@ export default {
 				id: '100',
 				date: 'Вчера, ',
 				allDone: true,
+				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
@@ -18,6 +19,7 @@ export default {
 				id: '101',
 				date: 'Сегодня, ',
 				allDone: false,
+				archive: false,
 				// subTitle: 'Задачи subTitle',, editing: false
 				tasks: [
 					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
@@ -36,6 +38,7 @@ export default {
 				id: '102',
 				date: 'Завтра, ',
 				allDone: false,
+				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
@@ -50,6 +53,7 @@ export default {
 				id: '103',
 				date: 'Послезавтра, ',
 				allDone: false,
+				archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
 					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
@@ -67,9 +71,13 @@ export default {
 			return state.notes.id
 		},
 		// allTasks: state => state.cards,
-		filteredTasks: state => ({ search }) => state.cards.filter(item => {
-			return item
+		filteredTasks: state => ({ taskToggle }) => state.cards.filter(item => {
+			// return item.archive === false
 			// if (conditions) return 
+			console.log("select", taskToggle)
+			if (taskToggle == 'all') return item.archive === false
+			if (taskToggle == 'archive') return item.archive === true
+			// if (item.notesType == select && !item.archive && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
 			// console.log(Object.values(item))
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
 			// return (item.tasks.toLowerCase().indexOf(search.toLowerCase()) !== -1)
@@ -165,6 +173,12 @@ export default {
 			const task = card.tasks.find(task => task.id === taskId);
 			task.text = text;
 			task.editing = false;
+		},
+		sendToArchive(state, { cardId }) {
+			console.log('sendToArchive')
+			console.log('cardId', cardId)
+			const selectedCard = state.cards.find(item => item.id == cardId)
+			selectedCard.archive = !selectedCard.archive
 		}
 
 	},
@@ -189,7 +203,10 @@ export default {
 		},
 		finishEditingTask(store, obj) {
 			store.commit('completeEditing', obj)
-		}
+		},
+		changeArchive(store, obj) {
+			store.commit('sendToArchive', obj)
+		},
 
 	},
 }

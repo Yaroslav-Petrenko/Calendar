@@ -13,7 +13,8 @@
 
 					<!-- <v-card class="ma-auto" color="#27272f" width="1300"> -->
 					<!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-					<v-toolbar-title>Calendar</v-toolbar-title>
+					<!-- <v-toolbar-title class="header-title">Calendar</v-toolbar-title> -->
+					<div class="header-title">Calendar</div>
 					<!-- Calendar -->
 					<v-spacer></v-spacer>
 					<!-- <v-btn icon>
@@ -30,7 +31,7 @@
 						<!-- Хочу заменить цикл на статику -->
 						<v-tabs
 							v-model="tab"
-							align-tabs="title"
+							align-tabs="start"
 							selected-class=""
 						>
 							<v-tab
@@ -79,6 +80,8 @@
 		>
 			<div class="d-flex justify-space-between">
 				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
+
+
 				<div
 					v-if="tab != 'Задачи'"
 					class="d-flex align-center"
@@ -101,6 +104,31 @@
 					</Modal>
 
 				</div>
+
+				<div
+					class="d-flex align-center"
+					v-if="tab === 'Задачи'"
+				>
+					<v-btn-toggle
+						v-model="taskToggle"
+						density="comfortable"
+						rounded="2"
+						:color="getTaskSectionColor"
+						group
+					>
+						<v-btn value="all">
+							Все
+						</v-btn>
+
+						<v-btn value="archive">
+							Архив
+						</v-btn>
+					</v-btn-toggle>
+					<!-- <p>taskToggle {{ taskToggle }}</p> -->
+				</div>
+
+
+
 				<Filter
 					v-if="tab === 'Заметки'"
 					@select="setSelect($event)"
@@ -129,7 +157,7 @@
 						<!-- <v-card v-for="item in allCards" flat> -->
 						<!-- <v-card-text v-text="text"></v-card-text> -->
 						<transition-group
-							name="notes-fade"
+							name="tasks-fade"
 							appear
 						>
 							<Notes
@@ -155,22 +183,28 @@
 							:tasks="item.tasks"
 							:id="item.id"
 						/> -->
-						<Tasks
-							v-for=" item  in  cards "
-							:key="item.id"
-							:date="item.date"
-							:tasks="item.tasks"
-							:cardId="item.id"
-							:allDone="item.allDone"
-						/>
-						<!-- {{ filteredTasks({ search })[0].date }} -->
+						<transition-group
+							name="tasks-fade"
+							appear
+						>
+							<Tasks
+								v-for="item in filteredTasks({ taskToggle })"
+								:key="item.id"
+								:date="item.date"
+								:tasks="item.tasks"
+								:cardId="item.id"
+								:allDone="item.allDone"
+							/>
+						</transition-group>
 					</v-row>
+					<!-- filteredTasks {{ filteredTasks }} -->
+					<!-- taskToggle {{ taskToggle }} -->
 				</v-window-item>
 				<v-window-item value="Цели">
 					<v-row>
 						<!-- <div class="d-flex"> -->
 						<transition-group
-							name="goals-fade"
+							name="tasks-fade"
 							appear
 						>
 							<Goals
@@ -264,7 +298,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Цели')
+		const tab = ref('Задачи')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -306,10 +340,18 @@ export default {
 		// const allTasks = computed(() => store.getters['tasks/allTasks'])
 		const filteredTasks = computed(() => store.getters['tasks/filteredTasks'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
-		const cards = computed(() => store.getters['tasks/cards'])
+		// const cards = computed(() => store.getters['tasks/cards'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		const goalsCards = computed(() => store.getters['goals/filteredGoals'])
 		// console.log('filteredNotes', filteredNotes.value(''))
+
+		const taskToggle = ref('all')
+		const getTaskSectionColor = computed(() => {
+			switch (taskToggle.value) {
+				case 'all': return 'green-darken-2'
+				case 'archive': return 'amber-darken-2'
+			}
+		})
 
 
 
@@ -329,8 +371,10 @@ export default {
 			search,
 			setSelect,
 			select,
-			cards,
-			setModalButtonText
+			// cards,
+			setModalButtonText,
+			taskToggle,
+			getTaskSectionColor
 		}
 	}
 }
@@ -364,52 +408,27 @@ export default {
 }
 
 /* // анимация для goals */
-.goals-fade-move,
-.goals-fade-enter-active,
-.goals-fade-leave-active {
+.tasks-fade-move,
+.tasks-fade-enter-active,
+.tasks-fade-leave-active {
 	transition: all 0.5s ease;
 	/* animation-fill-mode: forwards; */
 	/* transition: all 0.3s linear; */
 }
 
-.goals-fade-enter-from,
-.goals-fade-leave-to {
+.tasks-fade-enter-from,
+.tasks-fade-leave-to {
 	opacity: 0;
 	/* transform: translate(-300px, 0); */
 	transform: scale(0.01);
 	/* transform: scaleY(10) translate(30px, 0); */
 }
 
-.goals-fade-leave-active {
+.tasks-fade-leave-active {
 	position: absolute;
 	/* top: 300px; */
 	/* left: -300px; */
 }
-
-/* // анимация для notes */
-.notes-fade-move,
-.notes-fade-enter-active,
-.notes-fade-leave-active {
-	transition: all 0.5s ease;
-	/* animation-fill-mode: forwards; */
-	/* transition: all 0.3s linear; */
-}
-
-.notes-fade-enter-from,
-.notes-fade-leave-to {
-	opacity: 0;
-	/* transform: translate(-300px, 0); */
-	transform: scale(0.01);
-	/* transform: scaleY(10) translate(30px, 0); */
-}
-
-.notes-fade-leave-active {
-	position: absolute;
-	/* top: 300px; */
-	/* left: -300px; */
-}
-
-
 
 
 
@@ -427,6 +446,12 @@ export default {
 	overflow: hidden;
 }
 
+.header-title {
+	font-family: 'Courgette', cursive;
+	font-size: 38px;
+	padding-top: 12px;
+	/* font-weight: 500; */
+}
 
 /* .app-title {
 	font-size: 40px;

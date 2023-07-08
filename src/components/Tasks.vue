@@ -102,7 +102,11 @@
 							:label="item.text"
 						></v-checkbox>
 						<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
-						<transition name="bounce" mode="out-in" :duration="50">
+						<transition
+							name="bounce"
+							mode="out-in"
+							:duration="50"
+						>
 							<div
 								v-if="item.editing"
 								class="task-checkbox-edit align-self-start"
@@ -213,7 +217,7 @@
 						variant="plain"
 						color="amber-accent-4"
 						size="small"
-						@click="dispArchive(id)"
+						@click="toArchive(cardId)"
 					>
 						в архив
 					</v-btn>
@@ -406,6 +410,11 @@ export default {
 			store.dispatch('tasks/changeCbxDone', cardId)
 		}
 
+		const toArchive = (cardId) => {
+			// console.log('toArchive', cardId)
+			store.dispatch('tasks/changeArchive', { cardId })
+		}
+
 
 		onMounted(() => {
 			// const months = [
@@ -462,7 +471,8 @@ export default {
 			getTaskStyles,
 			editingField,
 			editTask,
-			finishEditingTask
+			finishEditingTask,
+			toArchive
 		}
 
 	}
@@ -720,6 +730,7 @@ export default {
 	animation-fill-mode: forwards;
 	// animation-delay: 2s;
 }
+
 // 
 // .flip-list-move {
 //   transition: transform 0.3s ease;
@@ -855,5 +866,4 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}
-</style>
+}</style>
