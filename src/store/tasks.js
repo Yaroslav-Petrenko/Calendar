@@ -175,8 +175,8 @@ export default {
 			task.editing = false;
 		},
 		sendToArchive(state, { cardId }) {
-			console.log('sendToArchive')
-			console.log('cardId', cardId)
+			// console.log('sendToArchive')
+			// console.log('cardId', cardId)
 			const selectedCard = state.cards.find(item => item.id == cardId)
 			selectedCard.archive = !selectedCard.archive
 		}
