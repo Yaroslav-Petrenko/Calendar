@@ -214,12 +214,22 @@
 						снять выделение
 					</v-btn>
 					<v-btn
+						v-if="!archive"
 						variant="plain"
 						color="amber-accent-4"
 						size="small"
 						@click="toArchive(cardId)"
 					>
 						в архив
+					</v-btn>
+					<v-btn
+						v-else
+						variant="plain"
+						color="amber-accent-4"
+						size="small"
+						@click="toArchive(cardId)"
+					>
+						вернуть из архива
 					</v-btn>
 				</v-card-actions>
 				<!-- editingField.value {{ editingField }} -->
@@ -249,6 +259,10 @@ export default {
 			required: true
 		},
 		allDone: {
+			type: Boolean,
+			required: true
+		},
+		archive: {
 			type: Boolean,
 			required: true
 		},
@@ -417,6 +431,7 @@ export default {
 
 
 		onMounted(() => {
+			console.log('Ререндер');
 			// const months = [
 			// 	"Января", "Февраля", "Марта", "Апреля",
 			// 	"Мая", "Июня", "Июля", "Августа",
@@ -445,10 +460,10 @@ export default {
 			// console.log('Завтра', getTomorrow);
 			// console.log('Послезавтра', getAfterTomorrow);
 			switch (cardId.value) {
-				case '100': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getYesterday })
-				case '101': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getToday })
-				case '102': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getTomorrow })
-				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: getAfterTomorrow })
+				case '100': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Вчера, ${getYesterday}` })
+				case '101': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Сегодня, ${getToday}` })
+				case '102': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Завтра, ${getTomorrow}` })
+				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Послезавтра, ${getToday}` })
 			}
 
 
@@ -866,4 +881,5 @@ export default {
 .task-text.v-card-text {
 	padding: 0;
 	font-size: 18px;
-}</style>
+}
+</style>

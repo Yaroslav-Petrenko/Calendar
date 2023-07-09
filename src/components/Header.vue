@@ -81,33 +81,58 @@
 			<div class="d-flex justify-space-between">
 				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
 
+				<div class="d-flex align-center">
+					<div
+						class="task-toggle-buttons"
+						v-if="tab != 'Заметки'"
+					>
+						<v-btn-toggle
+							v-model="taskToggle"
+							density="comfortable"
+							rounded="2"
+							:color="getTaskSectionColor"
+							group
+						>
+							<v-btn value="all">
+								Все
+							</v-btn>
+							<v-btn value="archive">
+								Архив
+							</v-btn>
+						</v-btn-toggle>
+					</div>
 
-				<div
-					v-if="tab != 'Задачи'"
-					class="d-flex align-center"
-				>
-					<Search
-						:tab="tab"
-						@emitSearchValue="setSearch($event)"
-					/>
-					<Modal :buttonText="setModalButtonText">
-						<template v-slot:modal-content="{ isActive }">
-							<NoteForm
-								v-if="tab === 'Заметки'"
-								@closeModal="isActive.value = false"
-							/>
-							<GoalsForm
-								v-else="tab === 'Цели'"
-								@closeModal="isActive.value = false"
-							/>
-						</template>
-					</Modal>
-
+					<div
+						v-if="tab != 'Задачи'"
+						class="d-flex align-center"
+					>
+						<Search
+							v-if="tab != 'Цели'"
+							:tab="tab"
+							@emitSearchValue="setSearch($event)"
+						/>
+						<transition name="bounce">
+							<div>
+								<Modal :buttonText="setModalButtonText">
+									<template v-slot:modal-content="{ isActive }">
+										<NoteForm
+											v-if="tab === 'Заметки'"
+											@closeModal="isActive.value = false"
+										/>
+										<GoalsForm
+											v-else="tab === 'Цели'"
+											@closeModal="isActive.value = false"
+										/>
+									</template>
+								</Modal>
+							</div>
+						</transition>
+					</div>
 				</div>
 
-				<div
+				<!-- <div
 					class="d-flex align-center"
-					v-if="tab === 'Задачи'"
+					v-if="tab != 'Заметки'"
 				>
 					<v-btn-toggle
 						v-model="taskToggle"
@@ -124,8 +149,7 @@
 							Архив
 						</v-btn>
 					</v-btn-toggle>
-					<!-- <p>taskToggle {{ taskToggle }}</p> -->
-				</div>
+				</div> -->
 
 
 
@@ -194,6 +218,7 @@
 								:tasks="item.tasks"
 								:cardId="item.id"
 								:allDone="item.allDone"
+								:archive="item.archive"
 							/>
 						</transition-group>
 					</v-row>
@@ -298,7 +323,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Задачи')
+		const tab = ref('Цели')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -451,6 +476,11 @@ export default {
 	font-size: 38px;
 	padding-top: 12px;
 	/* font-weight: 500; */
+}
+
+
+.task-toggle-buttons {
+	/* width: 514px; */
 }
 
 /* .app-title {

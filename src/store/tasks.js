@@ -5,7 +5,7 @@ export default {
 		cards: [
 			{
 				id: '100',
-				date: 'Вчера, ',
+				date: '',
 				allDone: true,
 				archive: false,
 				// subTitle: 'Задачи subTitle',
@@ -17,7 +17,7 @@ export default {
 			},
 			{
 				id: '101',
-				date: 'Сегодня, ',
+				date: '',
 				allDone: false,
 				archive: false,
 				// subTitle: 'Задачи subTitle',, editing: false
@@ -36,7 +36,7 @@ export default {
 			},
 			{
 				id: '102',
-				date: 'Завтра, ',
+				date: '',
 				allDone: false,
 				archive: false,
 				// subTitle: 'Задачи subTitle',
@@ -51,7 +51,7 @@ export default {
 			},
 			{
 				id: '103',
-				date: 'Послезавтра, ',
+				date: '',
 				allDone: false,
 				archive: false,
 				// subTitle: 'Задачи subTitle',
@@ -143,7 +143,7 @@ export default {
 			const card = state.cards.find(item => item.id == cardId)
 			// console.log('cardId', cardId)
 			// console.log('date', date)
-			card.date += date
+			card.date = date
 		},
 		deleteTask(state, { cardId, taskId }) {
 			const card = state.cards.find(item => item.id == cardId)
