@@ -233,12 +233,13 @@
 							appear
 						>
 							<Goals
+								v-for="item in filteredGoals({ taskToggle })"
 								class="goals-main"
-								v-for=" item in goalsCards "
 								:key="item.id"
 								:tasks="item.tasks"
 								:cardId="item.id"
 								:allDone="item.allDone"
+								:archive="item.archive"
 								mode="out-in"
 							/>
 						</transition-group>
@@ -323,7 +324,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Цели')
+		const tab = ref('Задачи')
 		const items = [
 			'Заметки', 'Задачи', 'Цели',
 		]
@@ -356,6 +357,7 @@ export default {
 			}
 		})
 
+
 		// const update = ($event) => {
 
 		// }
@@ -367,7 +369,8 @@ export default {
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
 		// const cards = computed(() => store.getters['tasks/cards'])
 		// const allGoals = computed(() => store.getters['goals/allGoals'])
-		const goalsCards = computed(() => store.getters['goals/filteredGoals'])
+		// const goalsCards = computed(() => store.getters['goals/filteredGoals'])
+		const filteredGoals = computed(() => store.getters['goals/filteredGoals'])
 		// console.log('filteredNotes', filteredNotes.value(''))
 
 		const taskToggle = ref('all')
@@ -391,7 +394,7 @@ export default {
 			// allGoals,
 			filteredNotes,
 			filteredTasks,
-			goalsCards,
+			filteredGoals,
 			setSearch,
 			search,
 			setSelect,

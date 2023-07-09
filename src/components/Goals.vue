@@ -80,11 +80,20 @@
 
 			<div>
 				<v-btn
+					v-if="!archive"
 					variant="plain"
 					color="amber-accent-4"
 					size="small"
 					@click="toArchive(cardId)"
 				>в архив</v-btn>
+				<v-btn
+					v-else
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="toArchive(cardId)"
+				>вернуть из архива</v-btn>
+				
 				<v-btn
 					variant="plain"
 					color="blue-grey-lighten-2"
@@ -116,6 +125,10 @@ export default {
 			required: true
 		},
 		allDone: {
+			type: Boolean,
+			required: true
+		},
+		archive: {
 			type: Boolean,
 			required: true
 		},

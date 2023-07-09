@@ -219,18 +219,14 @@
 						color="amber-accent-4"
 						size="small"
 						@click="toArchive(cardId)"
-					>
-						в архив
-					</v-btn>
+					>в архив</v-btn>
 					<v-btn
 						v-else
 						variant="plain"
 						color="amber-accent-4"
 						size="small"
 						@click="toArchive(cardId)"
-					>
-						вернуть из архива
-					</v-btn>
+					>вернуть из архива</v-btn>
 				</v-card-actions>
 				<!-- editingField.value {{ editingField }} -->
 				<!-- id {{ id }} -->
@@ -431,7 +427,7 @@ export default {
 
 
 		onMounted(() => {
-			console.log('Ререндер');
+			// console.log('Ререндер');
 			// const months = [
 			// 	"Января", "Февраля", "Марта", "Апреля",
 			// 	"Мая", "Июня", "Июля", "Августа",
@@ -463,7 +459,7 @@ export default {
 				case '100': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Вчера, ${getYesterday}` })
 				case '101': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Сегодня, ${getToday}` })
 				case '102': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Завтра, ${getTomorrow}` })
-				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Послезавтра, ${getToday}` })
+				case '103': return store.dispatch('tasks/changeDate', { cardId: cardId.value, date: `Послезавтра, ${getAfterTomorrow}` })
 			}
 
 
