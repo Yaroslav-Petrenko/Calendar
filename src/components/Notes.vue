@@ -8,7 +8,7 @@
 			<!-- max-width="344" -->
 			<!-- <transition name="bounce" appear> -->
 			<v-card
-				:class="`flex-grow-1 pa-2 d-flex flex-column note ${borderColor}`"
+				class="flex-grow-1 pa-2 d-flex flex-column note"
 				:color="getNoteColor"
 			>
 				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
@@ -39,24 +39,39 @@
 				>
 					Выполнено
 				</v-btn> -->
+
+
 				<v-btn
+					v-if="archive"
 					class="align-self-start"
-					variant="flat"
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="dispArchive(id)"
+				>вернуть из архива</v-btn>
+				<v-btn
+					v-else
+					class="align-self-start"
+					variant="plain"
 					color="amber-darken-2"
 					size="small"
 					@click="dispArchive(id)"
 				>
 					в архив
 				</v-btn>
-				<!-- id {{ id }} -->
+
+
+
+
+				<!-- archive {{ archive }} -->
 				<!-- Random id {{ getRandomIco }} -->
 				<!-- getNoteColor	{{ getNoteColor }} -->
 				<!-- </v-card-actions> -->
 				<!-- getRandomColor {{ getRandomColor }} -->
 			</v-card>
-				<!-- </transition> -->
+			<!-- </transition> -->
 		</v-col>
-			</transition>
+	</transition>
 </template>
 
 <script>
@@ -69,10 +84,10 @@ export default {
 			type: String,
 			required: true
 		},
-		borderColor: {
-			type: String,
-			required: true
-		},
+		// borderColor: {
+		// 	type: String,
+		// 	required: true
+		// },
 		notesType: {
 			type: String,
 			required: true
@@ -83,6 +98,10 @@ export default {
 		},
 		id: {
 			type: String,
+			required: true
+		},
+		archive: {
+			type: Boolean,
 			required: true
 		},
 	},

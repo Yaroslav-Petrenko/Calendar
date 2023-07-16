@@ -164,10 +164,14 @@ export default {
 	},
 	mutations: {
 		addNote({ notes }, { text, inFirstPlace, borderColor, notesType, icon }) {
+			console.log('notesType', notesType)
+			let maxId = 0
+			notes.forEach(item => maxId = Math.max(item.id, maxId))
 			const item = {
-				id: (parseInt(notes[notes.length - 1].id) + 1).toString(),
+				id: String(++maxId),
+				archive: false,
 				text,
-				borderColor,
+				// borderColor,
 				notesType,
 				icon
 			}

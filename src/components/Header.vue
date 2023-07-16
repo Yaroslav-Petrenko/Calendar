@@ -35,38 +35,22 @@
 							selected-class=""
 						>
 							<v-tab
-								value="Заметки"
-								variant="plain"
-							>
-								Заметки
-							</v-tab>
-							<v-tab
 								value="Задачи"
 								variant="plain"
-							>
-								Задачи
+							>Задачи
+							</v-tab>
+							<v-tab
+								value="Заметки"
+								variant="plain"
+							>Заметки
 							</v-tab>
 							<v-tab
 								value="Цели"
 								variant="plain"
-							>
-								Цели
+							>Цели
 							</v-tab>
-							<!-- Ниже цикл -->
-							<!-- <v-tab
-											v-for="item in notes"
-											:key="item.category"
-											:value="item.category"
-											variant="plain"
-										>
-											{{ item.category }}
-										</v-tab> -->
-							<!-- <v-tab>{{ notes["Заметки"] }}</v-tab> -->
 						</v-tabs>
-						<!-- <Search/> -->
-						<!-- </div> -->
 					</template>
-					<!-- </v-card> -->
 				</v-toolbar>
 			</v-card>
 		</v-card>
@@ -176,37 +160,9 @@
 				:modelValue="tab"
 				update:modelValue="update($event)"
 			>
-				<v-window-item value="Заметки">
-					<v-row>
-						<!-- <v-card v-for="item in allCards" flat> -->
-						<!-- <v-card-text v-text="text"></v-card-text> -->
-						<transition-group
-							name="tasks-fade"
-							appear
-						>
-							<Notes
-								v-for="item in filteredNotes({ search, select }) "
-								:key="item.id"
-								:text="item.text"
-								:borderColor="item.borderColor"
-								:notesType="item.notesType"
-								:icon="item.icon"
-								:id="item.id"
-								mode="out-in"
-							/>
-						</transition-group>
-						<!-- </v-card> -->
-					</v-row>
-				</v-window-item>
+
 				<v-window-item value="Задачи">
 					<v-row>
-						<!-- <Tasks
-							v-for="item in filteredTasks({ search })"
-							:key="item.id"
-							:date="item.date"
-							:tasks="item.tasks"
-							:id="item.id"
-						/> -->
 						<transition-group
 							name="tasks-fade"
 							appear
@@ -218,13 +174,51 @@
 								:tasks="item.tasks"
 								:cardId="item.id"
 								:allDone="item.allDone"
-								:archive="item.archive"
+								:taskToggle="taskToggle"
 							/>
 						</transition-group>
 					</v-row>
-					<!-- filteredTasks {{ filteredTasks }} -->
-					<!-- taskToggle {{ taskToggle }} -->
 				</v-window-item>
+
+				<v-window-item value="Заметки">
+					<v-row>
+						<transition-group
+							name="tasks-fade"
+							appear
+						>
+							<Notes
+								v-for="item in filteredNotes({ search, select }) "
+								:key="item.id"
+								:text="item.text"
+								:notesType="item.notesType"
+								:icon="item.icon"
+								:id="item.id"
+								:archive="item.archive"
+								mode="out-in"
+							/>
+						</transition-group>
+					</v-row>
+				</v-window-item>
+
+				<!-- <v-window-item value="Задачи">
+					<v-row>
+						<transition-group
+							name="tasks-fade"
+							appear
+						>
+							<Tasks
+								v-for="item in filteredTasks({ taskToggle })"
+								:key="item.id"
+								:date="item.date"
+								:tasks="item.tasks"
+								:cardId="item.id"
+								:allDone="item.allDone"
+								:taskToggle="taskToggle"
+							/>
+						</transition-group>
+					</v-row>
+				</v-window-item> -->
+
 				<v-window-item value="Цели">
 					<v-row>
 						<!-- <div class="d-flex"> -->
@@ -324,9 +318,9 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Задачи')
+		const tab = ref('Заметки')
 		const items = [
-			'Заметки', 'Задачи', 'Цели',
+			'Задачи', 'Заметки', 'Цели',
 		]
 		const text = [
 			'Заметки. Текст для заметок',
@@ -412,11 +406,12 @@ export default {
 /* // анимация для note */
 .bounce-enter-active {
 	animation: bounce-in 0.3s;
-	/* animation-delay: 5s; */
+	/* animation-delay: 3s; */
 }
 
 .bounce-leave-active {
 	animation: bounce-in 0.3s reverse;
+	/* animation-delay: 3s; */
 	/* animation-fill-mode: forwards; */
 	/* animation-delay: 5s; */
 }

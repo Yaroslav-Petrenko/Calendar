@@ -69,7 +69,7 @@
 							value="ideas"
 						>
 							<img
-								src="../icons/notesType-32px/21.webp"
+								src="/src/icons/viking-icons-48px/51.webp"
 								alt=""
 							/>
 							Идея
@@ -81,7 +81,7 @@
 							class="pe-2"
 						>
 							<img
-								src="../icons/notesType-32px/5.webp"
+								src="/src/icons/viking-icons-48px/52.webp"
 								alt=""
 							/>
 							Достижение
@@ -163,8 +163,8 @@ export default {
 					text: text.value,
 					inFirstPlace: inFirstPlace.value,
 					borderColor: getRandomColor.value,
-					notesType,
-					icon: selectedIcon
+					notesType: notesType.value,
+					icon: selectedIcon.value
 				})
 			text.value = ''
 			closeModal()

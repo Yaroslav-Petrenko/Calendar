@@ -44,12 +44,7 @@
 				:color="getTaskColor"
 				elevation="0"
 			>
-				<!-- <div v-show="allDone" class="task-icon">
-						<img
-							src="../icons/done-icons-64px/check.webp"
-							alt=""
-						/>
-					</div> -->
+				<!-- taskToggle {{ taskToggle }} -->
 				<!-- <v-card-title class="task-title d-flex justify-space-between">
 					{{ date }}
 					<div class="task-icon">
@@ -72,18 +67,33 @@
 						</transition>
 					</div>
 				</v-card-title> -->
-
+				<transition name="task-bounce">
+					<div
+						v-if="tasks.length == 0"
+						class="task-no-task d-flex justify-center "
+						key="no-task"
+					>Задач нет...
+					</div>
+				</transition>
 				<transition-group name="flip-list">
+
+					<!-- <div
+						v-if="tasks.length == 0"
+						class="task-no-task d-flex justify-center "
+						key="no-task"
+					>Задач нет...
+					</div> -->
+
+
 					<div
 						v-for="item in tasks"
 						:key="item.id"
-						class="task-item d-flex align-center "
+						class="task-item d-flex flex-grow-1"
 					>
-
 						<v-text-field
 							v-if="item.editing"
 							v-model="editingField"
-							@keydown.enter="finishEditingTask(cardId, item.id, item.text)"
+							@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
 							:autofocus=true
 							density="comfortable"
 							class="mr-4 ml-7 editing-text-field"
@@ -91,10 +101,11 @@
 							hide-details="true"
 						></v-text-field>
 
+
 						<v-checkbox
 							v-else
 							:model-value="item.done"
-							@change="setCheckbox(cardId, item.id)"
+							@change="setCheckbox(cardId, item.id, taskToggle)"
 							class="task-checkbox pr-1 flex-grow-1"
 							hide-details="true"
 							density="compact"
@@ -112,7 +123,7 @@
 								class="task-checkbox-edit align-self-start"
 							>
 								<button
-									@click="finishEditingTask(cardId, item.id, item.text)"
+									@click="finishEditingTask(cardId, item.id, taskToggle)"
 									class="task-checkbox-button "
 								>
 									<img
@@ -127,7 +138,7 @@
 							>
 								<div class="task-checkbox-pencil">
 									<button
-										@click="editTask(cardId, item.id, item.text)"
+										@click="editTask(cardId, item.id, item.text, taskToggle)"
 										class="task-checkbox-button "
 									>
 										<img
@@ -138,7 +149,7 @@
 								</div>
 								<div class="task-checkbox-delete">
 									<button
-										@click="deleteTask(cardId, item.id)"
+										@click="deleteTask(cardId, item.id, taskToggle)"
 										class="task-checkbox-button"
 									>
 										<img
@@ -157,23 +168,27 @@
 								{{ item.text }}
 							</v-label> -->
 					</div>
+					<!-- конец отрисовки тасков -->
+
+
 				</transition-group>
 				<!-- selected {{ selected }} -->
-				<div class="d-flex align-center mr-2">
+				<div class="d-flex align-end mr-2 flex-grow-1">
 					<v-text-field
 						v-model="textField"
-						@keydown.enter="createTask()"
+						@keydown.enter="createTask(taskToggle)"
 						class="mr-3"
 						label="Текст"
 						variant="underlined"
 						:error-messages="errorMessages"
 					></v-text-field>
 					<v-btn
+						class="task-add-btn"
 						variant="flat"
 						icon="$plus"
 						color="light-blue-darken-3"
 						size="small"
-						@click="createTask()"
+						@click="createTask(taskToggle)"
 					>
 					</v-btn>
 				</div>
@@ -200,21 +215,23 @@
 						variant="flat"
 						color="green-darken-2"
 						size="small"
-						@click="changeAllDone(cardId)"
+						@click="changeAllDone(cardId, taskToggle)"
 					>
 						всё сделано
 					</v-btn>
 					<v-btn
 						v-else
-						variant="flat"
-						color="blue-grey-darken-3"
+						:disabled="tasks.length == 0"
+						:variant="getButtonVariant"
+						:color="getButtonColor"
 						size="small"
-						@click="changeAllDone(cardId)"
+						@click="changeAllDone(cardId, taskToggle)"
 					>
 						снять выделение
 					</v-btn>
 					<v-btn
-						v-if="!archive"
+						v-if="taskToggle === 'all'"
+						:disabled="tasks.length == 0"
 						variant="plain"
 						color="amber-accent-4"
 						size="small"
@@ -223,10 +240,11 @@
 					<v-btn
 						v-else
 						variant="plain"
-						color="amber-accent-4"
+						color="blue-grey-lighten-2"
 						size="small"
-						@click="toArchive(cardId)"
-					>вернуть из архива</v-btn>
+						@click="deleteTaskCard(cardId)"
+					>удалить</v-btn>
+					<!-- taskToggle is {{ taskToggle }} -->
 				</v-card-actions>
 				<!-- editingField.value {{ editingField }} -->
 				<!-- id {{ id }} -->
@@ -258,10 +276,14 @@ export default {
 			type: Boolean,
 			required: true
 		},
-		archive: {
-			type: Boolean,
+		taskToggle: {
+			type: String,
 			required: true
 		},
+		// archive: {
+		// 	type: Boolean,
+		// 	required: true
+		// },
 		// cards: {
 		// 	type: Object,
 		// 	required: true
@@ -277,13 +299,27 @@ export default {
 	// 	}
 	// },
 	setup(props) {
-
+		//  var a = function (e, t, i, n) {
+		// 	var s = this;
+		// 	return this.btn = e,
+		// 		this.video_id = t,
+		// 		this.csrf = i,
+		// 		this.options = n || {},
+		// 		this.btn.on("click", function (e) {
+		// 			e.preventDefault(),
+		// 				s.click_func()
+		// 		}).addClass("init-ok"),
+		// 		this
+		// };
 		const store = useStore()
 		const cardId = toRef(props, 'cardId')
 		const allDone = toRef(props, 'allDone')
+		const tasks = toRef(props, 'tasks')
+		const taskToggle = toRef(props, 'taskToggle')
 		const textField = ref('At imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna')
 		const errorMessages = ref('')
 		const editingField = ref('')
+
 		// const rules = {
 		// 	required: value => !!value || 'Поле обязательно',
 		// 	minLenght: value => value.length > 3 || 'Минимальная длина 5 символов'
@@ -321,6 +357,15 @@ export default {
 
 			// if (allDone.value) return 'text-shadow__dark'
 			// else return 'text-shadow__grey'
+		})
+
+		const getButtonVariant = computed(() => {
+			if (tasks.value.length == 0) return 'text'
+			else return 'flat'
+		})
+		const getButtonColor = computed(() => {
+			if (tasks.value.length == 0) return 'grey-lighten-2'
+			else return 'blue-grey-darken-3'
 		})
 
 		// watch(textField, (newValue, oldValue) => {
@@ -375,65 +420,52 @@ export default {
 			// console.log('cardId', cardId.value)
 			store.dispatch('tasks/createTask', {
 				text: textField.value,
-				cardId: cardId.value
+				cardId: cardId.value,
+				taskToggle: taskToggle.value
 			})
 			textField.value = ''
 		}
 
-		const deleteTask = (cardId, taskId) => {
-			// console.log('deleteTask')
-			// console.log('cardId', cardId)
-			// console.log('taskId', taskId)
-			store.dispatch('tasks/deleteTask', { cardId, taskId })
+		const deleteTaskCard = (cardId) => {
+			store.dispatch('tasks/deleteTaskCard', { cardId })
 		}
 
-		const editTask = (cardId, taskId, text) => {
+		const deleteTask = (cardId, taskId, taskToggle) => {
+			store.dispatch('tasks/deleteTask', { cardId, taskId, taskToggle })
+		}
 
-			// console.log('deleteTask')
-			// console.log('cardId', cardId)
-			// console.log('taskId', taskId)
-			// console.log('text', text)
+		const editTask = (cardId, taskId, text, taskToggle) => {
 			editingField.value = text
-
-			store.dispatch('tasks/editTask', { cardId, taskId, text })
+			store.dispatch('tasks/editTask', { cardId, taskId, taskToggle })
 		}
 
 
-		const finishEditingTask = (cardId, taskId) => {
-			// if (validateField() === false) return
-			store.dispatch('tasks/finishEditingTask', { cardId, taskId, text: editingField.value })
+		const finishEditingTask = (cardId, taskId, taskToggle) => {
+			store.dispatch('tasks/finishEditingTask', { cardId, taskId, text: editingField.value, taskToggle })
 		}
-
-
-
-
 
 		// const selected = ref([])
-		const setCheckbox = (cardId, taskId) => {
+		const setCheckbox = (cardId, taskId, taskToggle) => {
 			// console.log('cardId', cardId)
 			// console.log('taskId', taskId)
-			store.dispatch('tasks/setCheckbox', { cardId, taskId })
+			store.dispatch('tasks/setCheckbox', { cardId, taskId, taskToggle })
 		}
 
-		const changeAllDone = (cardId) => {
+		const changeAllDone = (cardId, taskToggle) => {
 			// console.log('cardId', cardId)
-			store.dispatch('tasks/changeCbxDone', cardId)
+			store.dispatch('tasks/changeCbxDone', { cardId, taskToggle })
 		}
 
 		const toArchive = (cardId) => {
+			// console.log('tasks', tasks.value)
 			// console.log('toArchive', cardId)
 			store.dispatch('tasks/changeArchive', { cardId })
+			// console.log('toArchive tasks.lenght', tasks.value.length)
 		}
 
 
 		onMounted(() => {
-			// console.log('Ререндер');
-			// const months = [
-			// 	"Января", "Февраля", "Марта", "Апреля",
-			// 	"Мая", "Июня", "Июля", "Августа",
-			// 	"Сентября", "Октября", "Ноября", "Декабря"
-			// ];
-
+			// console.log('tasks.lenght', tasks.value.length)
 			const currentDate = new Date();
 			const yesterday = new Date();
 			const tomorrow = new Date();
@@ -483,7 +515,12 @@ export default {
 			editingField,
 			editTask,
 			finishEditingTask,
-			toArchive
+			toArchive,
+			deleteTaskCard,
+			getButtonVariant,
+			getButtonColor
+
+
 		}
 
 	}
@@ -598,12 +635,40 @@ export default {
 	}
 }
 
+.task-no-task {
+	// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
+	position: absolute;
+	width: 100%;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	font-size: 38px;
+	color: #455A64;
+	// color: #546E7A;
+	// color: #37474F;
+	// color: #263238;
+}
+
+.v-btn--disabled {
+	// color: #37474F !important;
+	// background-color: #37474F !important;
+	// opacity: 1 !important;
+	//  --v-theme-overlay-multiplier: 1 !important;
+}
+
+// .v-btn.v-btn--disabled.v-theme--dark.bg-blue-grey-darken-3.v-btn--density-default.v-btn--size-small.v-btn--variant-flat {
+// 	color: #37474F ;
+// 	background-color: #37474F !important;
+// }
+
+
 .task-body.v-card {
 	overflow: auto;
 	// padding: 0 8px 8px 8px;
 	border-radius: 0 0 4px 4px;
 	padding-top: 2px;
 	overflow-x: hidden;
+	// padding-bottom: 0px;
 
 	// ::after {
 	// 	content: '';
@@ -687,9 +752,9 @@ export default {
 	// position: absolute;
 }
 
-.flip-list-enter-active {
-	animation: bounceOutRight 0.3s ease reverse;
-}
+// .flip-list-enter-active {
+// 	animation: bounceOutRight 0.3s ease reverse;
+// }
 
 // .flip-list-leave-active {
 
@@ -759,6 +824,37 @@ export default {
 		// position: absolute;
 		-webkit-transform: translate3d(400px, 0, 0) scaleX(1.1);
 		transform: translate3d(400px, 0, 0) scaleX(1.1);
+	}
+}
+
+
+/* // анимация для task */
+.task-bounce-enter-active {
+	animation: bounce-in-task 0.4s;
+	// animation-delay: 0.3s;
+}
+
+// .task-bounce-leave-active {
+// 	animation: bounce-in-task 0.3s reverse;
+// 	// animation-delay: 3s;
+// 	/* animation-fill-mode: forwards; */
+// 	/* animation-delay: 5s; */
+// }
+
+@keyframes bounce-in-task {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	80% {
+		transform: scale(1.1);
+
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
 	}
 }
 
@@ -872,7 +968,10 @@ export default {
 	}
 }
 
-
+.task-add-btn {
+	position: relative;
+	bottom: 19px;
+}
 
 .task-text.v-card-text {
 	padding: 0;
