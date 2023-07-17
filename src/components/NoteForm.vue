@@ -42,58 +42,60 @@
 			></v-checkbox>
 
 
-					<v-col
-					cols="12"
-					class="achievement-col"
+			<v-col
+				cols="12"
+				class="achievement-col"
+			>
+				<p class="pb-4">Выбирите тип заметки</p>
+
+				<v-btn-toggle
+					v-model="notesType"
+					rounded="1"
+					group
 				>
-					<p class="pb-4">Выбирите тип заметки</p>
-
-					<v-btn-toggle
-						v-model="notesType"
-						rounded="1"
-						group
+					<v-btn
+						color="grey-darken-2"
+						value="text"
 					>
-						<v-btn
-							color="grey-darken-2"
-							value="text"
-						>
-							<img
-								src="../icons/notesType-32px/4.webp"
-								alt=""
-							/>
-							Текст
-						</v-btn>
+						<img
+							src="/src/icons/viking-icons-48px/53.webp"
+							alt=""
+						/>
+						Текст
+					</v-btn>
 
-						<v-btn
-							color="amber"
-							value="ideas"
-						>
-							<img
-								src="/src/icons/viking-icons-48px/51.webp"
-								alt=""
-							/>
-							Идея
-						</v-btn>
+					<v-btn
+						color="amber"
+						value="ideas"
+					>
+						<img
+							src="/src/icons/viking-icons-48px/51.webp"
+							alt=""
+							class="notes-form-button"
+						/>
+						Идея
+					</v-btn>
 
-						<v-btn
-							color="green-darken-1"
-							value="achievements"
-							class="pe-2"
-						>
-							<img
-								src="/src/icons/viking-icons-48px/52.webp"
-								alt=""
-							/>
-							Достижение
-						</v-btn>
+					<v-btn
+						color="green-darken-1"
+						value="achievements"
+						class="pe-2"
+					>
+						<img
+							src="/src/icons/viking-icons-48px/52.webp"
+							alt=""
+							class="notes-form-button"
+						/>
+						Достижение
+					</v-btn>
 
-					</v-btn-toggle>
-					<!-- noteType {{ noteType }} -->
-				</v-col>
+				</v-btn-toggle>
+				<!-- noteType {{ noteType }} -->
+			</v-col>
 
 
 			<!-- <transition name="cbxFade"> -->
-				<!-- <v-checkbox
+			<!-- <v-checkbox
 					v-show="notesType === 'text'"
 					v-model="cbxRandonIcon"
 					label="Случайная иконка"
@@ -183,7 +185,7 @@ export default {
 		const form = ref(null)
 
 		const valid = ref(true)
-		const text = ref('Привет моя новая заметка')
+		const text = ref('Привет, моя новая заметка!')
 		const select = ref(null)
 		// const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4']
 		const inFirstPlace = ref(true)
@@ -289,6 +291,11 @@ export default {
 	padding: 0 0 15px 0;
 }
 
+.notes-form-button {
+	max-height: 38px;
+	max-width: 38px;
+}
+
 #textarea {
 	// &::before {
 	// 	content: 'Hello';
@@ -324,5 +331,4 @@ export default {
 // 		max-height: 70px;
 // 	}
 // }
-
 </style>

@@ -860,33 +860,6 @@ export default {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .task-item {
 	// margin: 5px 0 5px 0;
 	// margin: 0 0 0 0;

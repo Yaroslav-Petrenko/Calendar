@@ -8,7 +8,7 @@
 			<!-- max-width="344" -->
 			<!-- <transition name="bounce" appear> -->
 			<v-card
-				class="flex-grow-1 pa-2 d-flex flex-column note"
+				class="flex-grow-1 d-flex flex-column note"
 				:color="getNoteColor"
 			>
 				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
@@ -51,7 +51,7 @@
 				>вернуть из архива</v-btn>
 				<v-btn
 					v-else
-					class="align-self-start"
+					class="align-self-start pa-0"
 					variant="plain"
 					color="amber-darken-2"
 					size="small"
@@ -212,8 +212,17 @@ export default {
 }
 
 .note-text {
+	font-family: 'Courgette', cursive;
+	// font-family: 'Marck Script', cursive;
+	// font-family: 'Neucha', cursive;
+	// font-family: 'Bad Script', cursive;
+	// вродь неплохо
+	// font-family: 'Cormorant Infant', serif;
+	font-family: 'Montserrat', sans-serif;
+	// font-size: 16px;
 	color: #fff;
 	// padding: 10px;
+
 }
 
 .note-body {}
@@ -229,11 +238,13 @@ export default {
 	margin-left: 15px;
 }
 
-.v-card.note {
+.note.v-card {
 	border: 2px solid transparent;
 	// border-bottom: 8px solid transparent;
 	transition: all .225s ease-in-out;
 	// padding: 8px;
+	box-shadow: 6px 6px 1px -1px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)), 0px 1px 1px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)), 0px 1px 3px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12));
+	padding: 12px 8px 8px 16px;
 }
 
 

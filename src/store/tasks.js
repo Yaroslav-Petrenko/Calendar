@@ -237,10 +237,12 @@ export default {
 			// selectedCard.archive = !selectedCard.archive
 
 			const selectedCard = state.cards.find(item => item.id == cardId)
+			// при перемещении в архив удаляю из даты субъективные слова
+			const regex = /^(Вчера|Сегодня|Завтра|Послезавтра), /;
 			// const cardCopy = structuredClone(selectedCard)
 			state.archiveCards.unshift({
 				id: String(++maxId),
-				date: selectedCard.date,
+				date: selectedCard.date.replace(regex, ''),
 				allDone: selectedCard.allDone,
 				tasks: []
 			})

@@ -11,17 +11,17 @@ export default {
 				archive: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "Calendify always allows you to set the reminder to optimize task management roles and jobs.",
+				text: "Привет моя новая заметка",
 				borderColor: 'grey',
-				notesType: 'achievements',
-				icon: '52'
+				notesType: 'text',
+				icon: '47'
 			},
 			{
 				id: '101',
 				archive: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
-				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
+				text: "Привет моя новая заметка",
 				borderColor: 'yellow',
 				notesType: 'text',
 				icon: '26'
@@ -31,7 +31,7 @@ export default {
 				archive: false,
 				// title: 'Plugins & Team Review Meeting',
 				// subTitle: 'Заметки subTitle',
-				text: "Cviverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec",
+				text: "Привет моя новая заметка",
 				borderColor: 'green',
 				notesType: 'text',
 				icon: '3'
@@ -41,10 +41,10 @@ export default {
 				archive: false,
 				// title: 'New Year Iqonic Design Campaigns',
 				// subTitle: 'Заметки subTitle',
-				text: "Ut ornare lectus sit amet est placerat in egestas erat imperdiet sed euismod nisi porta",
+				text: "Привет моя новая заметка",
 				borderColor: 'blue',
-				notesType: 'achievements',
-				icon: '52'
+				notesType: 'text',
+				icon: '12'
 			},
 			{
 				id: '104',
@@ -164,27 +164,23 @@ export default {
 	},
 	mutations: {
 		addNote({ notes }, { text, inFirstPlace, borderColor, notesType, icon }) {
-			console.log('notesType', notesType)
 			let maxId = 0
 			notes.forEach(item => maxId = Math.max(item.id, maxId))
+
+			let newIcon = ''
+			if (notesType === 'text') newIcon = icon
+			if (notesType === 'ideas') newIcon = '51'
+			if (notesType === 'achievements') newIcon = '52'
+
 			const item = {
 				id: String(++maxId),
 				archive: false,
 				text,
 				// borderColor,
 				notesType,
-				icon
+				icon: newIcon
 			}
 			inFirstPlace ? notes.unshift(item) : notes.push(item)
-		
-			// console.log('inFirstPlace', inFirstPlace)
-			// notes.push({
-			// 	id: (parseInt(notes[notes.length - 1].id) + 1).toString(),
-			// 	// title: 'Project And Task Management Roles',
-			// 	// subTitle: 'Заметки subTitle',
-			// 	text,
-			// 	color: 'orange'
-			// })
 		},
 		changeArchive({ notes }, id) {
 			const elem = notes.find(item => item.id === id)

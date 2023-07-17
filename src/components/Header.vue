@@ -291,7 +291,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
@@ -318,7 +318,11 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Заметки')
+		const tab = ref('Задачи')
+
+		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
+		watch(tab, () => taskToggle.value = 'all')
+
 		const items = [
 			'Задачи', 'Заметки', 'Цели',
 		]
@@ -461,6 +465,7 @@ export default {
 
 .content {
 	font-family: 'Work Sans', sans-serif;
+	/* font-family: 'Montserrat'; */
 	/* color:#fff; */
 	background-color: #1d1d24;
 	/* font-weight: 500; */

@@ -11,7 +11,10 @@ export async function loadFonts() {
 	
 	webFontLoader.load({
 		google: {
-			families: ['Work Sans:400,500,600,700,800', 'Courgette']
+			families: [
+				'Work Sans:400,500,600,700,800',
+				'Courgette',
+				'Montserrat']
 		}
 	});
 }
