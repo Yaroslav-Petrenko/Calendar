@@ -134,7 +134,7 @@ export default {
 		},
 		// allNotes: state => state.cards,
 		filteredNotes: state => ({ search, select }) => state.notes.filter(item => {
-			console.log("select", select)
+			// console.log("select", select)
 			if (select == 'all' && !item.archive) return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 			if (select == 'archive') return item.archive
 			if (item.notesType == select && !item.archive && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
@@ -163,7 +163,7 @@ export default {
 		})
 	},
 	mutations: {
-		addNote({ notes }, { text, inFirstPlace, borderColor, notesType, icon }) {
+		addNote({ notes }, { text, inFirstPlace, notesType, icon }) {
 			let maxId = 0
 			notes.forEach(item => maxId = Math.max(item.id, maxId))
 
@@ -195,7 +195,7 @@ export default {
 			store.commit('addNote', obj)
 		},
 		toArchive(store, id) {
-			console.log('toArchive', id)
+			// console.log('toArchive', id)
 			store.commit('changeArchive', id)
 		}
 	},

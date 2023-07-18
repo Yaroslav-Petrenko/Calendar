@@ -185,7 +185,7 @@ export default {
 			}
 			// при удалении таска делаю проверку -> оставшиеся таски done или нет если done то ставлю статус card.allDone = true. Задержку в 500 мс поставил для более красивоого переключения стилей. Зедержку убрал - ассинхронщину нельзя в мутациях
 			const checkAllDone = card.tasks.every(val => val.done === true)
-			console.log('checkAllDone', checkAllDone)
+			// console.log('checkAllDone', checkAllDone)
 			if (checkAllDone) card.allDone = true
 			else card.allDone = false
 
@@ -217,11 +217,11 @@ export default {
 			let card = null
 			if (taskToggle === 'all') {
 				card = state.cards.find(item => item.id == cardId)
-				console.log('all', card)
+				// console.log('all', card)
 			}
 			if (taskToggle === 'archive') {
 				card = state.archiveCards.find(item => item.id == cardId)
-				console.log('archive', card)
+				// console.log('archive', card)
 			}
 		
 			const task = card.tasks.find(task => task.id === taskId);
@@ -237,6 +237,7 @@ export default {
 			// selectedCard.archive = !selectedCard.archive
 
 			const selectedCard = state.cards.find(item => item.id == cardId)
+			selectedCard.allDone = true
 			// при перемещении в архив удаляю из даты субъективные слова
 			const regex = /^(Вчера|Сегодня|Завтра|Послезавтра), /;
 			// const cardCopy = structuredClone(selectedCard)
@@ -247,7 +248,7 @@ export default {
 				tasks: []
 			})
 			const cardInArchive = state.archiveCards.find(item => item.id == maxId)
-			console.log('cardInArchive', cardInArchive)
+			// console.log('cardInArchive', cardInArchive)
 			selectedCard.tasks.forEach(item => {
 				cardInArchive.tasks.push({
 					id: item.id,
@@ -277,10 +278,10 @@ export default {
 			// })
 		},
 		removeTaskCard(state, { cardId }) {
-			console.log('I want to delete', cardId)
+			// console.log('I want to delete', cardId)
 			// const selectedCard = state.archiveCards.find(item => item.id == cardId)
 			state.archiveCards.splice(state.archiveCards.findIndex(item => item.id == cardId), 1)
-			console.log('state.archiveCards', state.archiveCards)
+			// console.log('state.archiveCards', state.archiveCards)
 		}
 
 	},

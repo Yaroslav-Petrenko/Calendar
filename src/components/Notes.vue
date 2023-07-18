@@ -40,26 +40,33 @@
 					Выполнено
 				</v-btn> -->
 
-
-				<v-btn
-					v-if="archive"
-					class="align-self-start"
-					variant="plain"
-					color="amber-accent-4"
-					size="small"
-					@click="dispArchive(id)"
-				>вернуть из архива</v-btn>
-				<v-btn
-					v-else
-					class="align-self-start pa-0"
-					variant="plain"
-					color="amber-darken-2"
-					size="small"
-					@click="dispArchive(id)"
-				>
-					в архив
-				</v-btn>
-
+				<v-card-actions class="notes-actions justify-space-between pa-0">
+					<v-btn
+						v-if="archive"
+						class="align-self-end pa-0"
+						variant="plain"
+						color="amber-accent-4"
+						size="small"
+						@click="dispArchive(noteId)"
+					>вернуть из архива</v-btn>
+					<v-btn
+						v-else
+						class="align-self-end pa-0"
+						variant="plain"
+						color="amber-darken-2"
+						size="small"
+						@click="dispArchive(noteId)"
+					>
+						в архив
+					</v-btn>
+					<v-btn
+						class="align-self-end pa-0"
+						variant="plain"
+						color="blue-grey-lighten-2"
+						size="small"
+						@click="deleteNote(noteId)"
+					>удалить</v-btn>
+				</v-card-actions>
 
 
 
@@ -96,7 +103,7 @@ export default {
 			type: String,
 			required: true
 		},
-		id: {
+		noteId: {
 			type: String,
 			required: true
 		},
@@ -201,6 +208,8 @@ export default {
 
 .v-card-item.notes-item {
 	padding: 0 0 15px 0;
+	// padding: 0;
+	min-height: 78px;
 }
 
 .note-title-text {
@@ -222,6 +231,7 @@ export default {
 	// font-size: 16px;
 	color: #fff;
 	// padding: 10px;
+	// padding-top: 10px;
 
 }
 
@@ -244,10 +254,14 @@ export default {
 	transition: all .225s ease-in-out;
 	// padding: 8px;
 	box-shadow: 6px 6px 1px -1px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)), 0px 1px 1px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)), 0px 1px 3px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12));
-	padding: 12px 8px 8px 16px;
+	// box-shadow: 6px 6px 1px 0px rgba(0, 0, 0, 0.2);
+	// padding: 12px 8px 8px 16px;
+	padding: 8px 8px 3px 8px;
 }
 
-
+.notes-actions.v-card-actions {
+	min-height: 28px;
+}
 
 // .v-card.purple {
 // 	border-bottom-color: #7858d7;

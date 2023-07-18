@@ -154,17 +154,17 @@ export default {
 
 		const createNote = () => {
 			if (text.value.length < 5) return
-			// определяю геттер внутри функции, чтобы избежать кеширования его результата
-			const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey', 'yellow']
-			const getRandomColor = computed(() => {
-				return colorPalete[Math.floor(Math.random() * colorPalete.length)]
-			})
+		
+			// const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey', 'yellow']
+			// const getRandomColor = computed(() => {
+			// 	return colorPalete[Math.floor(Math.random() * colorPalete.length)]
+			// })
 
 			store.dispatch('notes/createNote',
 				{
 					text: text.value,
 					inFirstPlace: inFirstPlace.value,
-					borderColor: getRandomColor.value,
+					// borderColor: getRandomColor.value,
 					notesType: notesType.value,
 					icon: selectedIcon.value
 				})

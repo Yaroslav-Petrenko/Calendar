@@ -57,7 +57,7 @@
 
 
 		<v-card
-			class="ma-auto flex-grow-1"
+			class="app-card ma-auto flex-grow-1"
 			width="1300"
 			color="#1d1d24"
 			elevation="0"
@@ -159,9 +159,13 @@
 			<v-window
 				:modelValue="tab"
 				update:modelValue="update($event)"
+				class="main-sections"
 			>
 
-				<v-window-item value="Задачи">
+				<v-window-item
+					class="main-sections"
+					value="Задачи"
+				>
 					<v-row>
 						<transition-group
 							name="tasks-fade"
@@ -181,7 +185,7 @@
 				</v-window-item>
 
 				<v-window-item value="Заметки">
-					<v-row>
+					<v-row class="pr-2 pb-2">
 						<transition-group
 							name="tasks-fade"
 							appear
@@ -192,7 +196,7 @@
 								:text="item.text"
 								:notesType="item.notesType"
 								:icon="item.icon"
-								:id="item.id"
+								:noteId="item.id"
 								:archive="item.archive"
 								mode="out-in"
 							/>
@@ -318,7 +322,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Задачи')
+		const tab = ref('Заметки')
 
 		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
 		watch(tab, () => taskToggle.value = 'all')
@@ -474,6 +478,16 @@ export default {
 	overflow: hidden;
 }
 
+.main-sections.v-window {
+	/* overflow: visible; */
+}
+.app-card.v-card {
+	/* overflow: visible; */
+}
+/* .notes-row {
+	padding: 8px;
+} */
+
 .header-title {
 	font-family: 'Courgette', cursive;
 	font-size: 38px;
@@ -492,5 +506,4 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */
-</style>
+	} */</style>

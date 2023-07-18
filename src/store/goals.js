@@ -219,7 +219,7 @@ export default {
 		},
 		changeGoalArchive(state, id) {
 			const elem = state.cards.find(item => item.id === id)
-			console.log('elem', elem)
+			// console.log('elem', elem)
 			elem.archive = !elem.archive
 		},
 		// editGoal({ cards }, { textFieldsValue, cardId }) {
