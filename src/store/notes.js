@@ -9,9 +9,10 @@ export default {
 			{
 				id: '100',
 				archive: false,
+				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка",
+				text: "Привет моя новая заметка1",
 				borderColor: 'grey',
 				notesType: 'text',
 				icon: '47'
@@ -19,9 +20,10 @@ export default {
 			{
 				id: '101',
 				archive: false,
+				editing: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка",
+				text: "Привет моя новая заметка2",
 				borderColor: 'yellow',
 				notesType: 'text',
 				icon: '26'
@@ -29,9 +31,10 @@ export default {
 			{
 				id: '102',
 				archive: false,
+				editing: false,
 				// title: 'Plugins & Team Review Meeting',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка",
+				text: "Привет моя новая заметка3",
 				borderColor: 'green',
 				notesType: 'text',
 				icon: '3'
@@ -39,9 +42,10 @@ export default {
 			{
 				id: '103',
 				archive: false,
+				editing: false,
 				// title: 'New Year Iqonic Design Campaigns',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка",
+				text: "Привет моя новая заметка4",
 				borderColor: 'blue',
 				notesType: 'text',
 				icon: '12'
@@ -49,6 +53,7 @@ export default {
 			{
 				id: '104',
 				archive: false,
+				editing: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
 				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
@@ -59,6 +64,7 @@ export default {
 			{
 				id: '105',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec",
@@ -69,6 +75,7 @@ export default {
 			{
 				id: '106',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis",
@@ -79,6 +86,7 @@ export default {
 			{
 				id: '107',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique",
@@ -89,6 +97,7 @@ export default {
 			{
 				id: '108',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus",
@@ -99,6 +108,7 @@ export default {
 			{
 				id: '109',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra",
@@ -109,6 +119,7 @@ export default {
 			{
 				id: '110',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
@@ -119,6 +130,7 @@ export default {
 			{
 				id: '111',
 				archive: false,
+				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa",
@@ -142,8 +154,8 @@ export default {
 			// if (conditions) return 
 			// console.log('Синий кит'.indexOf('ний') !== -1); // true
 			// return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-			
-			
+
+
 			// вариант оптимизации от gpt
 			// filteredNotes: state => ({ search, select }) => {
 			// 	const lowercaseSearch = search.toLowerCase();
@@ -182,11 +194,20 @@ export default {
 			}
 			inFirstPlace ? notes.unshift(item) : notes.push(item)
 		},
-		changeArchive({ notes }, id) {
-			const elem = notes.find(item => item.id === id)
-			elem.archive = true
+		changeArchive({ notes }, { noteId }) {
+			const elem = notes.find(item => item.id === noteId)
+			elem.archive = !elem.archive
 			// console.log('elem', elem)
-		}
+		},
+		removeNote({ notes }, { noteId }) {
+			notes.splice(notes.findIndex(item => item.id == noteId), 1)
+		},
+		startEditing({ notes }, { noteId }) {
+			const note = notes.find(item => item.id === noteId)
+			notes.forEach(item => item.editing = false)
+			note.editing = !note.editing
+		},
+
 
 	},
 	actions: {
@@ -194,10 +215,17 @@ export default {
 			// console.log('obj', obj)
 			store.commit('addNote', obj)
 		},
-		toArchive(store, id) {
+		toArchive(store, obj) {
 			// console.log('toArchive', id)
-			store.commit('changeArchive', id)
-		}
+			store.commit('changeArchive', obj)
+		},
+		deleteNote(store, obj) {
+			// console.log('toArchive', id)
+			store.commit('removeNote', obj)
+		},
+		editNote(store, obj) {
+			store.commit('startEditing', obj)
+		},
 	},
 }
 

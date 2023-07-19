@@ -20,10 +20,35 @@
 							<!-- <div class="card-title-text align-self-stretch">
 							{{ title }}
 						</div> -->
-							<div class="flex-1-1 note-text">{{ text }}</div>
-							<div class="icon">
+
+							<v-textarea
+								v-if="editing"
+								v-model="editingField"
+								@keydown.enter=""
+								density="comfortable"
+								class="editing-text-field"
+								variant="underlined"
+								hide-details="true"
+								autofocus
+								auto-grow
+							></v-textarea>
+							<div
+								v-else
+								class="flex-1-1 note-text"
+							>
+								{{ text }}
+								<!-- editing {{ editing }} -->
+							</div>
+
+
+
+
+							<div
+								class="icon"
+								@click="editingNote(noteId)"
+							>
 								<img
-									:src="`/src/icons/viking-icons-48px/${icon}.webp`"
+									:src="`/src/icons/viking-icons-54px/${icon}.webp`"
 									alt=""
 								/>
 							</div>
@@ -111,11 +136,16 @@ export default {
 			type: Boolean,
 			required: true
 		},
+		editing: {
+			type: Boolean,
+			required: true
+		},
 	},
 	setup(props) {
 		const store = useStore()
 
 		const notesType = toRef(props, 'notesType')
+		const text = toRef(props, 'text')
 		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
 			// console.log('notesType', notesType.value)
@@ -155,15 +185,26 @@ export default {
 			return "09.webp";
 		})
 
-		const dispArchive = (id) => {
-			store.dispatch('notes/toArchive', id)
+		const dispArchive = (noteId) => {
+			store.dispatch('notes/toArchive', { noteId })
+		}
+		const deleteNote = (noteId) => {
+			store.dispatch('notes/deleteNote', { noteId })
+		}
+
+		const editingField = ref(text)
+		const editingNote = (noteId) => {
+			store.dispatch('notes/editNote', { noteId })
 		}
 
 
 		return {
 			getRandomIco,
 			getNoteColor,
-			dispArchive
+			dispArchive,
+			deleteNote,
+			editingNote,
+			editingField
 			// getRandomColor,
 			// vCard
 		}
@@ -235,17 +276,47 @@ export default {
 
 }
 
-.note-body {}
+.note-body {
+	.editing-text-field {
+		min-height: 59px;
+		height: 59px
+	}
+	.v-field__input {
+		padding: 0;
+	}
+	.v-textarea .v-field__input {
+		font-family: 'Montserrat', sans-serif;
+		// font-weight: 500;
+		mask-image: none;
+		-webkit-mask-image: none;
+		min-height: 59px;
+	} 
+}
 
 .icon {
 	/* background: url('../icons/01.png') 100% 0 / cover no-repeat; */
+	padding: 2px;
 	position: relative;
 	left: 0px;
 	top: 0px;
-	// overflow: hidden;
-	width: 48px;
-	height: 48px;
+	// overflow: visible;
+	// width: 48px;
+	// height: 48px;
 	margin-left: 15px;
+	cursor: pointer;
+
+	img {
+		width: 48px;
+		height: 48px;
+		// transition: all 0.1s ease;
+
+		&:hover {
+			// transform: scale(1.05);
+			// transform: scale(1.075);
+			transform: scale(1.1);
+			// transition: all 0.1s ease;
+		}
+	}
 }
 
 .note.v-card {

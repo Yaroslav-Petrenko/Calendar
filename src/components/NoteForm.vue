@@ -58,7 +58,7 @@
 						value="text"
 					>
 						<img
-							src="/src/icons/viking-icons-48px/53.webp"
+							src="/src/icons/viking-icons-54px/53.webp"
 							alt=""
 						/>
 						Текст
@@ -69,7 +69,7 @@
 						value="ideas"
 					>
 						<img
-							src="/src/icons/viking-icons-48px/51.webp"
+							src="/src/icons/viking-icons-54px/51.webp"
 							alt=""
 							class="notes-form-button"
 						/>
@@ -82,7 +82,7 @@
 						class="pe-2"
 					>
 						<img
-							src="/src/icons/viking-icons-48px/52.webp"
+							src="/src/icons/viking-icons-54px/52.webp"
 							alt=""
 							class="notes-form-button"
 						/>
@@ -154,7 +154,7 @@ export default {
 
 		const createNote = () => {
 			if (text.value.length < 5) return
-		
+
 			// const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey', 'yellow']
 			// const getRandomColor = computed(() => {
 			// 	return colorPalete[Math.floor(Math.random() * colorPalete.length)]

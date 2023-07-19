@@ -198,6 +198,7 @@
 								:icon="item.icon"
 								:noteId="item.id"
 								:archive="item.archive"
+								:editing="item.editing"
 								mode="out-in"
 							/>
 						</transition-group>

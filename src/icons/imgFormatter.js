@@ -5,8 +5,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = 'ok-icons';
-const outputFolder = 'ok-icons-48px';
+const inputFolder = 'viking-icons';
+const outputFolder = 'viking-icons-54px';
 // const inputFolder = 'edit-icons';
 // const outputFolder = 'edit-icons-48px';
 
@@ -15,7 +15,7 @@ const outputFolder = 'ok-icons-48px';
 
 // Ниже переменная которя создаст имена файлов в виде цифр
 const numNames = true
-// Ниже переменная которая убирает цифры и смвол - в начале строки
+// Ниже переменная которая убирает цифры и символ - в начале строки
 const replaceNum = false
 
 // Создаем папку, если она не существует
@@ -41,7 +41,7 @@ for (const file of files) {
 	const data = await sharp(file)
 		.webp({ lossless: true, effort: 6 })
 		// .webp({ quality: 100, effort: 6 })
-		.resize(48, 48)
+		.resize(54, 54)
 		.toFile(outputPath);
 	counter++
 }
@@ -63,8 +63,8 @@ quality: 100 для 48px 118 Кб
 lossless: true для 512px 748 Кб
 quality: 100 для 512px 1.24 Мб(конвертировалось раз в 5 дольше обычного)
  такое ощущение что для quality: 100 не работает effort: 6
- 
- 
+
+
 Тесты сжатия на фото, фотки в jpeg
 3 фотки в сумме 12.4 Мб
 lossless: true в сумме 15.7 Мб

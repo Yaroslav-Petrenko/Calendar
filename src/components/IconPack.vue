@@ -5,13 +5,13 @@
 			class="icon-pack"
 		>
 			<!-- <transition name="cbxFade"> -->
-				<v-checkbox
-					key="checkbox"
-					v-model="cbxRandonIcon"
-					label="Случайная иконка"
-					density="compact"
-					color="info"
-				></v-checkbox>
+			<v-checkbox
+				key="checkbox"
+				v-model="cbxRandonIcon"
+				label="Случайная иконка"
+				density="compact"
+				color="info"
+			></v-checkbox>
 			<!-- </transition> -->
 			<transition name="fadeIcon">
 				<div
@@ -39,6 +39,7 @@
 								>
 									<img
 										:src="getImageUrl(icon)"
+										class="icon-pack-img"
 										alt="Icon"
 									>
 								</v-btn>
@@ -61,7 +62,7 @@ export default {
 		const iconsName = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49']
 		// это взято из офф документации
 		function getImageUrl(name) {
-			return new URL(`/src/icons/viking-icons-48px/${name}.webp`, import.meta.url).href
+			return new URL(`/src/icons/viking-icons-54px/${name}.webp`, import.meta.url).href
 		}
 		// function getRandomIco() {
 		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
@@ -172,6 +173,11 @@ export default {
 	animation: cbxFadeIn 0.5s linear reverse;
 }
 
+.icon-pack-img {
+	height: 48px;
+	width: 48px;
+}
+
 
 @keyframes cbxFadeIn {
 	from {
@@ -246,4 +252,5 @@ export default {
 //   100% {
 //     transform: scale(1);
 //   }
-// }</style>
+// }
+</style>

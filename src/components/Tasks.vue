@@ -94,7 +94,7 @@
 							v-if="item.editing"
 							v-model="editingField"
 							@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
-							:autofocus=true
+							autofocus
 							density="comfortable"
 							class="mr-4 ml-7 editing-text-field"
 							variant="underlined"
