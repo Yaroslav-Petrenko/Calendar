@@ -13,6 +13,7 @@
 			>
 				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
 					<div class="">
+						<!-- <p>editingField {{ editingField }}</p> -->
 						<div class="note-body d-flex">
 							<!-- <div class="text-overline mb-1 text-h1">
 							<span class="sub-title">{{ subTitle }}</span>
@@ -24,11 +25,12 @@
 							<v-textarea
 								v-if="editing"
 								v-model="editingField"
-								@keydown.enter=""
+								@keydown.enter="editingNote(noteId, noteText)"
 								density="comfortable"
 								class="editing-text-field"
 								variant="underlined"
 								hide-details="true"
+								rows="1"
 								autofocus
 								auto-grow
 							></v-textarea>
@@ -36,8 +38,7 @@
 								v-else
 								class="flex-1-1 note-text"
 							>
-								{{ text }}
-								<!-- editing {{ editing }} -->
+								{{ noteText }}
 							</div>
 
 
@@ -45,7 +46,7 @@
 
 							<div
 								class="icon"
-								@click="editingNote(noteId)"
+								@click="editingNote(noteId, noteText)"
 							>
 								<img
 									:src="`/src/icons/viking-icons-54px/${icon}.webp`"
@@ -99,7 +100,7 @@
 				<!-- Random id {{ getRandomIco }} -->
 				<!-- getNoteColor	{{ getNoteColor }} -->
 				<!-- </v-card-actions> -->
-				<!-- getRandomColor {{ getRandomColor }} -->
+				{{ editingField }}
 			</v-card>
 			<!-- </transition> -->
 		</v-col>
@@ -112,7 +113,7 @@ import { useStore } from 'vuex'
 // import { props } from 'vue'
 export default {
 	props: {
-		text: {
+		noteText: {
 			type: String,
 			required: true
 		},
@@ -145,7 +146,7 @@ export default {
 		const store = useStore()
 
 		const notesType = toRef(props, 'notesType')
-		const text = toRef(props, 'text')
+		const noteText = toRef(props, 'noteText')
 		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
 			// console.log('notesType', notesType.value)
@@ -192,9 +193,12 @@ export default {
 			store.dispatch('notes/deleteNote', { noteId })
 		}
 
-		const editingField = ref(text)
-		const editingNote = (noteId) => {
-			store.dispatch('notes/editNote', { noteId })
+		const editingField = ref(noteText.value)
+		// editingField.value = noteText.value
+		const editingNote = (noteId, noteText) => {
+			// editingField.value = noteText
+			// console.log('editingField.value', editingField.value)
+			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
 		}
 
 
@@ -262,7 +266,7 @@ export default {
 }
 
 .note-text {
-	font-family: 'Courgette', cursive;
+	// font-family: 'Courgette', cursive;
 	// font-family: 'Marck Script', cursive;
 	// font-family: 'Neucha', cursive;
 	// font-family: 'Bad Script', cursive;
@@ -278,19 +282,22 @@ export default {
 
 .note-body {
 	.editing-text-field {
-		min-height: 59px;
-		height: 59px
+		// min-height: 59px;
+		// height: 59px
 	}
+
 	.v-field__input {
 		padding: 0;
 	}
+
 	.v-textarea .v-field__input {
 		font-family: 'Montserrat', sans-serif;
+		letter-spacing: 0px;
 		// font-weight: 500;
 		mask-image: none;
 		-webkit-mask-image: none;
-		min-height: 59px;
-	} 
+		// min-height: 59px;
+	}
 }
 
 .icon {

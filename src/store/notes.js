@@ -12,8 +12,7 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка1",
-				borderColor: 'grey',
+				text: "Привет моя новая заметка1 Привет моя новая заметка1",
 				notesType: 'text',
 				icon: '47'
 			},
@@ -24,7 +23,6 @@ export default {
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
 				text: "Привет моя новая заметка2",
-				borderColor: 'yellow',
 				notesType: 'text',
 				icon: '26'
 			},
@@ -35,7 +33,6 @@ export default {
 				// title: 'Plugins & Team Review Meeting',
 				// subTitle: 'Заметки subTitle',
 				text: "Привет моя новая заметка3",
-				borderColor: 'green',
 				notesType: 'text',
 				icon: '3'
 			},
@@ -46,7 +43,6 @@ export default {
 				// title: 'New Year Iqonic Design Campaigns',
 				// subTitle: 'Заметки subTitle',
 				text: "Привет моя новая заметка4",
-				borderColor: 'blue',
 				notesType: 'text',
 				icon: '12'
 			},
@@ -57,7 +53,6 @@ export default {
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
 				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
-				borderColor: 'yellow',
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -68,7 +63,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec",
-				borderColor: 'orange',
 				notesType: 'text',
 				icon: '5'
 			},
@@ -78,8 +72,7 @@ export default {
 				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis",
-				borderColor: 'orange',
+				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae ",
 				notesType: 'achievements',
 				icon: '52'
 			},
@@ -90,7 +83,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique",
-				borderColor: 'orange',
 				notesType: 'achievements',
 				icon: '52'
 			},
@@ -101,7 +93,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus",
-				borderColor: 'orange',
 				notesType: 'text',
 				icon: '15'
 			},
@@ -112,7 +103,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra",
-				borderColor: 'orange',
 				notesType: 'achievements',
 				icon: '52'
 			},
@@ -123,7 +113,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
-				borderColor: 'orange',
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -134,7 +123,6 @@ export default {
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
 				text: "Faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa",
-				borderColor: 'orange',
 				notesType: 'text',
 				icon: '11'
 			},
@@ -202,10 +190,22 @@ export default {
 		removeNote({ notes }, { noteId }) {
 			notes.splice(notes.findIndex(item => item.id == noteId), 1)
 		},
-		startEditing({ notes }, { noteId }) {
+		startEditing({ notes }, { noteId, newText }) {
+			// console.log('newText', newText)
 			const note = notes.find(item => item.id === noteId)
-			notes.forEach(item => item.editing = false)
-			note.editing = !note.editing
+			if (note.editing) {
+				console.log('попал в перый if')
+				note.text = newText
+				note.editing = !note.editing
+			} 
+			else {
+				notes.forEach(item => item.editing = false)
+				note.editing = !note.editing
+			}
+			
+
+
+		
 		},
 
 

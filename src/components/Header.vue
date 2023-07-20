@@ -193,7 +193,7 @@
 							<Notes
 								v-for="item in filteredNotes({ search, select }) "
 								:key="item.id"
-								:text="item.text"
+								:noteText="item.text"
 								:notesType="item.notesType"
 								:icon="item.icon"
 								:noteId="item.id"
