@@ -12,7 +12,7 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка1 Привет моя новая заметка1",
+				text: "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
 				notesType: 'text',
 				icon: '47'
 			},

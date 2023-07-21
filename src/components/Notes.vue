@@ -33,6 +33,8 @@
 								rows="1"
 								autofocus
 								auto-grow
+								no-resize
+								color="blue-darken-1"
 							></v-textarea>
 							<div
 								v-else
@@ -100,7 +102,7 @@
 				<!-- Random id {{ getRandomIco }} -->
 				<!-- getNoteColor	{{ getNoteColor }} -->
 				<!-- </v-card-actions> -->
-				{{ editingField }}
+				<!-- {{ editingField }} -->
 			</v-card>
 			<!-- </transition> -->
 		</v-col>
@@ -281,10 +283,21 @@ export default {
 }
 
 .note-body {
+	// overflow: hidden;
+	// height: 140px;
+	// width: 285px;
+	// position: absolute;
 	.editing-text-field {
 		// min-height: 59px;
 		// height: 59px
 	}
+// 	.v-field--variant-outlined.v-field--focused.v-field__outline {
+//   width: 5px;
+// }
+
+// .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark.v-field--focused {
+// 	 border-width: 5px;
+// }
 
 	.v-field__input {
 		padding: 0;
@@ -299,6 +312,33 @@ export default {
 		// min-height: 59px;
 	}
 }
+
+
+.v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark .v-field__outline::before {
+    // border-style: solid;
+    border-width: 0 0 1px;
+    opacity: 1;
+		color: #1E88E5;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    // content: "";
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .icon {
 	/* background: url('../icons/01.png') 100% 0 / cover no-repeat; */

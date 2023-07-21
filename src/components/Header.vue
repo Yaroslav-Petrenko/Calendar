@@ -462,7 +462,9 @@ export default {
 	/* left: -300px; */
 }
 
-
+/* * {
+	font-family: 'Montserrat', sans-serif;
+} */
 
 
 /*  */
