@@ -12,7 +12,7 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through.",
+				text: "The Woodman set to work at once, and so sharp was his axe that the tree was",
 				notesType: 'text',
 				icon: '47'
 			},
@@ -72,7 +72,7 @@ export default {
 				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae ",
+				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Добавленный текст",
 				notesType: 'achievements',
 				icon: '52'
 			},

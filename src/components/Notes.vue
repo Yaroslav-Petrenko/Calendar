@@ -5,36 +5,25 @@
 			md="3"
 			class="d-flex"
 		>
-			<!-- max-width="344" -->
-			<!-- <transition name="bounce" appear> -->
 			<v-card
 				class="flex-grow-1 d-flex flex-column note"
 				:color="getNoteColor"
 			>
 				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
 					<div class="">
-						<!-- <p>editingField {{ editingField }}</p> -->
 						<div class="note-body d-flex">
-							<!-- <div class="text-overline mb-1 text-h1">
-							<span class="sub-title">{{ subTitle }}</span>
-						</div> -->
-							<!-- <div class="card-title-text align-self-stretch">
-							{{ title }}
-						</div> -->
-
 							<v-textarea
 								v-if="editing"
 								v-model="editingField"
 								@keydown.enter="editingNote(noteId, noteText)"
-								density="comfortable"
 								class="editing-text-field"
+								color="blue-darken-1"
+								density="comfortable"
 								variant="underlined"
 								hide-details="true"
-								rows="1"
-								autofocus
+								
 								auto-grow
-								no-resize
-								color="blue-darken-1"
+								autofocus
 							></v-textarea>
 							<div
 								v-else
@@ -42,10 +31,6 @@
 							>
 								{{ noteText }}
 							</div>
-
-
-
-
 							<div
 								class="icon"
 								@click="editingNote(noteId, noteText)"
@@ -59,15 +44,6 @@
 
 					</div>
 				</v-card-item>
-				<!-- <v-card-actions class="pa-0"> -->
-				<!-- <v-btn
-					variant="flat"
-					color="#465af7"
-					size="small"
-				>
-					Выполнено
-				</v-btn> -->
-
 				<v-card-actions class="notes-actions justify-space-between pa-0">
 					<v-btn
 						v-if="archive"
@@ -95,16 +71,7 @@
 						@click="deleteNote(noteId)"
 					>удалить</v-btn>
 				</v-card-actions>
-
-
-
-				<!-- archive {{ archive }} -->
-				<!-- Random id {{ getRandomIco }} -->
-				<!-- getNoteColor	{{ getNoteColor }} -->
-				<!-- </v-card-actions> -->
-				<!-- {{ editingField }} -->
 			</v-card>
-			<!-- </transition> -->
 		</v-col>
 	</transition>
 </template>
@@ -149,6 +116,7 @@ export default {
 
 		const notesType = toRef(props, 'notesType')
 		const noteText = toRef(props, 'noteText')
+		const noteId = toRef(props, 'noteId')
 		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
 			// console.log('notesType', notesType.value)
@@ -198,10 +166,22 @@ export default {
 		const editingField = ref(noteText.value)
 		// editingField.value = noteText.value
 		const editingNote = (noteId, noteText) => {
+			console.log('noteId', noteId)
+			console.log('noteText', noteText)
 			// editingField.value = noteText
 			// console.log('editingField.value', editingField.value)
 			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
 		}
+
+		// onMounted(() => {
+		// if (noteId.value === '100') {
+		// 	console.log('попал в иф noteId', noteId)
+		// 	setTimeout(() => {
+		// 		editingNote('100', editingField)
+		// 	}, 10000);
+		// }
+
+		// })
 
 
 		return {
@@ -283,24 +263,32 @@ export default {
 }
 
 .note-body {
+
 	// overflow: hidden;
-	// height: 140px;
+	// height: 120px;
 	// width: 285px;
 	// position: absolute;
 	.editing-text-field {
 		// min-height: 59px;
 		// height: 59px
+		// height: 120px;
+		// height: auto;
+		// overflow: hidden;
 	}
-// 	.v-field--variant-outlined.v-field--focused.v-field__outline {
-//   width: 5px;
-// }
 
-// .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark.v-field--focused {
-// 	 border-width: 5px;
-// }
+	// 	.v-field--variant-outlined.v-field--focused.v-field__outline {
+	//   width: 5px;
+	// }
+
+	// .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark.v-field--focused {
+	// 	 border-width: 5px;
+	// }
 
 	.v-field__input {
 		padding: 0;
+		// ниже важное свойство которое значительно влияет на внешний вид textarea
+		min-height: 25px;
+		// height: 100%;
 	}
 
 	.v-textarea .v-field__input {
@@ -315,17 +303,17 @@ export default {
 
 
 .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark .v-field__outline::before {
-    // border-style: solid;
-    border-width: 0 0 1px;
-    opacity: 1;
-		color: #1E88E5;
-    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    // content: "";
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // height: 100%;
+	// border-style: solid;
+	border-width: 0 0 1px;
+	opacity: 1;
+	color: #1E88E5;
+	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	// content: "";
+	// position: absolute;
+	// top: 0;
+	// left: 0;
+	// width: 100%;
+	// height: 100%;
 }
 
 
