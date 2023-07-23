@@ -21,7 +21,7 @@
 								density="comfortable"
 								variant="underlined"
 								hide-details="true"
-								
+								rows="1"
 								auto-grow
 								autofocus
 							></v-textarea>
@@ -41,7 +41,7 @@
 								/>
 							</div>
 						</div>
-
+						<!-- editingField {{ editingField }} -->
 					</div>
 				</v-card-item>
 				<v-card-actions class="notes-actions justify-space-between pa-0">
@@ -273,8 +273,16 @@ export default {
 		// height: 59px
 		// height: 120px;
 		// height: auto;
+		// height: 100%;
 		// overflow: hidden;
 	}
+	.v-field__field {
+    flex: 1 0;
+    grid-area: field;
+    position: relative;
+    align-items: flex-start;
+    display: grid;
+}
 
 	// 	.v-field--variant-outlined.v-field--focused.v-field__outline {
 	//   width: 5px;
@@ -286,9 +294,12 @@ export default {
 
 	.v-field__input {
 		padding: 0;
+		flex-wrap: nowrap;
 		// ниже важное свойство которое значительно влияет на внешний вид textarea
-		min-height: 25px;
+		// min-height: 25px;
+		// height: auto;
 		// height: 100%;
+		// height: 226px;
 	}
 
 	.v-textarea .v-field__input {
@@ -299,6 +310,9 @@ export default {
 		-webkit-mask-image: none;
 		// min-height: 59px;
 	}
+}
+.note {
+	// overflow: hidden;
 }
 
 

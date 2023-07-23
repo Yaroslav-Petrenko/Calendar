@@ -188,7 +188,6 @@
 					<v-row class="pr-2 pb-2">
 						<transition-group
 							name="tasks-fade"
-							appear
 						>
 							<Notes
 								v-for="item in filteredNotes({ search, select }) "
@@ -199,7 +198,6 @@
 								:noteId="item.id"
 								:archive="item.archive"
 								:editing="item.editing"
-								mode="out-in"
 							/>
 						</transition-group>
 					</v-row>
@@ -443,7 +441,7 @@ export default {
 .tasks-fade-move,
 .tasks-fade-enter-active,
 .tasks-fade-leave-active {
-	transition: all 0.5s ease;
+	transition: all 50000s ease;
 	/* animation-fill-mode: forwards; */
 	/* transition: all 0.3s linear; */
 }

@@ -12,7 +12,7 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "The Woodman set to work at once, and so sharp was his axe that the tree was",
+				text: "The Woodman set to work at once, and so sharp was his axe that the tree was. The Woodman set to work at once, and so sharp was his axe that the tree was",
 				notesType: 'text',
 				icon: '47'
 			},
@@ -52,7 +52,7 @@ export default {
 				editing: false,
 				// title: 'Email Signature for Support Team',
 				// subTitle: 'Заметки subTitle',
-				text: "Outsmart back-and-forth in communication by staying alert with your support team follow-ups.",
+				text: "The Woodman set to work at once, and so sharp was his axe that the tree was. The Woodman set to work at once, and so sharp was his axe that the tree was",
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -62,7 +62,7 @@ export default {
 				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Sed odio morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec",
+				text: "Sed",
 				notesType: 'text',
 				icon: '5'
 			},
@@ -72,7 +72,7 @@ export default {
 				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Добавленный текст",
+				text: "Consectetur",
 				notesType: 'achievements',
 				icon: '52'
 			},
@@ -82,7 +82,7 @@ export default {
 				editing: false,
 				// title: 'Project And Task Management Roles',
 				// subTitle: 'Заметки subTitle',
-				text: "Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique",
+				text: "Lacus",
 				notesType: 'achievements',
 				icon: '52'
 			},
