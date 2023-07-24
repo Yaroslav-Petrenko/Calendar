@@ -12,7 +12,7 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "The Woodman set to work at once, and so sharp was his axe that the tree was. The Woodman set to work at once, and so sharp was his axe that the tree was",
+				text: "The Woodman set to work at once, and so sharp was his axe that the tree was.",
 				notesType: 'text',
 				icon: '47'
 			},

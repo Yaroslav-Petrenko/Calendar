@@ -18,7 +18,6 @@
 								@keydown.enter="editingNote(noteId, noteText)"
 								class="editing-text-field"
 								color="blue-darken-1"
-								density="comfortable"
 								variant="underlined"
 								hide-details="true"
 								rows="1"
@@ -328,6 +327,11 @@ export default {
 	// left: 0;
 	// width: 100%;
 	// height: 100%;
+	// overflow: hidden;
+}
+
+.v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark {
+	overflow: hidden;
 }
 
 
