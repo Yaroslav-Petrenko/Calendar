@@ -1,78 +1,77 @@
 <template>
-	<transition>
-		<v-col
-			cols="12"
-			md="3"
-			class="d-flex"
+	<v-col
+		cols="12"
+		md="3"
+		class="d-flex note-main"
+	>
+		<v-card
+			class="flex-grow-1 d-flex flex-column note"
+			:color="getNoteColor"
 		>
-			<v-card
-				class="flex-grow-1 d-flex flex-column note"
-				:color="getNoteColor"
-			>
-				<v-card-item class="notes-item flex-grow-1 align-content-space-between">
-					<div class="">
-						<div class="note-body d-flex">
-							<v-textarea
-								v-if="editing"
-								v-model="editingField"
-								@keydown.enter="editingNote(noteId, noteText)"
-								class="editing-text-field"
-								color="blue-darken-1"
-								variant="underlined"
-								hide-details="true"
-								rows="1"
-								auto-grow
-								autofocus
-							></v-textarea>
-							<div
-								v-else
-								class="flex-1-1 note-text"
-							>
-								{{ noteText }}
-							</div>
-							<div
-								class="icon"
-								@click="editingNote(noteId, noteText)"
-							>
-								<img
-									:src="`/src/icons/viking-icons-54px/${icon}.webp`"
-									alt=""
-								/>
-							</div>
+			<v-card-item class="notes-item flex-grow-1 align-content-space-between">
+				<div class="">
+					<div class="note-body d-flex">
+						<v-textarea
+							v-if="editing"
+							v-model="editingField"
+							@keydown.enter="editingNote(noteId, noteText)"
+							class="editing-note-field"
+							color="blue-darken-1"
+							variant="underlined"
+							hide-details="true"
+							rows="1"
+							auto-grow
+							density="comfortable"
+							autofocus
+						></v-textarea>
+						<div
+							v-if="!editing"
+							class="flex-1-1 note-text"
+						>
+							{{ noteText }}
 						</div>
-						<!-- editingField {{ editingField }} -->
+						<div
+							class="icon"
+							@click="editingNote(noteId, noteText)"
+						>
+							<img
+								:src="`/src/icons/viking-icons-54px/${icon}.webp`"
+								alt=""
+							/>
+						</div>
 					</div>
-				</v-card-item>
-				<v-card-actions class="notes-actions justify-space-between pa-0">
-					<v-btn
-						v-if="archive"
-						class="align-self-end pa-0"
-						variant="plain"
-						color="amber-accent-4"
-						size="small"
-						@click="dispArchive(noteId)"
-					>вернуть из архива</v-btn>
-					<v-btn
-						v-else
-						class="align-self-end pa-0"
-						variant="plain"
-						color="amber-darken-2"
-						size="small"
-						@click="dispArchive(noteId)"
-					>
-						в архив
-					</v-btn>
-					<v-btn
-						class="align-self-end pa-0"
-						variant="plain"
-						color="blue-grey-lighten-2"
-						size="small"
-						@click="deleteNote(noteId)"
-					>удалить</v-btn>
-				</v-card-actions>
-			</v-card>
-		</v-col>
-	</transition>
+					<!-- editingField {{ editingField }} -->
+				</div>
+			</v-card-item>
+			<v-card-actions class="notes-actions justify-space-between pa-0">
+				<v-btn
+					v-if="archive"
+					class="align-self-end pa-0"
+					variant="plain"
+					color="amber-accent-4"
+					size="small"
+					@click="dispArchive(noteId)"
+				>вернуть из архива</v-btn>
+				<v-btn
+					v-else
+					class="align-self-end pa-0"
+					variant="plain"
+					color="amber-darken-2"
+					size="small"
+					@click="dispArchive(noteId)"
+				>
+					в архив
+				</v-btn>
+				<v-btn
+					class="align-self-end pa-0"
+					variant="plain"
+					color="blue-grey-lighten-2"
+					size="small"
+					@click="deleteNote(noteId)"
+				>удалить</v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-col>
 </template>
 
 <script>
@@ -163,24 +162,19 @@ export default {
 		}
 
 		const editingField = ref(noteText.value)
-		// editingField.value = noteText.value
 		const editingNote = (noteId, noteText) => {
-			console.log('noteId', noteId)
-			console.log('noteText', noteText)
-			// editingField.value = noteText
-			// console.log('editingField.value', editingField.value)
+			// в момент превращения checkbox в textarea происходит баг - нижестоящая строка подпрыгивает из-за присваивания класса .tasks-fade-move 
+			// На время превращения я обнуляю transition стили этого DOM узла
+			const elems = document.querySelectorAll('.note-main')
+			elems.forEach(item => item.style.transition = 'none')
+
 			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
+
+      // после dispatch возвращаю исходные transition стили DOM узла
+			setTimeout(() => {
+				elems.forEach(item => item.style.transition = 'all 0.5s ease')
+			}, 0)
 		}
-
-		// onMounted(() => {
-		// if (noteId.value === '100') {
-		// 	console.log('попал в иф noteId', noteId)
-		// 	setTimeout(() => {
-		// 		editingNote('100', editingField)
-		// 	}, 10000);
-		// }
-
-		// })
 
 
 		return {
@@ -189,7 +183,7 @@ export default {
 			dispArchive,
 			deleteNote,
 			editingNote,
-			editingField
+			editingField,
 			// getRandomColor,
 			// vCard
 		}
@@ -267,7 +261,9 @@ export default {
 	// height: 120px;
 	// width: 285px;
 	// position: absolute;
-	.editing-text-field {
+	// height: 100%;
+	// position: relative;
+	.editing-note-field {
 		// min-height: 59px;
 		// height: 59px
 		// height: 120px;
@@ -275,13 +271,17 @@ export default {
 		// height: 100%;
 		// overflow: hidden;
 	}
+
 	.v-field__field {
-    flex: 1 0;
-    grid-area: field;
-    position: relative;
-    align-items: flex-start;
-    display: grid;
-}
+		flex: 1 0;
+		grid-area: field;
+		position: relative;
+		align-items: flex-start;
+		display: grid;
+		max-height: 50% !important;
+		// height: 50%;
+		// overflow: hidden;
+	}
 
 	// 	.v-field--variant-outlined.v-field--focused.v-field__outline {
 	//   width: 5px;
@@ -291,7 +291,7 @@ export default {
 	// 	 border-width: 5px;
 	// }
 
-	.v-field__input {
+	.v-field__field .v-field__input {
 		padding: 0;
 		flex-wrap: nowrap;
 		// ниже важное свойство которое значительно влияет на внешний вид textarea
@@ -299,6 +299,9 @@ export default {
 		// height: auto;
 		// height: 100%;
 		// height: 226px;
+		// max-height: 50% !important;
+		// min-height: 100% !important;
+		// height: 100% !important;
 	}
 
 	.v-textarea .v-field__input {
@@ -310,10 +313,21 @@ export default {
 		// min-height: 59px;
 	}
 }
+
 .note {
 	// overflow: hidden;
+	// max-width: 25%;
 }
 
+// .v-textarea__sizer.v-field__input {
+// 	visibility: hidden;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     height: 0 !important;
+//     min-height: 1px !important;
+//     pointer-events: none;
+// }
 
 .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark .v-field__outline::before {
 	// border-style: solid;

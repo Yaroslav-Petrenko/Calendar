@@ -4,8 +4,6 @@
 		color="#1D1D24"
 		elevation="0"
 	>
-
-
 		<div class="time-line__block flex-grow-1">
 			<v-timeline
 				density="compact"
@@ -134,6 +132,7 @@ export default {
 		},
 	},
 	setup() {
+				console.log('Смонтировался goals')
 		const store = useStore()
 		const events = reactive([])
 		const input = ref(null)

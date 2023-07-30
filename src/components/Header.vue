@@ -84,6 +84,7 @@
 								Архив
 							</v-btn>
 						</v-btn-toggle>
+
 					</div>
 
 					<div
@@ -156,16 +157,9 @@
 			<!-- Хочу заменить цикл на статику -->
 			<!-- <div class="pa-3 d-flex justify-center">
 			</div> -->
-			<v-window
-				:modelValue="tab"
-				update:modelValue="update($event)"
-				class="main-sections"
-			>
+			<v-window v-model="tab">
 
-				<v-window-item
-					class="main-sections"
-					value="Задачи"
-				>
+				<v-window-item value="Задачи">
 					<v-row>
 						<transition-group
 							name="tasks-fade"
@@ -186,9 +180,7 @@
 
 				<v-window-item value="Заметки">
 					<v-row class="pr-2 pb-2">
-						<transition-group
-							name="tasks-fade"
-						>
+						<transition-group name="tasks-fade">
 							<Notes
 								v-for="item in filteredNotes({ search, select }) "
 								:key="item.id"
@@ -277,6 +269,7 @@
 								<v-card-text >Lorem</v-card-text>
 							</v-card>
 						</v-window-item> -->
+
 			</v-window>
 			<!-- <v-window v-model="One">
 						<v-window-item
@@ -288,13 +281,13 @@
 						</v-window-item>
 					</v-window> -->
 			<!-- The tab is {{ tab }} -->
-			<!-- allTasks {{ allTasks }} -->
+			<!-- filteredTasks({ taskToggle }) {{ filteredTasks({ taskToggle }) }} -->
 		</v-card>
 	</v-card>
 </template>
 
 <script>
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
@@ -317,11 +310,12 @@ export default {
 		GoalsForm
 	},
 	setup() {
+		// console.log('Смонтировался header')
 
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Заметки')
+		const tab = ref('Задачи')
 
 		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
 		watch(tab, () => taskToggle.value = 'all')
@@ -382,6 +376,11 @@ export default {
 			}
 		})
 
+		// onMounted(() => {
+		// console.log('filteredTasks({ taskToggle })',
+		// 	filteredTasks({ taskToggle: taskToggle.value }))
+		// })
+
 
 
 		return {
@@ -441,7 +440,8 @@ export default {
 .tasks-fade-move,
 .tasks-fade-enter-active,
 .tasks-fade-leave-active {
-	transition: all 50000s ease;
+	/* transition: all 500000000s ease; */
+	transition: all 0.5s ease;
 	/* animation-fill-mode: forwards; */
 	/* transition: all 0.3s linear; */
 }
@@ -482,9 +482,11 @@ export default {
 .main-sections.v-window {
 	/* overflow: visible; */
 }
+
 .app-card.v-card {
 	/* overflow: visible; */
 }
+
 /* .notes-row {
 	padding: 8px;
 } */
@@ -507,4 +509,5 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */</style>
+	} */
+</style>

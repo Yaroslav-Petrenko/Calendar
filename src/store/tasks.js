@@ -6,13 +6,14 @@ export default {
 			{
 				id: '100',
 				date: '',
-				allDone: true,
+				allDone: false,
 				// archive: false,
 				// subTitle: 'Задачи subTitle',
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '1', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '0', text: 'At imperdiet dui accumsan sit amet nulla facilisi morbi. At imperdiet dui accumsan sit amet. At imperdiet dui accumsan sit amet', done: true, editing: false },
+					{ id: '1', text: 'Зайти в магазин за продуктами ', done: true, editing: false },
 					{ id: '2', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '3', text: 'At imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna', done: false, editing: false },
 				],
 			},
 			{
@@ -22,7 +23,7 @@ export default {
 				// archive: false,
 				// subTitle: 'Задачи subTitle',, editing: false
 				tasks: [
-					{ id: '0', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '0', text: 'Выпить пива, поностальгировать Зайти в магазин за продуктами', done: true, editing: false },
 					{ id: '1', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
 					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
 					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },

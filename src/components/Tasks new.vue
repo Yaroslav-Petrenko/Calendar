@@ -44,29 +44,6 @@
 				:color="getTaskColor"
 				elevation="0"
 			>
-				<!-- taskToggle {{ taskToggle }} -->
-				<!-- <v-card-title class="task-title d-flex justify-space-between">
-					{{ date }}
-					<div class="task-icon">
-						<div class="task-icon-circle">
-							<img
-								src="../icons/done-icons-48px/1-check.webp"
-								alt=""
-							/>
-						</div>
-						<transition name="bounce">
-							<div
-								v-show="allDone"
-								class="task-icon-check"
-							>
-								<img
-									src="../icons/done-icons-48px/2-check.webp"
-									alt=""
-								/>
-							</div>
-						</transition>
-					</div>
-				</v-card-title> -->
 				<transition name="task-bounce">
 					<div
 						v-if="tasks.length == 0"
@@ -86,22 +63,23 @@
 
 
 					<div
-						v-for="item in tasks"
+						v-for="item, i in tasks"
 						:key="item.id"
 						class="task-item d-flex flex-grow-1"
+						ref="taskItem"
 					>
 						<v-textarea
-								v-if="item.editing"
-								v-model="editingField"
-								@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
-								autofocus
-								rows="1"
-								auto-grow
-								density="compact"
-								class="ml-7 editing-text-field "
-								variant="underlined"
-								hide-details="true"
-							></v-textarea>
+							v-if="item.editing"
+							v-model="editingField"
+							@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
+							autofocus
+							rows="1"
+							auto-grow
+							density="compact"
+							class="ml-7 editing-text-field "
+							variant="underlined"
+							hide-details="true"
+						></v-textarea>
 
 
 						<v-checkbox
@@ -140,7 +118,7 @@
 							>
 								<div class="task-checkbox-pencil">
 									<button
-										@click="editTask(cardId, item.id, item.text, taskToggle)"
+										@click="editTask(cardId, item.id, item.text, taskToggle, i)"
 										class="task-checkbox-button "
 									>
 										<img
@@ -162,20 +140,11 @@
 								</div>
 							</div>
 						</transition>
-						<!-- item.done {{ item.done }} -->
-						<!-- <v-card-text class="task-text flex-grow-1">
-								{{ item.text }}
-							</v-card-text> -->
-						<!-- <v-label class="task-text flex-grow-1">
-								{{ item.text }}
-							</v-label> -->
 					</div>
-					<!-- конец отрисовки тасков -->
 
 
 				</transition-group>
-				<!-- selected {{ selected }} -->
-				<div class="d-flex align-end mr-2 flex-grow-1">
+				<div class="d-flex align-end mr-2 mt-3 flex-grow-1">
 					<v-text-field
 						v-model="textField"
 						@keydown.enter="createTask(taskToggle)"
@@ -194,23 +163,6 @@
 					>
 					</v-btn>
 				</div>
-				<!-- textField {{ textField }} -->
-				<!-- <v-card-item class="notes-item flex-grow-1 align-content-space-between">
-						<div class="">
-							<div class="note-body d-flex">
-								<div class="card-title-text align-self-stretch">
-									Date {{ date }}
-								</div>
-								<div class="flex-1-1 note-text">{{ text }}</div>
-								<div class="icon">
-									<img
-										:src="`/src/icons/viking-icons-48px/${icon}.webp`"
-										alt=""
-									/>
-								</div>
-							</div>
-						</div>
-					</v-card-item> -->
 				<v-card-actions class="justify-space-between pl-1">
 					<v-btn
 						v-if="!allDone"
@@ -246,11 +198,7 @@
 						size="small"
 						@click="deleteTaskCard(cardId)"
 					>удалить</v-btn>
-					<!-- taskToggle is {{ taskToggle }} -->
 				</v-card-actions>
-				<!-- editingField.value {{ editingField }} -->
-				<!-- id {{ id }} -->
-				<!-- tasks {{ tasks }} -->
 			</v-card>
 		</v-card>
 	</v-col>
@@ -436,7 +384,55 @@ export default {
 			store.dispatch('tasks/deleteTask', { cardId, taskId, taskToggle })
 		}
 
-		const editTask = (cardId, taskId, text, taskToggle) => {
+
+		const taskItem = ref(null)
+		const editTask = (cardId, taskId, text, taskToggle, i) => {
+			// taskItem.value.forEach(item => { console.log(item.clientHeight) })
+			// получаю нужный taskItem
+			// taskItem.value[i]
+			const allTasks = document.querySelectorAll('.task-item')
+
+			console.log('allTasks', allTasks)
+			// taskItem[1].style.removeClass('.flip-list-move')
+			// taskItem[2].style.removeClass('.flip-list-move')
+			// taskItem[3].style.removeClass('.flip-list-move')
+			// // console.log('allTasks', allTasks)
+
+			const taskBody = document.querySelectorAll('.task-body')
+			// console.log('taskBody', taskBody[0].clientHeight)
+			setInterval(() => {
+				// console.log('textarea[0].clientHeight', textarea[0].clientHeight)
+				allTasks.forEach(item => item.classList.remove('flip-list-move'))
+
+				// // const field = document.querySelectorAll('.task-item')
+				// const textarea = taskItem.value[i].querySelectorAll('.v-field__input')
+				// console.log('textarea[0].clientHeight', textarea[0].clientHeight)
+				// console.log('taskItem.value[i].clientHeight', taskItem.value[i].clientHeight)
+				// console.log('taskBody', taskBody[0].clientHeight)
+
+				// const textareaHeight = textarea[0].clientHeight
+
+				// taskItem.value[i].style.minHeight = `${textareaHeight}px`
+
+				// console.log('textarea', textarea[0].clientHeight)
+				// const taskItem = document.querySelector('')
+				// получаю высоту нужного task
+				// console.log('taskItem.value[i]', taskItem.value[i].clientHeight)
+				// field[i].style.minHeight = '61px'
+				// field[i].clientHeight
+
+				// console.log('field', field)
+				// console.dir(field.clientHeight[i])
+				// console.log('taskItem', taskItem.value)
+				// taskItem.value.forEach(item => { console.log(item.clientHeight) })
+				// taskItem.value[i].height = 
+			}, 0)
+
+
+			// const fieldHeight = field.style.height
+			// console.log('field.style.height', field.style.height)
+
+
 			editingField.value = text
 			store.dispatch('tasks/editTask', { cardId, taskId, taskToggle })
 		}
@@ -467,6 +463,8 @@ export default {
 
 
 		onMounted(() => {
+
+
 			// console.log('tasks.lenght', tasks.value.length)
 			const currentDate = new Date();
 			const yesterday = new Date();
@@ -520,7 +518,8 @@ export default {
 			toArchive,
 			deleteTaskCard,
 			getButtonVariant,
-			getButtonColor
+			getButtonColor,
+			taskItem
 
 
 		}
@@ -533,123 +532,40 @@ export default {
 
 <style lang="scss">
 @import 'animate.css';
+// @import 'node_modules/vuetify/lib/components/VTextarea/VTextarea.sass';
 
 .task {
 	padding: 5px 10px 10px 10px;
-
 	overflow: hidden;
-	// &::before {
-	// 	content: '';
-	// 	display: block;
-	// 	position: absolute;
-	// 	width: 390px;
-	// 	height: 10px;
-	// 	background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-	// 	top: 69px;
-	// 	z-index: 50;
-	// }
 }
 
 // .text-shadow::before {
-// 	content: '';
+// 	content: "";
 // 	display: block;
 // 	position: absolute;
 // 	width: 390px;
-// 	height: 10px;
-// 	// background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-// 	top: 69px;
-// 	z-index: 50;
-// 	// transition: all 5s linear;
+// 	height: 5px;
+// 	top: 67px;
+// 	z-index: 999;
 // 	// background: #263238;
+// 	filter: blur(2px);
+// 	// transition: all 0s linear;
+// 	// transition-delay: 1s;
 // }
 
-.text-shadow::before {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 390px;
-	height: 5px;
-	top: 67px;
-	z-index: 999;
-	// background: #263238;
-	filter: blur(2px);
-	// transition: all 0s linear;
-	// transition-delay: 1s;
-}
-
-
-.text-shadow__dark::before {
-	// background: linear-gradient(to bottom, #171E21 0%, rgb(23, 30, 33, 0) 100%);
-	// transition: all 0s linear;
-	// transition-delay: 1s;
-	// background: linear-gradient(to bottom, #171E21 0%, transparent 100%);
-	// background: #171E21;
-	animation: blurGrey 0.2s;
-	animation-fill-mode: forwards;
-}
-
-.text-shadow__grey::before {
-	// background: linear-gradient(to bottom, transparent 0%, rgb(38,50,56, 0) 100%);
-	// background: linear-gradient(to bottom, #263238 0%, transparent 100%);
-	// background: #263238;
-	// animation: blurGrey 0.5s reverse;
-	animation: blurDark 0.2s;
-	animation-fill-mode: forwards;
-}
-
-@keyframes blurGrey {
-	0% {
-		z-index: 0;
-		background: transparent;
-	}
-
-	// 50% {
-	// 	z-index: 0;
-	// }
-	99% {
-		z-index: 0;
-		background: transparent;
-	}
-
-	100% {
-		z-index: 50;
-		background: #171E21;
-	}
-}
-
-@keyframes blurDark {
-	0% {
-		z-index: 0;
-		background: transparent;
-	}
-
-	// 50% {
-	// 	z-index: 0;
-	// }
-	99% {
-		z-index: 0;
-		background: transparent;
-	}
-
-	100% {
-		z-index: 50;
-		background: #263238;
-	}
-}
-
-.task-no-task {
-	// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
-	position: absolute;
-	width: 100%;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	font-size: 38px;
-	color: #455A64;
-	// color: #546E7A;
-	// color: #37474F;
-	// color: #263238;
-}
+// .task-no-task {
+// 	// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
+// 	position: absolute;
+// 	width: 100%;
+// 	// display: flex;
+// 	// justify-content: center;
+// 	// align-items: center;
+// 	font-size: 38px;
+// 	color: #455A64;
+// 	// color: #546E7A;
+// 	// color: #37474F;
+// 	// color: #263238;
+// }
 
 .v-btn--disabled {
 	// color: #37474F !important;
@@ -671,6 +587,7 @@ export default {
 	padding-top: 2px;
 	overflow-x: hidden;
 	// padding-bottom: 0px;
+	// position: absolute;
 
 	// ::after {
 	// 	content: '';
@@ -682,18 +599,39 @@ export default {
 	.v-field__input {
 		// height: 40px;
 		// padding: 0;
-		padding-top: 0;
+		padding-top: 3px;
 		// margin-bottom: 2px;
 		// display: flex;
 		// align-items: flex-end;
 	}
 
-	.editing-text-field {
-		// margin-bottom: 2px;
-		// своства ниже чтобы при входе в режим редактирвоания текст не прыгал
-		position: relative;
-		bottom: 4px;
+	.task-item {
+
+		// height: var(--v-textarea-control-height);
+		.editing-text-field {
+			// // font-family: 'Montserrat', sans-serif;
+			// font-size: 16px;
+			// // color: #fff;
+			// margin-bottom: 2px;
+			// своства ниже чтобы при входе в режим редактирвоания текст не прыгал
+			// position: relative;
+			// bottom: 4px;
+			// height: 41px;
+			// height: var(--v-textarea-control-height);
+			// max-height: var(--v-textarea-control-height);
+			// position: absolute;
+			// width: 338.33px;
+
+			.v-field__input {
+				// height: 41px;
+				// max-height: 41px !important;
+				// min-height: 71px;
+				// min-height: 100%;
+			}
+		}
 	}
+
+
 }
 
 // галочка выполнения
@@ -748,21 +686,6 @@ export default {
 	}
 }
 
-
-.flip-list-move {
-	// transition: transform 0.8s ease;
-	// position: absolute;
-}
-
-// .flip-list-enter-active {
-// 	animation: bounceOutRight 0.3s ease reverse;
-// }
-
-// .flip-list-leave-active {
-
-// }
-
-
 .animate__bounceOutRight {
 	// animation: anima 0.8s ease;
 	// animation: bounceOutRight 0.3s ease;
@@ -775,27 +698,31 @@ export default {
 // 	transform: translateX(30px);
 // }
 
+// стили за сегодня 26.07
+
+.flip-list-move,
+.flip-list-leave-active,
+.flip-list-leave-active {
+	transition: all 5000000s ease;
+	transition: all 0.5s ease;
+}
+
+.flip-list-leave-active {
+	position: absolute;
+}
 
 
+.v-textarea .v-field__input {
+	// font-family: 'Montserrat', sans-serif;
+	// letter-spacing: 0px;
+	// font-weight: 500;
+	mask-image: none;
+	-webkit-mask-image: none;
+	// min-height: 59px;
+}
 
 
-
-// взято с сайта чисто для тренировки
-// .list-complete-item {
-// 	transition: all 0.8s ease;
-// 	// display: inline-block;
-// 	margin-right: 10px;
-// }
-
-// .flip-list-enter-from,
-// .flip-list-leave-to {
-// 	opacity: 0;
-// 	transform: translateX(30px);
-// }
-
-// .flip-list-leave-active {
-// 	position: absolute;
-// }
+// стили за сегодня 26.07
 
 
 .flip-list-enter-active {
@@ -861,15 +788,6 @@ export default {
 }
 
 
-.v-textarea .v-field__input {
-	// font-family: 'Montserrat', sans-serif;
-	// letter-spacing: 0px;
-	// font-weight: 500;
-	mask-image: none;
-	-webkit-mask-image: none;
-	// min-height: 59px;
-}
-
 
 .task-item {
 	// margin: 5px 0 5px 0;
@@ -879,6 +797,10 @@ export default {
 	// display: inline-block;
 	// position: relative;
 	overflow: visible;
+	// max-height: 40px;
+	// height: 40px;
+	// height: var(--v-textarea-control-height);
+	// 	max-height: var(--v-textarea-control-height);
 
 	.v-label {
 		align-items: start;
@@ -890,6 +812,11 @@ export default {
 		align-items: start;
 	}
 
+	.task-checkbox {
+		// height: var(--v-textarea-control-height);
+		// max-height: var(--v-textarea-control-height);
+	}
+
 	.task-checkbox-pencil {
 		// height:24px;
 		// width:24px;
@@ -899,7 +826,7 @@ export default {
 	.task-checkbox-edit {
 		// height:24px;
 		// width:24px;
-		margin-right: 34px;
+		margin-right: 35px;
 	}
 
 	.task-checkbox-delete {
