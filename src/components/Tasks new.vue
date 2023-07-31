@@ -84,13 +84,13 @@
 
 						<v-checkbox
 							v-else
+							:label="item.text"
 							:model-value="item.done"
 							@change="setCheckbox(cardId, item.id, taskToggle)"
 							class="task-checkbox pr-1 flex-grow-1"
-							hide-details="true"
 							density="compact"
+							hide-details
 							color="info"
-							:label="item.text"
 						></v-checkbox>
 						<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
 						<transition

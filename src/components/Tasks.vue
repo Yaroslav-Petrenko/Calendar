@@ -682,11 +682,27 @@ export default {
 	.v-field__input {
 		// height: 40px;
 		// padding: 0;
-		padding-top: 0;
+		padding-top: 13px;
+		padding-bottom: 0;
 		// margin-bottom: 2px;
 		// display: flex;
 		// align-items: flex-end;
 	}
+
+.v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark.v-field--focusedgg {
+	// border-style: solid;
+	border-width: 0 0 1px;
+	opacity: 1;
+	color: #1E88E5;
+	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	// content: "";
+	// position: absolute;
+	// top: 0;
+	// left: 0;
+	// width: 100%;
+	// height: 100%;
+	// overflow: hidden;
+}
 
 	.editing-text-field {
 		// margin-bottom: 2px;
@@ -885,9 +901,24 @@ export default {
 		position: relative;
 		top: 3px;
 	}
+	// .v-label.v-label--clickable {
+
+	// }
+
+	.v-checkbox .v-selection-control {
+		min-height: 28px;
+	}
+
+	.task-checkbox-icons {
+		position: relative;
+	}
 
 	.v-selection-control {
 		align-items: start;
+	}
+	.task-checkbox {
+		padding: 6px 0 6px 0;
+		// max-height: 70px;
 	}
 
 	.task-checkbox-pencil {
@@ -930,12 +961,18 @@ export default {
 		max-height: 20px;
 		max-width: 20px;
 		// position: relative;
+		// top: 0;
 		// z-index: 999;
 	}
 
 	.task-checkbox-button:hover {
 		transform: scale(1.15);
 		//  box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.3);
+	}
+
+	.task-checkbox-button {
+		position: relative;
+		top: 6px;
 	}
 
 
