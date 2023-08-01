@@ -130,4 +130,5 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #253861;
-}</style>
+}
+</style>

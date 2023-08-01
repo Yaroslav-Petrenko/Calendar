@@ -329,7 +329,7 @@ export default {
 //     pointer-events: none;
 // }
 
-.v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark .v-field__outline::before {
+.note .v-field.v-field--active.v-field--dirty.v-field--no-label.v-field--variant-underlined.v-theme--dark .v-field__outline::before {
 	// border-style: solid;
 	border-width: 0 0 1px;
 	opacity: 1;
