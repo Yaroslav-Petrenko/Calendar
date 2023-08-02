@@ -5,8 +5,8 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputFolder = 'viking-icons';
-const outputFolder = 'viking-icons-54px';
+const inputFolder = 'question-mark-512px';
+const outputFolder = 'question-mark-64px';
 // const inputFolder = 'edit-icons';
 // const outputFolder = 'edit-icons-48px';
 
@@ -41,7 +41,7 @@ for (const file of files) {
 	const data = await sharp(file)
 		.webp({ lossless: true, effort: 6 })
 		// .webp({ quality: 100, effort: 6 })
-		.resize(54, 54)
+		.resize(64, 64)
 		.toFile(outputPath);
 	counter++
 }

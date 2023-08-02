@@ -160,6 +160,15 @@ export default {
 		}
 
 
+		// const testFunc = (isActive) => {
+		// 	console.log('isActive', isActive.value)
+		// 	isActive.value = false
+		// 	setTimeout(() => {
+		// 		console.log('isActive', isActive.value)
+		// 		isActive.value = false
+		// 	}, 0)
+		// }
+
 		// const getDotColor = computed(() => {
 		// 	const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
 		// 	reverse()
@@ -192,7 +201,8 @@ export default {
 			setDone,
 			getDotColor,
 			toArchive,
-			deleteGoal
+			deleteGoal,
+			// testFunc
 
 		}
 	}

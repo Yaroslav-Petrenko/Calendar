@@ -2,7 +2,6 @@
 	<v-sheet
 		width="420"
 		class="mx-auto modal-icon-block"
-		@keydown.enter="editGoal()"
 	>
 
 		<v-form ref="form">
@@ -13,7 +12,6 @@
 					v-model="textFieldsValue[i]"
 					:label="i == 0 ? 'Главная цель' : 'Этап достижения'"
 					@input.once="i === textFieldsValue.length - 1 ? addField() : null"
-					@keydown.enter="editGoal()"
 				></v-text-field>
 
 			</transition-group>
@@ -68,7 +66,7 @@
 						block
 						@click="editGoal()"
 					>
-						Сохранить (Enter)
+						Сохранить
 					</v-btn>
 				</transition>
 
@@ -85,6 +83,7 @@
 			</div>
 			<!-- textFieldsValue {{ textFieldsValue }} -->
 			<!-- cardId {{ cardId }} -->
+			<!-- isActive {{ isActive }} -->
 		</v-form>
 	</v-sheet>
 </template>
@@ -131,19 +130,22 @@ export default {
 			arrayIsEmpty.value = !textFieldsValue.some(item => item)
 			// console.log('arrayIsEmpty.value', arrayIsEmpty.value)
 		})
+
 		const editGoal = () => {
-			
-			console.log('вызвано')
+
+			// console.log('вызвано')
+			// console.log('form', form)
 			// arrayIsEmpty = !textFieldsValue.some(item => item)
 			// console.log('arrayIsEmpty', arrayIsEmpty)
 
 			if (arrayIsEmpty.value) {
-				console.log('первый if')
+				// console.log('первый if')
 				store.dispatch('goals/deleteGoal', cardId.value)
 				// closeModal()
 			}
 			else {
-				console.log('второй if')
+				// closeModal()
+				// console.log('второй if')
 				store.dispatch('goals/editGoalTasks', { 'arr': textFieldsValue, 'cardId': cardId.value })
 				closeModal()
 			}
@@ -153,6 +155,7 @@ export default {
 		}
 
 		const closeModal = () => {
+			// console.log('вызывается closeModal')
 			emit('closeModal')
 		}
 
@@ -162,7 +165,7 @@ export default {
 			form.value.reset()
 		}
 		const addField = () => {
-			console.log('here')
+			// console.log('here')
 			textFieldsValue.push('')
 		}
 

@@ -315,7 +315,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Задачи')
+		const tab = ref('Цели')
 
 		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
 		watch(tab, () => taskToggle.value = 'all')
