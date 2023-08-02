@@ -113,6 +113,23 @@
 							</div>
 						</transition>
 					</div>
+					<div
+						v-if="tab === 'Заметки'"
+						class="tooltip animate__animated animate__jello"
+					>
+						<v-tooltip
+							text="Подсказка: для редактирования заметки нажмите на её иконку"
+							location="top"
+						>
+							<template v-slot:activator="{ props }">
+								<img
+									v-bind="props"
+									src="/src/icons/question-mark-48px/16.webp"
+									alt=""
+								/>
+							</template>
+						</v-tooltip>
+					</div>
 				</div>
 
 				<!-- <div
@@ -147,6 +164,7 @@
 					v-else
 					height="78"
 				></v-card>
+
 			</div>
 			<!-- isActive {{ isActive }} -->
 			<!-- <v-data-table
@@ -315,7 +333,7 @@ export default {
 		const store = useStore()
 
 		const test = store.getters['notes/test']
-		const tab = ref('Цели')
+		const tab = ref('Задачи')
 
 		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
 		watch(tab, () => taskToggle.value = 'all')
@@ -460,6 +478,14 @@ export default {
 	/* left: -300px; */
 }
 
+.tooltip {
+	height: 42px;
+	width: 42px;
+	margin: 0 0 0 23px;
+	animation-iteration-count: 3;
+}
+
+
 /* * {
 	font-family: 'Montserrat', sans-serif;
 } */
@@ -509,5 +535,4 @@ export default {
 /* ниже рабоатет для выделенного таба */
 /* .v-tab--selected {
 		font-weight: 700;
-	} */
-</style>
+	} */</style>
