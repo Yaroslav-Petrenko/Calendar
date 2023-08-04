@@ -20,9 +20,21 @@
 					<!-- <v-btn icon>
 						<v-icon>mdi-magnify</v-icon>
 					</v-btn> -->
-					<v-btn icon>
-						<v-icon>mdi-dots-vertical</v-icon>
-					</v-btn>
+					<v-tooltip
+						:text="tooltipText"
+						location="bottom"
+						max-width="430"
+					>
+						<template v-slot:activator="{ props }">
+							<v-btn
+								v-bind="props"
+								variant="flat"
+								color="deep-purple-darken-2"
+							>
+								reset app
+							</v-btn>
+						</template>
+					</v-tooltip>
 					<template
 						late
 						v-slot:extension
@@ -179,10 +191,19 @@
 
 				<v-window-item value="Задачи">
 					<v-row>
+						<transition enter-active-class="bounce-enter-active">
+							<v-col
+								cols="12"
+								md="12"
+								class="tasks-empty d-flex justify-center"
+								v-if="filteredTasks({ taskToggle }).length === 0"
+							>В архиве задач нет...</v-col>
+						</transition>
 						<transition-group
 							name="tasks-fade"
 							appear
 						>
+
 							<Tasks
 								v-for="item in filteredTasks({ taskToggle })"
 								:key="item.id"
@@ -394,6 +415,8 @@ export default {
 			}
 		})
 
+		const tooltipText = `Так как в приложении реализован LocalStorage любые изменения сохраняются. Эта клавиша сбросит приложение в начальное состояние`
+
 		// onMounted(() => {
 		// console.log('filteredTasks({ taskToggle })',
 		// 	filteredTasks({ taskToggle: taskToggle.value }))
@@ -420,13 +443,14 @@ export default {
 			// cards,
 			setModalButtonText,
 			taskToggle,
-			getTaskSectionColor
+			getTaskSectionColor,
+			tooltipText
 		}
 	}
 }
 </script>
 
-<style>
+<style lang="scss">
 /* // анимация для note */
 .bounce-enter-active {
 	animation: bounce-in 0.3s;
@@ -482,7 +506,20 @@ export default {
 	height: 42px;
 	width: 42px;
 	margin: 0 0 0 23px;
-	animation-iteration-count: 3;
+	animation-iteration-count: 5;
+}
+
+.tasks-empty {
+	// position: absolute;
+	// width: 100%;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	font-size: 38px;
+	color: #455A64;
+	// color: #546E7A;
+	// color: #37474F;
+	// color: #263238;
 }
 
 
@@ -533,6 +570,16 @@ export default {
 	font-size: 40px;
 } */
 /* ниже рабоатет для выделенного таба */
-/* .v-tab--selected {
-		font-weight: 700;
-	} */</style>
+.v-tab--selected {
+	// font-weight: 700;
+}
+
+//  стили для линии подчеркивая выбранного раздела
+.v-tab--selected .v-tab__slider {
+	// background: #42A5F5;
+	// background: #1E88E5;
+	// background: #1976D2;
+	// background: #7C4DFF;
+	// background: #0277BD;
+}
+</style>

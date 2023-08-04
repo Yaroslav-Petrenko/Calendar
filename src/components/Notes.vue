@@ -295,7 +295,7 @@ export default {
 		padding: 0;
 		flex-wrap: nowrap;
 		// ниже важное свойство которое значительно влияет на внешний вид textarea
-		// min-height: 25px;
+		// min-height: 44px;
 		// height: auto;
 		// height: 100%;
 		// height: 226px;
@@ -311,6 +311,7 @@ export default {
 		mask-image: none;
 		-webkit-mask-image: none;
 		// min-height: 59px;
+		// min-height: 25px;
 	}
 }
 

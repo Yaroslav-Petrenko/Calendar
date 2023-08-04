@@ -99,7 +99,7 @@
 								rows="1"
 								auto-grow
 								density="compact"
-								class="ml-7 editing-text-field "
+								class="ml-7 editing-text-field pr-2 flex-grow-1"
 								variant="underlined"
 								hide-details="true"
 								color="blue-darken-1"
@@ -108,7 +108,7 @@
 								v-else
 								:model-value="item.done"
 								@change="setCheckbox(cardId, item.id, taskToggle)"
-								class="task-checkbox pr-1 flex-grow-1"
+								class="task-checkbox pr-2 flex-grow-1"
 								hide-details="true"
 								density="compact"
 								color="info"
