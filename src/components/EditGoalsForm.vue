@@ -3,7 +3,6 @@
 		width="420"
 		class="mx-auto modal-icon-block"
 	>
-
 		<v-form ref="form">
 			<transition-group name="flip-list">
 				<v-text-field
