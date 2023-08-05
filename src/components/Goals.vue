@@ -4,7 +4,7 @@
 		color="#1D1D24"
 		elevation="0"
 	>
-		<div class="time-line__block flex-grow-1">
+		<div class="flex-grow-1">
 			<v-timeline
 				density="compact"
 				side="end"
@@ -14,17 +14,16 @@
 					<v-timeline-item
 						v-for="event in tasks"
 						:key="event.id"
-						class="mb-4 time-line-item"
+						class="mb-4 time-line__item"
 						:dot-color="getDotColor(event.done, allDone)"
 						:size="event.size"
 						:fill-dot="false"
 						:rounded="5"
 						@click="setDone(cardId, event.id)"
 					>
-						<div class="d-flex justify-space-between flex-grow-1 ">
+						<div class="d-flex justify-space-between flex-grow-1">
 							<div class="flex-grow-1">
 								{{ event.text }}
-								<!-- {{ getDotColor(event.done, allDone) }} -->
 							</div>
 							<transition
 								name="bounce"
@@ -32,14 +31,12 @@
 							>
 								<div
 									v-if="event.time"
-									class="goals-time"
+									class="time-line__goals-time"
 								>
 									{{ event.time }}
 								</div>
 							</transition>
 						</div>
-						<!-- <template v-slot:append> -->
-						<!-- </template> -->
 					</v-timeline-item>
 				</transition-group>
 			</v-timeline>
@@ -47,20 +44,13 @@
 		<transition name="goals-bounce">
 			<div
 				v-if="allDone"
-				class="all-done"
+				class="time-line__all-done"
 			>ВЫПОЛНЕНО</div>
 		</transition>
 		<v-card-actions class="pt-0 d-flex justify-space-between">
-			<!-- <v-btn
-				variant="flat"
-				color="blue-grey-darken-3"
-				size="small"
-			>редактировать</v-btn> -->
-
-
 			<Modal buttonText="Редактирование цели">
 				<template v-slot:modal-content="{ isActive }">
-					<EditGoalsForm
+					<GoalsEditForm
 						@closeModal="isActive.value = false"
 						:tasks="tasks"
 						:cardId="cardId"
@@ -75,7 +65,6 @@
 					>редактировать</v-btn>
 				</template>
 			</Modal>
-
 			<div>
 				<v-btn
 					v-if="!archive"
@@ -91,7 +80,6 @@
 					size="small"
 					@click="toArchive(cardId)"
 				>вернуть из архива</v-btn>
-				
 				<v-btn
 					variant="plain"
 					color="blue-grey-lighten-2"
@@ -104,14 +92,14 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted, toRef, watch } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import Modal from './Modal.vue'
-import EditGoalsForm from './EditGoalsForm.vue'
+import GoalsEditForm from './GoalsEditForm.vue'
 export default {
 	components: {
 		Modal,
-		EditGoalsForm
+		GoalsEditForm
 	},
 	props: {
 		tasks: {
@@ -132,8 +120,8 @@ export default {
 		},
 	},
 	setup() {
-				console.log('Смонтировался goals')
 		const store = useStore()
+
 		const events = reactive([])
 		const input = ref(null)
 		const nonce = ref(0)
@@ -142,16 +130,9 @@ export default {
 			return events.slice().reverse()
 		})
 
-		const goals = computed(() => store.getters['goals/goals'])
-
 		const setDone = (cardId, taskId) => {
 			store.dispatch('goals/setDone', { cardId, taskId })
-			// console.log('cardId', cardId)
-			// console.log('taskId', taskId)
-
-			// input.value = null
 		}
-
 		const toArchive = (id) => {
 			store.dispatch('goals/sendToArchive', id)
 		}
@@ -159,39 +140,11 @@ export default {
 			store.dispatch('goals/deleteGoal', cardId)
 		}
 
-
-		// const testFunc = (isActive) => {
-		// 	console.log('isActive', isActive.value)
-		// 	isActive.value = false
-		// 	setTimeout(() => {
-		// 		console.log('isActive', isActive.value)
-		// 		isActive.value = false
-		// 	}, 0)
-		// }
-
-		// const getDotColor = computed(() => {
-		// 	const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
-		// 	reverse()
-		// 	// console.log('colorPalette', colorPalete)
-		// 	return item
-		// })
 		const getDotColor = (eventDone, allDone) => {
-			// console.log('Вызов')
-			// console.log('eventDone', eventDone)
-			// console.log('allDone', allDone)
 			if (allDone) return 'green-darken-2'
 			if (eventDone) return '#1867C0'
 			else return 'grey-darken-2'
-			// const item = colorPalete[Math.floor(Math.random() * colorPalete.length)]
-			// reverse()
-			// console.log('colorPalette', colorPalete)
-			// return item
 		}
-
-
-
-		// const reverse = () => colorPalete = colorPalete.pop()
-
 
 		return {
 			timeline,
@@ -202,8 +155,6 @@ export default {
 			getDotColor,
 			toArchive,
 			deleteGoal,
-			// testFunc
-
 		}
 	}
 }
@@ -215,68 +166,35 @@ export default {
 	margin-left: 0;
 	position: relative;
 	min-width: 600px;
-	// z-index: 999;
-	// overflow: visible;
 
-	/* height: 100%; */
-	&__block {
-		// height: 100%;
-		// font-size: 35px;
-		// z-index: 999;
-		// overflow: visible;
+	// .time-line__goals-time
+	&__goals-time {
+		color: #1867C0;
+		font-weight: 500;
 	}
-}
 
-// .time-line__block {
-// 	z-index: 999;
-// 	overflow: visible;
-// }
+	// .time-line__item
+	&__item {
+		cursor: pointer;
+		user-select: none;
+	}
 
-
-.goals-time {
-	color: #1867C0;
-	font-weight: 500;
-	/* height: 100px; */
-	/* min-width: 120px; */
-
-	/* font-size: 18px; */
-
+	// .time-line__all-done
+	&__all-done {
+		content: 'выполнено';
+		position: absolute;
+		color: rgb(56, 142, 60, 0.60);
+		font-size: 45px;
+		top: 50%;
+		transform: translate(20%, -92%);
+		letter-spacing: 15px;
+		text-transform: uppercase;
+		z-index: -1;
+	}
 }
 
 .v-timeline-item__body {
 	width: 100%;
-}
-
-.time-line-item {
-	cursor: pointer;
-	user-select: none;
-
-	/* transition: all 0.5s linear; */
-	/* &::after {
-		content: 'выполнено';
-		position: absolute;
-		color: rgb(56, 142, 60, 0.50);
-		font-size: 45px;
-		top: 50%;
-		right: 50%;
-		transform: translate(50%, -50%);
-		letter-spacing: 15px;
-		text-transform: uppercase;
-		z-index: 0;
-	} */
-}
-
-.all-done {
-	content: 'выполнено';
-	position: absolute;
-	color: rgb(56, 142, 60, 0.60);
-	font-size: 45px;
-	top: 50%;
-	/* right: 50%; */
-	transform: translate(20%, -92%);
-	letter-spacing: 15px;
-	text-transform: uppercase;
-	z-index: -1;
 }
 
 /* // анимация для .all-done */
@@ -303,16 +221,27 @@ export default {
 }
 
 
+// .time-line__goals-time {
+// 	color: #1867C0;
+// 	font-weight: 500;
+// }
 
 
+// .time-line__item {
+// 	cursor: pointer;
+// 	user-select: none;
+// }
 
-.time-line-item:hover .time-line-btn-done {
-	/* visibility: visible; */
-}
-
-.time-line-btn-done {
-	/* visibility: hidden; */
-}
-
-.time-line-btn-done {}
+// .time-line__all-done {
+// 	content: 'выполнено';
+// 	position: absolute;
+// 	color: rgb(56, 142, 60, 0.60);
+// 	font-size: 45px;
+// 	top: 50%;
+// 	/* right: 50%; */
+// 	transform: translate(20%, -92%);
+// 	letter-spacing: 15px;
+// 	text-transform: uppercase;
+// 	z-index: -1;
+// }
 </style>

@@ -5,10 +5,10 @@
 		width="265px"
 		elevation="0"
 	>
-		<span class="filter-title">Показать</span>
+		<span class="filter__title">Показать</span>
 		<v-select
 			v-model="select"
-			class="sort-select"
+			class="filter__select"
 			:items="items"
 			item-title="title"
 			item-value="value"
@@ -21,12 +21,10 @@
 			@update:modelValue="emitFilter()"
 		></v-select>
 	</v-card>
-	<!-- select {{ select }} -->
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue'
-// import { fileURLToPath, URL } from 'node:url'
+import { ref } from 'vue'
 
 
 export default {
@@ -73,17 +71,37 @@ export default {
 </script>
 
 <style lang="scss">
-.sort-select {
-	margin-left: 10px;
-}
+// .filter__select {
+// 	margin-left: 10px;
+// }
 
-.filter.v-card {
-	padding: 15px 0px 15px 15px;
-}
-.filter-title {
-	font-size: 14px;
-	// font-weight: 500;
-	letter-spacing: 0.0892857143em;
-	text-transform: uppercase;
+// .filter.v-card {
+// 	padding: 15px 0px 15px 15px;
+// }
+
+// .filter__title {
+// 	font-size: 14px;
+// 	letter-spacing: 0.0892857143em;
+// 	text-transform: uppercase;
+// }
+
+.filter {
+
+	// .filter__title
+	&__title {
+		font-size: 14px;
+		letter-spacing: 0.0892857143em;
+		text-transform: uppercase;
+	}
+
+	// .filter__select
+	&__select {
+		margin-left: 10px;
+	}
+
+	// .filter.v-card
+	&.v-card {
+		padding: 15px 0px 15px 15px;
+	}
 }
 </style>

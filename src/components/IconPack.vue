@@ -1,37 +1,32 @@
 <template>
 	<transition name="cbxFade">
 		<div
-			key="icon-pack"
 			class="icon-pack"
+			key="icon-pack"
 		>
-			<!-- <transition name="cbxFade"> -->
 			<v-checkbox
-				key="checkbox"
 				v-model="cbxRandonIcon"
+				key="checkbox"
 				label="Случайная иконка"
 				density="compact"
 				color="info"
 			></v-checkbox>
-			<!-- </transition> -->
 			<transition name="fadeIcon">
-				<div
-					v-show="!cbxRandonIcon"
-					class="icon-block"
-				>
-					<div class="icon-pack-title">Выберите иконку для заметки</div>
+				<div v-show="!cbxRandonIcon">
+					<div class="icon-pack__title">Выберите иконку для заметки</div>
 					<v-btn-toggle
-						class="button-togle"
 						v-model="iconToggle"
-						selected-class="select-item"
+						class="icon-pack__button-togle"
+						selected-class="icon-pack__selected-item"
 					>
 						<div class="pt-0 d-flex flex-wrap justify-center">
 							<div
 								v-for="icon in iconsName"
 								:key="icon"
-								class="icon-pack-body"
+								class="icon-pack__body"
 							>
 								<v-btn
-									class="icon-button"
+									class="icon-pack__button"
 									stacked
 									variant="text"
 									:value="icon"
@@ -39,7 +34,7 @@
 								>
 									<img
 										:src="getImageUrl(icon)"
-										class="icon-pack-img"
+										class="icon-pack__img"
 										alt="Icon"
 									>
 								</v-btn>
@@ -53,9 +48,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-// import { fileURLToPath, URL } from 'node:url'
-
+import { ref } from 'vue'
 
 export default {
 	setup(_, { emit }) {
@@ -64,12 +57,9 @@ export default {
 		function getImageUrl(name) {
 			return new URL(`/src/icons/viking-icons-54px/${name}.webp`, import.meta.url).href
 		}
-		// function getRandomIco() {
 		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
 		emit('selectedIcon', rndIcon)
-		// const path = new URL(`/src/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-		// return path
-		// }
+
 		const cbxRandonIcon = ref(false)
 
 		// это тоже работает
@@ -80,46 +70,6 @@ export default {
 		const emitSelectedIcon = (id) => {
 			emit('selectedIcon', id)
 		}
-
-
-
-
-		/* // const num = '51'
-		// const num2 = new URL('1', import.meta.url)
-		// const module2 = await import(`@/icons/viking-icons-48px/${num}.webp`)
-
-		// const path = new URL(`@/icons/viking-icons-48px/1.webp`, import.meta.url).href
-		// const path = new URL(`@/icons/viking-icons-48px/${num}.webp`, import.meta.url).href
-		// const path2 = '@/icons/viking-icons-48px/1.webp'
-
-		// const getIcons = () => {
-		// 	const rndIcon = icons[Math.floor(Math.random() * icons.length)]
-		// 	const path = new URL(`@/icons/viking-icons-48px/${rndIcon}.webp`, import.meta.url).href
-		// 	return path
-		// }
-
-		// function getImageUrl(name) {
-		// 	return new URL(`./dir/${name}.png`, import.meta.url).href
-		// }
-
-		// function getImageUrl2(name) {
-		// 	return await import(`./icons/viking-icons-48px/${name}.webp`)
-		// }
-
-		// async function getImageUrl3(name) {
-		// 	const image = await import(`@/icons/viking-icons-48px/${name}.webp`);
-		// 	return image;
-		// }
-		// const imageUrl = new URL(`@/icons/viking-icons-48px/${num}.webp`, import.meta.url).href
-
-		// const imageUrl = new URL('@/icons/viking-icons-48px/' + num + '.webp', import.meta.url).href
-
-
-		// ошибок нет но изображения битые
-		// const getImageUrl4 = (name) => {
-		// 	const image = import(`@/icons/viking-icons-48px/${name}.webp`);
-		// 	return image.then((module) => module.default); */
-		// };
 
 		return {
 			iconsName,
@@ -134,36 +84,78 @@ export default {
 
 <style lang="scss">
 .icon-pack {
-	// padding-right: 20px;
 	overflow: hidden;
+
+	// .icon-pack__body 
+	&__body {
+		border-radius: 3px;
+	}
+
+	// .icon-pack__title
+	&__title {
+		margin-bottom: 15px;
+	}
+
+	// .icon-pack__selected-item
+	&__selected-item {
+		color: #FAFAFA;
+		--v-activated-opacity: 0.2;
+		// border: 1px solid black;
+	}
+
+	// .icon-pack__button.v-btn
+	&__button.v-btn {
+		min-height: 48px;
+		min-width: 48px;
+		height: 60px;
+		padding: 6px;
+	}
+
+	// .icon-pack__img
+	&__img {
+		height: 48px;
+		width: 48px;
+	}
+
+	// .icon-pack__button-togle.v-btn-group
+	&__button-togle.v-btn-group {
+		height: 100%;
+	}
 }
 
-.icon-pack-body {
-	// padding: 5px;
-	border-radius: 3px;
-}
+// .icon-pack__button-togle.v-btn-group {
+// 	height: 100%;
+// }
 
-.icon-pack-title {
-	margin-bottom: 15px;
-}
 
-.v-btn-group.button-togle {
-	// height: 420px;
-	height: 100%;
-}
+// .icon-pack__body {
+// 	border-radius: 3px;
+// }
 
-.v-btn.icon-button {
-	min-height: 48px;
-	min-width: 48px;
-	height: 60px;
-	padding: 6px;
-}
+// .icon-pack__title {
+// 	margin-bottom: 15px;
+// }
 
-.select-item {
-	color: #FAFAFA;
-	--v-activated-opacity: 0.2;
-}
+// .icon-pack__button.v-btn {
+// 	min-height: 48px;
+// 	min-width: 48px;
+// 	height: 60px;
+// 	padding: 6px;
+// }
 
+// .icon-pack__selected-item {
+// 	color: #FAFAFA;
+// 	--v-activated-opacity: 0.2;
+// 	// border: 1px solid black;
+// }
+
+// .icon-pack__img {
+// 	height: 48px;
+// 	width: 48px;
+// }
+
+
+//------------------------------АНИМАЦИИ----------------------------------------
 // анимация для checkbox
 .cbxFade-enter-active {
 	animation: cbxFadeIn 0.5s linear;
@@ -173,24 +165,15 @@ export default {
 	animation: cbxFadeIn 0.5s linear reverse;
 }
 
-.icon-pack-img {
-	height: 48px;
-	width: 48px;
-}
-
-
 @keyframes cbxFadeIn {
 	from {
-		// overflow: hidden;
 		max-height: 0px;
 	}
 
 	to {
-		// overflow: hidden;
 		max-height: 420px;
 	}
 }
-
 
 // анимация для блока icon
 .fadeIcon-enter-active {
@@ -201,56 +184,13 @@ export default {
 	animation: iconFadeIn 0.5s linear reverse;
 }
 
-
 @keyframes iconFadeIn {
 	from {
-		// overflow: hidden;
 		max-height: 0px;
 	}
 
 	to {
-		// overflow: hidden;
 		max-height: 420px;
 	}
 }
-
-// //////////////////////////////////////////////////////////////////
-// .cbxFade2-enter-active {
-// 	animation: cbxFadeIn2 0.2s linear;
-// }
-
-// .cbxFade2-leave-active {
-// 	animation: cbxFadeIn2 0.2s linear reverse;
-// }
-
-
-// @keyframes cbxFadeIn2 {
-// 	from {
-// 		// overflow: hidden;
-// 		max-height: 0px;
-// 	}
-
-// 	to {
-// 		// overflow: hidden;
-// 		max-height: 62px;
-// 	}
-// }
-
-// .bounce-enter-active {
-//   animation: bounce-in 0.5s;
-// }
-// .bounce-leave-active {
-//   animation: bounce-in 0.5s reverse;
-// }
-// @keyframes bounce-in {
-//   0% {
-//     transform: scale(0);
-//   }
-//   50% {
-//     transform: scale(1.25);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
 </style>
