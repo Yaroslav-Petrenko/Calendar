@@ -89,16 +89,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-// .modal-icon {
-// 	position: absolute;
-// 	width: 64px;
-// 	height: 64px;
-// 	top: 80px;
-// 	right: 4px;
-// }
-
-// .v-col.achievement-col {
-// 	padding: 0 0 15px 0;
-// }
-</style>
+<style lang="scss"></style>

@@ -107,43 +107,16 @@ export default {
 
 		const notesType = toRef(props, 'notesType')
 		const noteText = toRef(props, 'noteText')
-		// const noteId = toRef(props, 'noteId')
-		// console.log('notesType', notesType.value)
 		const getNoteColor = computed(() => {
-			// console.log('notesType', notesType.value)
 			switch (notesType.value) {
-				// case 'text': return '#27272f'
-				// case 'text': return 'grey-darken-3'
-				// case 'text': return 'blue-grey-darken-3'
 				case 'text': return 'blue-grey-darken-4'
-				// case 'idea': return 'brown-darken-4'
-				// case 'idea': return 'brown-darken-4'
 				case 'ideas': return '#46302F'
-				// case 'achievement': return '#45412B'
-				// case 'achievement': return '#324F33'
-				// case 'achievement': return '#36472F'
-				// case 'achievement': return '#1A381B'
-				// case 'achievement': return '#1A341B'
-				// case 'achievement': return '#1A321B'
 				case 'achievements': return '#1A321B'
 			}
 		})
-		// const vCard = ref(null)
-		// onMounted(() => {
-		// 	note.value.style.border = `8px solid ${getRandomColor}`
-		// })
-
-		// const colorPalete = ['purple', 'green', 'blue', 'orange', 'grey']
-		// const getRandomColor = computed(() => {
-		// 	return colorPalete[Math.floor(Math.random() * colorPalete.length)]
-		// })
-		// console.log('props:', props);
-		// console.log('props.subTitle', props.subTitle);
 		const getRandomIco = computed(() => {
 			const randomNumber = Math.floor(Math.random() * 10 + 1)
 			const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
-			// console.log(res)
-			// return `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
 			return "09.webp";
 		})
 
@@ -177,12 +150,8 @@ export default {
 			deleteNote,
 			editingNote,
 			editingField,
-
 		}
-
 	}
-
-
 }
 </script>
 
@@ -234,7 +203,7 @@ export default {
 		position: relative;
 		align-items: flex-start;
 		display: grid;
-		max-height: 50% !important;
+		// max-height: 50% !important;
 	}
 
 	.v-field__field .v-field__input {

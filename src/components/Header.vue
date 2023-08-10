@@ -64,7 +64,6 @@
 			elevation="0"
 		>
 			<div class="d-flex justify-space-between">
-				<!-- TODO:ЧТОБЫ 2 РАЗА НЕ ПИСАТЬ tab === 'Заметки' МОЖНО ОБЕРНУТЬ В TEMPLATE -->
 				<div class="d-flex align-center">
 					<div v-if="tab != 'Заметки'">
 						<v-btn-toggle
@@ -131,13 +130,12 @@
 					v-if="tab === 'Заметки'"
 					@select="setSelect($event)"
 				/>
-				<!-- TODO:ПРОСТО БЛОК-ЗАГЛУШКА ЧТОБЫ КАРТОЧКИ НЕ ПРЫГАЛИ -->
 				<v-card
 					v-else
 					height="78"
 				></v-card>
 			</div>
-			
+
 			<v-window v-model="tab">
 				<v-window-item value="Задачи">
 					<v-row>
@@ -232,7 +230,6 @@ export default {
 	setup() {
 		const store = useStore()
 
-		const test = store.getters['notes/test']
 		const tab = ref('Задачи')
 		const taskToggle = ref('all')
 
@@ -248,7 +245,7 @@ export default {
 			'Цели. Текст для Целей'
 		]
 
-		const tooltipNoteText = 'Подсказка: для редактирования заметки нажмите на её иконку'
+		const tooltipNoteText = 'Для редактирования заметки нажмите на её иконку'
 		const tooltipResetText = `Так как в приложении реализован LocalStorage любые изменения сохраняются. Эта клавиша сбросит приложение в начальное состояние`
 
 		const search = ref('')
@@ -284,7 +281,6 @@ export default {
 			items,
 			text,
 			tab,
-			test,
 			filteredNotes,
 			filteredTasks,
 			filteredGoals,
@@ -329,39 +325,6 @@ export default {
 		font-size: 38px;
 		color: #455A64;
 	}
-}
-
-// .main__title {
-// 	font-family: 'Courgette', cursive;
-// 	font-size: 38px;
-// 	padding-top: 12px;
-// }
-
-// .main__tooltip {
-// 	height: 42px;
-// 	width: 42px;
-// 	margin: 0 0 0 23px;
-// 	animation-iteration-count: 5;
-// }
-
-// .main__tasks-empty {
-// 	font-size: 38px;
-// 	color: #455A64;
-// }
-
-
-/* для выделенного таба */
-.v-tab--selected {
-	// font-weight: 700;
-}
-
-//  стили для линии подчеркивая выбранного раздела
-.v-tab--selected .v-tab__slider {
-	// background: #42A5F5;
-	// background: #1E88E5;
-	// background: #1976D2;
-	// background: #7C4DFF;
-	// background: #0277BD;
 }
 
 //------------------------------АНИМАЦИИ----------------------------------------

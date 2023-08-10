@@ -1,9 +1,6 @@
 <template>
 	<transition name="cbxFade">
-		<div
-			class="icon-pack"
-			key="icon-pack"
-		>
+		<div class="icon-pack">
 			<v-checkbox
 				v-model="cbxRandonIcon"
 				key="checkbox"
@@ -19,7 +16,7 @@
 						class="icon-pack__button-togle"
 						selected-class="icon-pack__selected-item"
 					>
-						<div class="pt-0 d-flex flex-wrap justify-center">
+						<div class="pt-1 d-flex flex-wrap justify-center">
 							<div
 								v-for="icon in iconsName"
 								:key="icon"
@@ -53,20 +50,17 @@ import { ref } from 'vue'
 export default {
 	setup(_, { emit }) {
 		const iconsName = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49']
-		// это взято из офф документации
+
+		const cbxRandonIcon = ref(false)
+		const iconToggle = ref('1')
+
+		// взято из офф документации
 		function getImageUrl(name) {
 			return new URL(`/src/icons/viking-icons-54px/${name}.webp`, import.meta.url).href
 		}
 		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
 		emit('selectedIcon', rndIcon)
 
-		const cbxRandonIcon = ref(false)
-
-		// это тоже работает
-		// function getImageUrl(name) {
-		// 	return `/src/icons/viking-icons-48px/${name}.webp`
-		// }
-		const iconToggle = ref('none')
 		const emitSelectedIcon = (id) => {
 			emit('selectedIcon', id)
 		}
@@ -83,24 +77,63 @@ export default {
 </script>
 
 <style lang="scss">
+// анимация border для выбранной иконки 
+@property --border-angle {
+	syntax: "<angle>";
+	inherits: true;
+	initial-value: 0turn;
+}
+
 .icon-pack {
 	overflow: hidden;
 
 	// .icon-pack__body 
 	&__body {
-		border-radius: 3px;
+		// border-radius: 3px;
 	}
 
 	// .icon-pack__title
 	&__title {
-		margin-bottom: 15px;
+		margin-bottom: 11px;
 	}
 
 	// .icon-pack__selected-item
 	&__selected-item {
-		color: #FAFAFA;
-		--v-activated-opacity: 0.2;
-		// border: 1px solid black;
+		// color: #FAFAFA;
+		// border-radius: 13px;
+		// --v-activated-opacity: 0.15;
+		// // border: 1px solid black;
+		// border: 3px dotted transparent;
+		// /* Устанавливаем ширину границы и делаем её прозрачной */
+		// border-image: linear-gradient(to right, #9B8BFD, #00B3FE);
+		// /* Линейный градиентный border */
+		// border-image-slice: 1;
+		// // border-style: dotted;
+		// /* Устанавливаем значение для разделения изображения границы */
+
+
+		--border-size: 1px;
+		--border-angle: 0turn;
+		// width: 60vmin;
+		// height: 50vmin;
+		background-image: conic-gradient(from var(--border-angle),
+				#213,
+				#112 50%,
+				#213),
+			conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
+		background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
+			cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+
+		animation: bg-spin 3s linear infinite;
+
+		@keyframes bg-spin {
+			to {
+				--border-angle: 1turn;
+			}
+		}
+
 	}
 
 	// .icon-pack__button.v-btn

@@ -132,34 +132,10 @@ export default {
 		notesFindEl: state => id => {
 			return state.notes.id
 		},
-		// allNotes: state => state.cards,
 		filteredNotes: state => ({ search, select }) => state.notes.filter(item => {
-			// console.log("select", select)
 			if (select == 'all' && !item.archive) return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
 			if (select == 'archive') return item.archive
 			if (item.notesType == select && !item.archive && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
-			// const selecteItem = item.notesType === select
-			// if (conditions) return 
-			// console.log('Синий кит'.indexOf('ний') !== -1); // true
-			// return (item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-
-
-			// вариант оптимизации от gpt
-			// filteredNotes: state => ({ search, select }) => {
-			// 	const lowercaseSearch = search.toLowerCase();
-			// 	const filtered = state.notes.filter(item => {
-			// 		if (select === 'all') {
-			// 			return !item.archive && item.text.toLowerCase().includes(lowercaseSearch);
-			// 		}
-			// 		if (select === 'archive') {
-			// 			return item.archive;
-			// 		}
-			// 		return item.notesType === select && !item.archive && item.text.toLowerCase().includes(lowercaseSearch);
-			// 	});
-
-			// 	return filtered;
-			// }
-
 		})
 	},
 	mutations: {
@@ -175,8 +151,8 @@ export default {
 			const item = {
 				id: String(++maxId),
 				archive: false,
+				editing: false,
 				text,
-				// borderColor,
 				notesType,
 				icon: newIcon
 			}
@@ -185,13 +161,11 @@ export default {
 		changeArchive({ notes }, { noteId }) {
 			const elem = notes.find(item => item.id === noteId)
 			elem.archive = !elem.archive
-			// console.log('elem', elem)
 		},
 		removeNote({ notes }, { noteId }) {
 			notes.splice(notes.findIndex(item => item.id == noteId), 1)
 		},
 		startEditing({ notes }, { noteId, newText }) {
-			// console.log('newText', newText)
 			const note = notes.find(item => item.id === noteId)
 			if (note.editing) {
 				console.log('попал в перый if')
@@ -202,25 +176,16 @@ export default {
 				notes.forEach(item => item.editing = false)
 				note.editing = !note.editing
 			}
-			
-
-
-		
 		},
-
-
 	},
 	actions: {
 		createNote(store, obj) {
-			// console.log('obj', obj)
 			store.commit('addNote', obj)
 		},
 		toArchive(store, obj) {
-			// console.log('toArchive', id)
 			store.commit('changeArchive', obj)
 		},
 		deleteNote(store, obj) {
-			// console.log('toArchive', id)
 			store.commit('removeNote', obj)
 		},
 		editNote(store, obj) {

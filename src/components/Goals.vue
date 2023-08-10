@@ -45,7 +45,9 @@
 			<div
 				v-if="allDone"
 				class="time-line__all-done"
-			>ВЫПОЛНЕНО</div>
+			>
+				выполнено
+			</div>
 		</transition>
 		<v-card-actions class="pt-0 d-flex justify-space-between">
 			<Modal buttonText="Редактирование цели">
@@ -62,7 +64,9 @@
 						variant="flat"
 						color="blue-grey-darken-3"
 						size="small"
-					>редактировать</v-btn>
+					>
+						редактировать
+					</v-btn>
 				</template>
 			</Modal>
 			<div>
@@ -72,20 +76,26 @@
 					color="amber-accent-4"
 					size="small"
 					@click="toArchive(cardId)"
-				>в архив</v-btn>
+				>
+					в архив
+				</v-btn>
 				<v-btn
 					v-else
 					variant="plain"
 					color="amber-accent-4"
 					size="small"
 					@click="toArchive(cardId)"
-				>вернуть из архива</v-btn>
+				>
+					вернуть из архива
+				</v-btn>
 				<v-btn
 					variant="plain"
 					color="blue-grey-lighten-2"
 					size="small"
 					@click="deleteGoal(cardId)"
-				>удалить</v-btn>
+				>
+					удалить
+				</v-btn>
 			</div>
 		</v-card-actions>
 	</v-card>
@@ -219,29 +229,4 @@ export default {
 		transform: translate(20%, -92%) scale(1);
 	}
 }
-
-
-// .time-line__goals-time {
-// 	color: #1867C0;
-// 	font-weight: 500;
-// }
-
-
-// .time-line__item {
-// 	cursor: pointer;
-// 	user-select: none;
-// }
-
-// .time-line__all-done {
-// 	content: 'выполнено';
-// 	position: absolute;
-// 	color: rgb(56, 142, 60, 0.60);
-// 	font-size: 45px;
-// 	top: 50%;
-// 	/* right: 50%; */
-// 	transform: translate(20%, -92%);
-// 	letter-spacing: 15px;
-// 	text-transform: uppercase;
-// 	z-index: -1;
-// }
 </style>

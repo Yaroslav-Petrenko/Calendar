@@ -53,13 +53,9 @@ export default {
 			}
 		]
 
-		// watch(select, () => {
-		// 	emit('selectValue', select)
-		// })
 		const emitFilter = () => {
 			emit('select', select)
 		}
-
 
 		return {
 			select,
@@ -71,22 +67,7 @@ export default {
 </script>
 
 <style lang="scss">
-// .filter__select {
-// 	margin-left: 10px;
-// }
-
-// .filter.v-card {
-// 	padding: 15px 0px 15px 15px;
-// }
-
-// .filter__title {
-// 	font-size: 14px;
-// 	letter-spacing: 0.0892857143em;
-// 	text-transform: uppercase;
-// }
-
 .filter {
-
 	// .filter__title
 	&__title {
 		font-size: 14px;

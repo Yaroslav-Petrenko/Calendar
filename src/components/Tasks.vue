@@ -48,7 +48,6 @@
 					<div
 						v-if="tasks.length == 0"
 						class="d-flex justify-center task__no-task"
-						key="no-task"
 					>Задач нет...
 					</div>
 				</transition>
@@ -131,7 +130,7 @@
 						</transition>
 					</div>
 				</transition-group>
-				<div class="d-flex align-end mr-2 flex-grow-1">
+				<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">
 					<v-text-field
 						v-model="textField"
 						@keydown.enter="createTask(taskToggle)"
@@ -150,7 +149,7 @@
 					>
 					</v-btn>
 				</div>
-				<v-card-actions class="justify-space-between pl-1">
+				<v-card-actions class="justify-space-between pl-1 task__actions">
 					<v-btn
 						v-if="!allDone"
 						variant="flat"
@@ -227,6 +226,7 @@ export default {
 		const textField = ref('At imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna')
 		const errorMessages = ref('')
 		const editingField = ref('')
+		const animationFlipListEnd = ref(false)
 
 		const validateField = () => {
 			if (!textField.value) {
@@ -368,6 +368,7 @@ export default {
 .task {
 	padding: 5px 10px 10px 10px;
 	overflow: hidden;
+	position: relative;
 
 	// .task ::-webkit-scrollbar
 	& ::-webkit-scrollbar {
@@ -417,6 +418,8 @@ export default {
 		border-radius: 0 0 4px 4px;
 		padding-top: 2px;
 		overflow-x: hidden;
+		// position: relative;
+		position: static;
 
 		.v-field__input {
 			padding-top: 13px;
@@ -429,10 +432,27 @@ export default {
 		}
 	}
 
+	// .task__add-field
+	&__add-field {
+		max-width: 387.33px;
+	}
+
+	// .task__actions
+	&__actions {
+		max-width: 395.33px;
+	}
+
+
 	// .task__no-task 
 	&__no-task {
 		// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
 		position: absolute;
+		// visibility: hidden;
+		// top: 15%;
+		// right: 0%;
+		bottom: 180px;
+		right: -5px;
+		// z-index:  99999999;
 		width: 100%;
 		font-size: 38px;
 		color: #455A64;
@@ -642,15 +662,15 @@ export default {
 }
 
 
-.flip-list-enter-active {
-	animation: bounceOutRight 0.3s reverse;
-	transition: all 0.5s ease;
-}
+// .flip-list-enter-active {
+// 	animation: bounceOutRight 0.3s reverse;
+// 	transition: all 0.5s ease;
+// }
 
-.flip-list-leave-active {
-	animation: bounceOutRight 0.3s;
-	animation-fill-mode: forwards;
-}
+// .flip-list-leave-active {
+// 	animation: bounceOutRight 0.3s;
+// 	animation-fill-mode: forwards;
+// }
 
 @keyframes bounceOutRight {
 	20% {
@@ -670,23 +690,57 @@ export default {
 /* // анимация для task */
 .task-bounce-enter-active {
 	animation: bounce-in-task 0.4s;
+	animation: bounce-in-task 15s;
+	animation: bounce-in-task 0.5s;
+	// animation-fill-mode: forwards;
+	// animation-delay: 0.5s;
+	// color: red;
+	// visibility: visible;
 }
+
+// .task-bounce-enter-to {
+// 	animation-fill-mode: forwards;
+// 	color: red;
+// }
+// .task-bounce-leave-to {
+// 	animation-fill-mode: forwards;
+// 	color: red;
+// }
+// .task-bounce-leave-active {
+// 	animation-fill-mode: forwards;
+// 	color: red;
+// }
+
 
 @keyframes bounce-in-task {
 	0% {
+		// visibility: visible;
 		transform: scale(0);
 		opacity: 0;
 	}
 
 	80% {
+		// visibility: visible;
 		transform: scale(1.1);
 
 	}
 
 	100% {
+		// visibility: visible;
 		transform: scale(1);
 		opacity: 1;
 	}
+}
+
+.flip-list-enter-active {
+	animation: bounceOutRight 0.3s reverse;
+	transition: all 0.5s ease;
+}
+
+.flip-list-leave-active {
+	animation: bounceOutRight 300s;
+	animation: bounceOutRight 0.3s;
+	// animation-fill-mode: forwards;
 }
 
 
