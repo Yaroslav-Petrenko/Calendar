@@ -447,12 +447,8 @@ export default {
 	&__no-task {
 		// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
 		position: absolute;
-		// visibility: hidden;
-		// top: 15%;
-		// right: 0%;
 		bottom: 180px;
 		right: -5px;
-		// z-index:  99999999;
 		width: 100%;
 		font-size: 38px;
 		color: #455A64;
@@ -460,7 +456,7 @@ export default {
 
 	// .task__editing-text-field
 	.task__editing-text-field {
-		// своства ниже чтобы при входе в режим редактирования текст не прыгал
+		// центрирую текст при входе в режим редактирвания
 		position: relative;
 		bottom: 4px;
 	}
@@ -557,76 +553,6 @@ export default {
 	}
 }
 
-// .task__body.v-card {
-// 	overflow: auto;
-// 	border-radius: 0 0 4px 4px;
-// 	padding-top: 2px;
-// 	overflow-x: hidden;
-
-
-// 	.v-field__input {
-// 		padding-top: 13px;
-// 		padding-bottom: 0;
-// 	}
-
-// 	.v-field__outline::before {
-// 		border-color: #1E88E5;
-// 		opacity: 1;
-// 	}
-
-// 	.editing-text-field {
-// 		// своства ниже чтобы при входе в режим редактирования текст не прыгал
-// 		position: relative;
-// 		bottom: 4px;
-// 	}
-// }
-
-
-// .task__no-task {
-// 	// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
-// 	position: absolute;
-// 	width: 100%;
-// 	font-size: 38px;
-// 	color: #455A64;
-// 	// color: #546E7A;
-// 	// color: #37474F;
-// 	// color: #263238;
-// }
-
-// галочка выполнения
-// .task__header {
-// 	padding: 0 4px 0 4px;
-// 	border-radius: 4px 4px 0 0;
-
-// .task__title {
-// 	color: #fff;
-// 	line-height: 120%;
-// 	padding: 0;
-// 	font-size: 20px;
-// 	font-weight: 500;
-// 	letter-spacing: 0.0125em;
-// }
-
-// .task__icon {
-// 	position: relative;
-// 	height: 48px;
-// 	width: 48px;
-
-// 	right: -9px;
-// 	top: -2px;
-
-// 	.task__icon-circle {
-// 		position: absolute;
-// 	}
-
-// 	.task__icon-check {
-// 		position: absolute;
-// 	}
-// }
-
-// }
-
-
 @keyframes blurGrey {
 	0% {
 		z-index: 0;
@@ -662,16 +588,6 @@ export default {
 }
 
 
-// .flip-list-enter-active {
-// 	animation: bounceOutRight 0.3s reverse;
-// 	transition: all 0.5s ease;
-// }
-
-// .flip-list-leave-active {
-// 	animation: bounceOutRight 0.3s;
-// 	animation-fill-mode: forwards;
-// }
-
 @keyframes bounceOutRight {
 	20% {
 		opacity: 1;
@@ -689,58 +605,35 @@ export default {
 
 /* // анимация для task */
 .task-bounce-enter-active {
-	animation: bounce-in-task 0.4s;
-	animation: bounce-in-task 15s;
+	// animation: bounce-in-task 0.4s;
+	// animation: bounce-in-task 15s;
 	animation: bounce-in-task 0.5s;
-	// animation-fill-mode: forwards;
-	// animation-delay: 0.5s;
-	// color: red;
-	// visibility: visible;
 }
-
-// .task-bounce-enter-to {
-// 	animation-fill-mode: forwards;
-// 	color: red;
-// }
-// .task-bounce-leave-to {
-// 	animation-fill-mode: forwards;
-// 	color: red;
-// }
-// .task-bounce-leave-active {
-// 	animation-fill-mode: forwards;
-// 	color: red;
-// }
-
 
 @keyframes bounce-in-task {
 	0% {
-		// visibility: visible;
 		transform: scale(0);
 		opacity: 0;
 	}
 
 	80% {
-		// visibility: visible;
 		transform: scale(1.1);
 
 	}
 
 	100% {
-		// visibility: visible;
 		transform: scale(1);
 		opacity: 1;
 	}
 }
 
 .flip-list-enter-active {
-	animation: bounceOutRight 0.3s reverse;
 	transition: all 0.5s ease;
+	animation: bounceOutRight 0.3s reverse;
 }
 
 .flip-list-leave-active {
-	animation: bounceOutRight 300s;
 	animation: bounceOutRight 0.3s;
-	// animation-fill-mode: forwards;
 }
 
 

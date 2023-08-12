@@ -168,7 +168,7 @@ export default {
 		startEditing({ notes }, { noteId, newText }) {
 			const note = notes.find(item => item.id === noteId)
 			if (note.editing) {
-				console.log('попал в перый if')
+				// console.log('попал в перый if')
 				note.text = newText
 				note.editing = !note.editing
 			} 

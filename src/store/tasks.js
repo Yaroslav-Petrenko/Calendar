@@ -8,9 +8,9 @@ export default {
 				date: '',
 				allDone: true,
 				tasks: [
-					{ id: '0', text: 'Отправить подарок другу на день рождения', done: true, editing: false },
-					{ id: '1', text: 'Подготовиться к семейному празднику', done: true, editing: false },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '0', text: 'Закончить проект до конца недели', done: true, editing: false },
+					{ id: '1', text: 'Запланировать встречу с клиентом', done: true, editing: false },
+					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
 				],
 			},
 			{
@@ -22,8 +22,7 @@ export default {
 					{ id: '1', text: 'Подготовиться к собеседованию', done: true, editing: false },
 					{ id: '2', text: 'Посетить спортивный зал вечером', done: true, editing: false },
 					{ id: '3', text: 'Сделать список покупок', done: true, editing: false },
-					{ id: '4', text: 'Выпить пива, поностальгировать', done: true, editing: false },
-					{ id: '5', text: 'Найти новую книгу для чтения', done: false, editing: false },
+					{ id: '4', text: 'Найти новую книгу для чтения', done: false, editing: false },
 					// { id: '6', text: 'Составить список целей на следующий год', done: false, editing: false },
 					// { id: '7', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
 					// { id: '8', text: 'Зайти в магазин за продуктами', done: true, editing: false },
@@ -93,7 +92,6 @@ export default {
 			const year = currentDate.getFullYear();
 
 			const formattedDate = `${day} ${month} ${year}`;
-			// state.cards.forEach(item => item.date = formattedDate);
 		}
 	},
 	mutations: {
@@ -106,16 +104,10 @@ export default {
 				selectedCard = archiveCards.find(item => item.id === cardId)
 			}
 
-			// console.log("addTask", selectedCard)
-			// console.log("text", text)
-			// console.log("cardId", cardId)
 			const item = {
 				id: ((parseInt(selectedCard.tasks[selectedCard.tasks.length - 1]?.id) + 1) || 0).toString(),
-				// id: (parseInt(cards.tasks[cards.tasks.length - 1].id) + 1).toString(),
-				// date,
 				text,
 			}
-			// console.log('selectedCard', selectedCard)
 			selectedCard.tasks.push(item)
 			selectedCard.allDone = false
 
@@ -128,9 +120,7 @@ export default {
 			if (taskToggle === 'archive') {
 				card = state.archiveCards.find(item => item.id == cardId)
 			}
-		
-		
-			// console.log('card', card)
+
 			const elem = card.tasks.find(e => e.id == taskId)
 			elem.done = !elem.done
 			// проверяю если все таски done -> ставлю/снимаю галочку allDone
@@ -149,16 +139,10 @@ export default {
 			card.allDone = !card.allDone
 			if (card.allDone) card.tasks.forEach(item => item.done = true)
 			else card.tasks.forEach(item => item.done = false)
-			
-			// console.log('changeAllDone', cardId)
-			// console.log('card.allDone', card.allDone)
-			// console.log('card', card)
-			// card.tasks.forEach(item => item.done = true)
+
 		},
 		setDate(state, { cardId, date }) {
 			const card = state.cards.find(item => item.id == cardId)
-			// console.log('cardId', cardId)
-			// console.log('date', date)
 			card.date = date
 		},
 		deleteTask(state, { cardId, taskId, taskToggle }) {
@@ -171,13 +155,11 @@ export default {
 			}
 
 			const index = card.tasks.findIndex(task => task.id === taskId);
-			// console.log("index", index)
 			if (index !== -1) {
 				card.tasks.splice(index, 1);
 			}
-			// при удалении таска делаю проверку -> оставшиеся таски done или нет если done то ставлю статус card.allDone = true. Задержку в 500 мс поставил для более красивоого переключения стилей. Зедержку убрал - ассинхронщину нельзя в мутациях
+			// при удалении таска делаю проверку -> оставшиеся таски done или нет если done то ставлю статус card.allDone = true.
 			const checkAllDone = card.tasks.every(val => val.done === true)
-			// console.log('checkAllDone', checkAllDone)
 			if (checkAllDone) card.allDone = true
 			else card.allDone = false
 
@@ -203,19 +185,17 @@ export default {
 				const task = card.tasks.find(task => task.id === taskId);
 				task.editing = true
 			}
-	
+
 		},
 		completeEditing(state, { cardId, taskId, text, taskToggle }) {
 			let card = null
 			if (taskToggle === 'all') {
 				card = state.cards.find(item => item.id == cardId)
-				// console.log('all', card)
 			}
 			if (taskToggle === 'archive') {
 				card = state.archiveCards.find(item => item.id == cardId)
-				// console.log('archive', card)
 			}
-		
+
 			const task = card.tasks.find(task => task.id === taskId);
 			task.text = text;
 			task.editing = false;
@@ -223,10 +203,6 @@ export default {
 		sendToArchive(state, { cardId }) {
 			let maxId = 1000
 			state.archiveCards.forEach(item => maxId = Math.max(item.id, maxId))
-			// console.log('sendToArchive')
-			// console.log('cardId', cardId)
-			// const selectedCard = state.cards.find(item => item.id == cardId)
-			// selectedCard.archive = !selectedCard.archive
 
 			const selectedCard = state.cards.find(item => item.id == cardId)
 			selectedCard.allDone = true
@@ -240,7 +216,6 @@ export default {
 				tasks: []
 			})
 			const cardInArchive = state.archiveCards.find(item => item.id == maxId)
-			// console.log('cardInArchive', cardInArchive)
 			selectedCard.tasks.forEach(item => {
 				cardInArchive.tasks.push({
 					id: item.id,
@@ -248,7 +223,7 @@ export default {
 					done: item.done
 				})
 			})
-			// тут я очищаю только текст
+			// очищаю текст
 			selectedCard.tasks.forEach(item => item.text = '')
 			// ниже я удаляю всю карту
 			// state.cards.splice(state.cards.findIndex(item => item.id == cardId), 1)
@@ -259,21 +234,9 @@ export default {
 					// { id: '1', text: 'Новый таск', done: true, editing: false },
 					// { id: '2', text: 'Новый таск', done: true, editing: false },
 				]
-			// console.log('selectedCard.tasks', !!selectedCard.tasks)
-
-			// setTimeout(() => {
-			// 	selectedCard.tasks.forEach(item => item.text = '')
-			// }, 3000)
-
-			// selectedCard.tasks.forEach(item => {
-			// 	console.log('item', item)
-			// })
 		},
 		removeTaskCard(state, { cardId }) {
-			// console.log('I want to delete', cardId)
-			// const selectedCard = state.archiveCards.find(item => item.id == cardId)
 			state.archiveCards.splice(state.archiveCards.findIndex(item => item.id == cardId), 1)
-			// console.log('state.archiveCards', state.archiveCards)
 		}
 
 	},
@@ -305,7 +268,5 @@ export default {
 		changeArchive(store, obj) {
 			store.commit('sendToArchive', obj)
 		},
-
 	},
 }
-

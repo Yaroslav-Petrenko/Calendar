@@ -2,7 +2,7 @@
 	<v-col
 		cols="12"
 		md="3"
-		class="d-flex"
+		class="d-flex main-note"
 	>
 		<v-card
 			class="flex-grow-1 d-flex flex-column note"
@@ -14,7 +14,7 @@
 						<v-textarea
 							v-if="editing"
 							v-model="editingField"
-							@keydown.enter="editingNote(noteId, noteText)"
+							@keydown.enter="editingNote(noteId)"
 							color="blue-darken-1"
 							variant="underlined"
 							hide-details="true"
@@ -31,7 +31,7 @@
 						</div>
 						<div
 							class="note__icon"
-							@click="editingNote(noteId, noteText)"
+							@click="editingNote(noteId)"
 						>
 							<img
 								:src="`/src/icons/viking-icons-54px/${icon}.webp`"
@@ -116,8 +116,8 @@ export default {
 		})
 		const getRandomIco = computed(() => {
 			const randomNumber = Math.floor(Math.random() * 10 + 1)
-			const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
-			return "09.webp";
+			// const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
+			// return "09.webp";
 		})
 
 		const dispArchive = (noteId) => {
@@ -128,10 +128,11 @@ export default {
 		}
 
 		const editingField = ref(noteText.value)
-		const editingNote = (noteId, noteText) => {
+		const editingNote = (noteId) => {
 			// в момент превращения checkbox в textarea происходит баг - нижестоящая строка подпрыгивает из-за присваивания класса .tasks-fade-move 
 			// На время превращения я обнуляю transition стили этого DOM узла
-			const elems = document.querySelectorAll('.note')
+			const elems = document.querySelectorAll('.main-note')
+			console.log('elems', elems)
 			elems.forEach(item => item.style.transition = 'none')
 
 			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
@@ -141,7 +142,6 @@ export default {
 				elems.forEach(item => item.style.transition = 'all 0.5s ease')
 			}, 0)
 		}
-
 
 		return {
 			getRandomIco,
@@ -195,14 +195,13 @@ export default {
 		}
 	}
 
-
 	// переопределение служебных классов vuetify
 	.v-field__field {
 		flex: 1 0;
 		grid-area: field;
 		position: relative;
 		align-items: flex-start;
-		display: grid;
+		// display: grid;
 		// max-height: 50% !important;
 	}
 
