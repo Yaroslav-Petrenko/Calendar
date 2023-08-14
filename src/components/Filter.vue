@@ -1,6 +1,6 @@
 <template>
 	<v-card
-		class="filter d-flex align-center"
+		class="filter d-flex align-center pr-2"
 		color="#1d1d24"
 		width="265px"
 		elevation="0"

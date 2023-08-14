@@ -12,21 +12,36 @@
 				<v-toolbar color="#27272f">
 					<div class="main__title">Calendar</div>
 					<v-spacer></v-spacer>
-					<v-tooltip
-						:text="tooltipResetText"
-						location="bottom"
-						max-width="430"
+
+
+					<div class="animate__animated animate__jello d-flex align-center main__tooltip-reset">
+						<v-tooltip
+							:text="tooltipResetText"
+							location="bottom"
+							max-width="430"
+						>
+							<template v-slot:activator="{ props }">
+								<img
+									v-bind="props"
+									class="main__tooltip-reset-btn"
+									src="/src/icons/question-mark-48px/16.webp"
+									alt=""
+								/>
+							</template>
+						</v-tooltip>
+					</div>
+					<v-btn
+						variant="flat"
+						color="deep-purple-darken-2"
+						@click="resetApp()"
 					>
-						<template v-slot:activator="{ props }">
-							<v-btn
-								v-bind="props"
-								variant="flat"
-								color="deep-purple-darken-2"
-							>
-								reset app
-							</v-btn>
-						</template>
-					</v-tooltip>
+						reset app
+					</v-btn>
+
+
+
+
+
 					<template
 						late
 						v-slot:extension
@@ -34,7 +49,6 @@
 						<v-tabs
 							v-model="tab"
 							align-tabs="start"
-							selected-class=""
 						>
 							<v-tab
 								value="Задачи"
@@ -163,9 +177,29 @@
 						</transition-group>
 					</v-row>
 				</v-window-item>
-
 				<v-window-item value="Заметки">
 					<v-row class="pr-2 pb-2">
+						<transition
+							enter-active-class="bounce-enter-active"
+							mode="out-in"
+						>
+							<template v-if="search && filteredNotes({ search, select }).length === 0">
+								<v-col
+									cols="12"
+									md="12"
+									class="main__tasks-empty d-flex justify-center"
+								>Поиск не дал результатов...</v-col>
+							</template>
+							<template v-else-if="filteredNotes({ search, select }).length === 0">
+								<v-col
+									cols="12"
+									md="12"
+									class="main__tasks-empty d-flex justify-center"
+								>
+									{{ getNotesStatus }}
+								</v-col>
+							</template>
+						</transition>
 						<transition-group name="tasks-fade">
 							<Notes
 								v-for="item in filteredNotes({ search, select }) "
@@ -180,7 +214,6 @@
 						</transition-group>
 					</v-row>
 				</v-window-item>
-
 				<v-window-item value="Цели">
 					<v-row>
 						<transition-group
@@ -233,6 +266,16 @@ export default {
 		const tab = ref('Заметки')
 		const taskToggle = ref('all')
 
+		const getNotesStatus = computed(() => {
+			switch (select.value) {
+				case 'all': return 'Раздел пуст...'
+				case 'text': return 'Заметок нет...'
+				case 'ideas': return 'Идей нет...'
+				case 'achievements': return 'Достижений нет...'
+				case 'archive': return 'В архиве пусто...'
+			}
+		})
+
 		// Сбрасываю значение taskToggle(кнопка Все/Архив) до "Все" каждый раз при переключении tab
 		watch(tab, () => taskToggle.value = 'all')
 
@@ -245,8 +288,8 @@ export default {
 			'Цели. Текст для Целей'
 		]
 
-		const tooltipNoteText = 'Для редактирования заметки нажмите на её иконку'
-		const tooltipResetText = `Так как в приложении реализован LocalStorage любые изменения сохраняются. Эта клавиша сбросит приложение в начальное состояние`
+		const tooltipNoteText = 'Для редактирования заметки нажмите на её иконку.'
+		const tooltipResetText = `Так как в приложении реализован LocalStorage любые изменения сохраняются. Эта клавиша сбросит приложение в начальное состояние.`
 
 		const search = ref('')
 		const setSearch = (e) => {
@@ -277,6 +320,10 @@ export default {
 			}
 		})
 
+		const resetApp = () => {
+			console.log('work')
+		}
+
 		return {
 			items,
 			text,
@@ -292,7 +339,9 @@ export default {
 			taskToggle,
 			getTaskSectionColor,
 			tooltipResetText,
-			tooltipNoteText
+			tooltipNoteText,
+			getNotesStatus,
+			resetApp
 		}
 	}
 }
@@ -324,6 +373,18 @@ export default {
 	&__tasks-empty {
 		font-size: 38px;
 		color: #455A64;
+	}
+
+	// .main__tooltip-reset
+	&__tooltip-reset {
+		animation-iteration-count: 10;
+	}
+
+	// .main__tooltip-reset-btn
+	&__tooltip-reset-btn {
+		width: 30px;
+		height: 30px;
+		margin-right: 10px;
 	}
 }
 
