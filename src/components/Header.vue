@@ -238,7 +238,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'
@@ -263,7 +263,7 @@ export default {
 	setup() {
 		const store = useStore()
 
-		const tab = ref('Заметки')
+		const tab = ref('Задачи')
 		const taskToggle = ref('all')
 
 		const getNotesStatus = computed(() => {
@@ -320,9 +320,33 @@ export default {
 			}
 		})
 
+		const instance = getCurrentInstance();
+
+		const initialState = store.state
+		localStorage.setItem('initialState', JSON.stringify(initialState));
+
 		const resetApp = () => {
-			console.log('work')
+			store.dispatch('reset/resetState')
+			// instance?.proxy?.$forceUpdate();
+			console.log('initialState', initialState)
+
 		}
+
+		// Проверяем, есть ли сохраненное состояние в localStorage
+		const savedState = JSON.parse(localStorage.getItem('myAppState'));
+		if (savedState) {
+			store.replaceState(savedState);
+		}
+		store.subscribe((mutation, state) => {
+			// Сохранение состояния в localStorage
+
+			localStorage.setItem('myAppState', JSON.stringify(state));
+			// localStorage.setItem('initialState', JSON.stringify(initialState));
+			// console.log('Произошло изменение стор, сработал store.subscribe')
+
+			// console.log('mutation', mutation)
+			// console.log('state', state)
+		});
 
 		return {
 			items,

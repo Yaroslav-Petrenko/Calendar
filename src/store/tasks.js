@@ -5,17 +5,18 @@ export default {
 		cards: [
 			{
 				id: '100',
-				date: '',
+				date: 'Вчера, 14 авг. 2023 г.',
 				allDone: true,
 				tasks: [
 					{ id: '0', text: 'Закончить проект до конца недели', done: true, editing: false },
 					{ id: '1', text: 'Запланировать встречу с клиентом', done: true, editing: false },
 					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
+					{ id: '3', text: 'Зайти в магазин за продуктами', done: true, editing: false },
 				],
 			},
 			{
 				id: '101',
-				date: '',
+				date: 'Сегодня, 15 авг. 2023 г.',
 				allDone: false,
 				tasks: [
 					{ id: '0', text: 'Написать письмо другу', done: true, editing: false },
@@ -31,7 +32,7 @@ export default {
 			},
 			{
 				id: '102',
-				date: '',
+				date: 'Завтра, 16 авг. 2023 г.',
 				allDone: false,
 				tasks: [
 					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
@@ -44,7 +45,7 @@ export default {
 			},
 			{
 				id: '103',
-				date: '',
+				date: 'Послезавтра, 17 авг. 2023 г.',
 				allDone: false,
 				tasks: [
 					{ id: '0', text: 'Отправить подарок другу на день рождения', done: true, editing: false },
@@ -139,7 +140,6 @@ export default {
 			card.allDone = !card.allDone
 			if (card.allDone) card.tasks.forEach(item => item.done = true)
 			else card.tasks.forEach(item => item.done = false)
-
 		},
 		setDate(state, { cardId, date }) {
 			const card = state.cards.find(item => item.id == cardId)

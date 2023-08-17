@@ -1,5 +1,3 @@
-import store from "./index"
-
 export default {
 	namespaced: true,
 	state: {
@@ -12,20 +10,20 @@ export default {
 				editing: false,
 				// title: 'Reminder of App Project And Design',
 				// subTitle: 'Заметки subTitle',
-				text: "The Woodman set to work at once, and so sharp was his axe that the tree was.Woodman",
+				text: "Надпись из initial state",
 				notesType: 'text',
 				icon: '47'
 			},
-			{
-				id: '101',
-				archive: false,
-				editing: false,
-				// title: 'Email Signature for Support Team',
-				// subTitle: 'Заметки subTitle',
-				text: "Привет моя новая заметка",
-				notesType: 'text',
-				icon: '26'
-			},
+			// {
+			// 	id: '101',
+			// 	archive: false,
+			// 	editing: false,
+			// 	// title: 'Email Signature for Support Team',
+			// 	// subTitle: 'Заметки subTitle',
+			// 	text: "Привет моя новая заметка",
+			// 	notesType: 'text',
+			// 	icon: '26'
+			// },
 			// {
 			// 	id: '102',
 			// 	archive: false,
