@@ -320,32 +320,23 @@ export default {
 			}
 		})
 
-		const instance = getCurrentInstance();
-
 		const initialState = store.state
+		// Сохраняю initialState в localStorage для работы функции resetApp
 		localStorage.setItem('initialState', JSON.stringify(initialState));
 
 		const resetApp = () => {
-			store.dispatch('reset/resetState')
-			// instance?.proxy?.$forceUpdate();
-			console.log('initialState', initialState)
-
+			const initialState = JSON.parse(localStorage.getItem('initialState'))
+			store.replaceState(initialState)
 		}
 
 		// Проверяем, есть ли сохраненное состояние в localStorage
-		const savedState = JSON.parse(localStorage.getItem('myAppState'));
+		const savedState = JSON.parse(localStorage.getItem('baseState'));
 		if (savedState) {
 			store.replaceState(savedState);
 		}
 		store.subscribe((mutation, state) => {
 			// Сохранение состояния в localStorage
-
-			localStorage.setItem('myAppState', JSON.stringify(state));
-			// localStorage.setItem('initialState', JSON.stringify(initialState));
-			// console.log('Произошло изменение стор, сработал store.subscribe')
-
-			// console.log('mutation', mutation)
-			// console.log('state', state)
+			localStorage.setItem('baseState', JSON.stringify(state));
 		});
 
 		return {
