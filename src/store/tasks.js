@@ -11,7 +11,6 @@ export default {
 					{ id: '0', text: 'Закончить проект до конца недели', done: true, editing: false },
 					{ id: '1', text: 'Запланировать встречу с клиентом', done: true, editing: false },
 					{ id: '2', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					{ id: '3', text: 'Зайти в магазин за продуктами', done: true, editing: false },
 				],
 			},
 			{
@@ -19,15 +18,9 @@ export default {
 				date: 'Сегодня, 15 авг. 2023 г.',
 				allDone: false,
 				tasks: [
-					{ id: '0', text: 'Написать письмо другу', done: true, editing: false },
-					{ id: '1', text: 'Подготовиться к собеседованию', done: true, editing: false },
-					{ id: '2', text: 'Посетить спортивный зал вечером', done: true, editing: false },
-					{ id: '3', text: 'Сделать список покупок', done: true, editing: false },
-					{ id: '4', text: 'Найти новую книгу для чтения', done: false, editing: false },
-					// { id: '6', text: 'Составить список целей на следующий год', done: false, editing: false },
-					// { id: '7', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					// { id: '8', text: 'Зайти в магазин за продуктами', done: true, editing: false },
-					// { id: '9', text: 'Выпить пива, поностальгировать', done: true, editing: false },
+					{ id: '0', text: 'Сходить на "Оппенгеймера', done: true, editing: false },
+					{ id: '1', text: 'Посетить спортивный зал вечером', done: true, editing: false },
+					{ id: '2', text: 'Записаться на тверк', done: false, editing: false },
 				],
 			},
 			{
@@ -35,12 +28,14 @@ export default {
 				date: 'Завтра, 16 авг. 2023 г.',
 				allDone: false,
 				tasks: [
-					{ id: '0', text: 'Пойти на рыбалку с друзьями', done: true, editing: false },
-					{ id: '1', text: 'Записаться на курсы по фотографии', done: true, editing: false },
-					{ id: '2', text: 'Сходить на "Оппенгеймера"', done: false, editing: false },
-					{ id: '3', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '0', text: 'Подготовиться к собеседованию', done: true, editing: false },
+					{ id: '1', text: 'Написать письмо другу', done: false, editing: false },
+					{ id: '2', text: 'Пойти на рыбалку с друзьями', done: false, editing: false },
+					{ id: '3', text: 'Сделать список покупок', done: false, editing: false },
+					{ id: '4', text: 'Найти новую книгу для чтения', done: false, editing: false },
+					{ id: '6', text: 'Посмотреть фильм', done: false, editing: false },
+					{ id: '7', text: 'Зайти в магазин за продуктами', done: false, editing: false },
+					// { id: '8', text: 'Выпить пива, поностальгировать', done: false, editing: false },
 				],
 			},
 			{
@@ -48,37 +43,23 @@ export default {
 				date: 'Послезавтра, 17 авг. 2023 г.',
 				allDone: false,
 				tasks: [
-					{ id: '0', text: 'Отправить подарок другу на день рождения', done: true, editing: false },
-					{ id: '1', text: 'Подготовиться к семейному празднику', done: true, editing: false },
-					{ id: '2', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '4', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '5', text: 'Выпить пива, поностальгировать', done: false, editing: false },
-					// { id: '6', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '0', text: 'Сходить на фестиваль', done: false, editing: false },
+					{ id: '1', text: 'Найти время для самообучения', done: false, editing: false },
+					{ id: '2', text: 'Запланировать отпуск', done: false, editing: false },
+					{ id: '3', text: 'Всё идеи для тасков закончились...', done: false, editing: false },
 				],
 			},
 		],
 		archiveCards: []
 	},
 	getters: {
-		tasksFindEl: state => id => {
-			return state.notes.id
-		},
-		// allTasks: state => state.cards,
+		// tasksFindEl: state => id => {
+		// 	return state.notes.id
+		// },
 		filteredTasks: state => ({ taskToggle }) => {
 			if (taskToggle == 'all') return state.cards
 			if (taskToggle == 'archive') return state.archiveCards
 		},
-		// state.cards.filter(item => {
-		// 	// return item.archive === false
-		// 	// if (conditions) return 
-		// 	console.log("select", taskToggle)
-		// 	if (taskToggle == 'all') return item.archive === false
-		// 	if (taskToggle == 'archive') return item.archive === true
-		// 	// if (item.notesType == select && !item.archive && item.text.toLowerCase().indexOf(search.toLowerCase()) !== -1) return item
-		// 	// console.log(Object.values(item))
-		// 	// console.log('Синий кит'.indexOf('ний') !== -1); // true
-		// 	// return (item.tasks.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-		// }),
 		cards: state => state.cards,
 		getDate: state => {
 			const months = [
@@ -223,17 +204,8 @@ export default {
 					done: item.done
 				})
 			})
-			// очищаю текст
 			selectedCard.tasks.forEach(item => item.text = '')
-			// ниже я удаляю всю карту
-			// state.cards.splice(state.cards.findIndex(item => item.id == cardId), 1)
-			// надо просто очистить все таски
-			selectedCard.tasks =
-				[
-					// { id: '0', text: 'Новый таск', done: true, editing: false },
-					// { id: '1', text: 'Новый таск', done: true, editing: false },
-					// { id: '2', text: 'Новый таск', done: true, editing: false },
-				]
+			selectedCard.tasks = []
 		},
 		removeTaskCard(state, { cardId }) {
 			state.archiveCards.splice(state.archiveCards.findIndex(item => item.id == cardId), 1)

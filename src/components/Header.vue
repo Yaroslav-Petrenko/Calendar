@@ -166,13 +166,14 @@
 							appear
 						>
 							<Tasks
-								v-for="item in filteredTasks({ taskToggle })"
+								v-for="item, i in filteredTasks({ taskToggle })"
 								:key="item.id"
 								:date="item.date"
 								:tasks="item.tasks"
 								:cardId="item.id"
 								:allDone="item.allDone"
 								:taskToggle="taskToggle"
+								:cardNumber="i"
 							/>
 						</transition-group>
 					</v-row>
@@ -238,7 +239,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, getCurrentInstance } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import Notes from './Notes.vue'
 import Search from './Search.vue'

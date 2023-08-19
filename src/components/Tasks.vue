@@ -132,7 +132,7 @@
 				</transition-group>
 				<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">
 					<v-text-field
-						v-model="textField"
+						v-model="textField[cardNumber]"
 						@keydown.enter="createTask(taskToggle)"
 						class="mr-3"
 						label="Текст"
@@ -191,7 +191,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, toRef } from 'vue'
+import { ref, computed, onMounted, toRef, reactive } from 'vue'
 import { useStore } from 'vuex'
 export default {
 	props: {
@@ -215,6 +215,10 @@ export default {
 			type: String,
 			required: true
 		},
+		cardNumber: {
+			type: Number,
+			required: true
+		},
 	},
 	setup(props) {
 		const store = useStore()
@@ -223,17 +227,32 @@ export default {
 		const allDone = toRef(props, 'allDone')
 		const tasks = toRef(props, 'tasks')
 		const taskToggle = toRef(props, 'taskToggle')
-		const textField = ref('At imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna')
+		const cardNumber = toRef(props, 'cardNumber')
+		const textField = reactive([
+			'Поговорить с котом',
+			'Найти ключ от вечной жизни',
+			'Выпить пива, поностальгировать',
+			'Задуматься о бесконечно вечном'
+		])
 		const errorMessages = ref('')
 		const editingField = ref('')
-		const animationFlipListEnd = ref(false)
+
+			const createTask = () => {
+			if (validateField() === false) return
+			store.dispatch('tasks/createTask', {
+				text: textField[cardNumber.value],
+				cardId: cardId.value,
+				taskToggle: taskToggle.value
+			})
+			textField[cardNumber.value] = ''
+		}
 
 		const validateField = () => {
-			if (!textField.value) {
+			if (!textField[cardNumber.value]) {
 				errorMessages.value = 'Поле обязательно'
 				return false
 			}
-			if (textField.value.length < 5) {
+			if (textField[cardNumber.value].length < 5) {
 				errorMessages.value = 'Минимальная длина 5 символов'
 				return false
 			}
@@ -265,22 +284,7 @@ export default {
 
 		const getTaskColor = computed(() => {
 			return allDone.value ? 'blue-grey-darken-4' : '#171E21'
-			// if (allDone.value) return '#424242'
-			// if (allDone.value) return 'blue-grey-darken-4'
-			// // else return '#212121'
-			// // else return '#182024'
-			// else return '#171E21'
 		})
-
-		const createTask = () => {
-			if (validateField() === false) return
-			store.dispatch('tasks/createTask', {
-				text: textField.value,
-				cardId: cardId.value,
-				taskToggle: taskToggle.value
-			})
-			textField.value = ''
-		}
 
 		const deleteTaskCard = (cardId) => {
 			store.dispatch('tasks/deleteTaskCard', { cardId })
