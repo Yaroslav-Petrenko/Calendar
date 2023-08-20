@@ -34,7 +34,7 @@
 							@click="editingNote(noteId)"
 						>
 							<img
-								:src="`/src/icons/viking-icons-54px/${icon}.webp`"
+								:src="getImageUrl(icon)"
 								alt=""
 							/>
 						</div>
@@ -143,6 +143,10 @@ export default {
 			}, 0)
 		}
 
+		function getImageUrl(icon) {
+			return new URL(`/src/icons/viking-icons-54px/${icon}.webp`, import.meta.url).href
+		}
+
 		return {
 			getRandomIco,
 			getNoteColor,
@@ -150,6 +154,7 @@ export default {
 			deleteNote,
 			editingNote,
 			editingField,
+			getImageUrl
 		}
 	}
 }

@@ -55,8 +55,8 @@ export default {
 		const iconToggle = ref('1')
 
 		// взято из офф документации
-		function getImageUrl(name) {
-			return new URL(`/src/icons/viking-icons-54px/${name}.webp`, import.meta.url).href
+		function getImageUrl(icon) {
+			return new URL(`/src/icons/viking-icons-54px/${icon}.webp`, import.meta.url).href
 		}
 		const rndIcon = iconsName[Math.floor(Math.random() * iconsName.length)]
 		emit('selectedIcon', rndIcon)
