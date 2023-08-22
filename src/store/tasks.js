@@ -187,9 +187,8 @@ export default {
 
 			const selectedCard = state.cards.find(item => item.id == cardId)
 			selectedCard.allDone = true
-			// при перемещении в архив удаляю из даты субъективные слова
+			// при перемещении в архив удаляю из даты слова "Вчера, Сегодня, Завтра.."
 			const regex = /^(Вчера|Сегодня|Завтра|Послезавтра), /;
-			// const cardCopy = structuredClone(selectedCard)
 			state.archiveCards.unshift({
 				id: String(++maxId),
 				date: selectedCard.date.replace(regex, ''),
@@ -209,6 +208,9 @@ export default {
 		},
 		removeTaskCard(state, { cardId }) {
 			state.archiveCards.splice(state.archiveCards.findIndex(item => item.id == cardId), 1)
+		},
+		changeArchive(state) {
+			state.cards.forEach(item => item.tasks.forEach(task => task.editing = false))
 		}
 
 	},
@@ -239,6 +241,9 @@ export default {
 		},
 		changeArchive(store, obj) {
 			store.commit('sendToArchive', obj)
+		},
+		normalizeTaskState(store) {
+			store.commit('changeArchive')
 		},
 	},
 }

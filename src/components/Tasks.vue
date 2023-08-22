@@ -39,8 +39,6 @@
 
 			<v-card
 				:class="`flex-grow-1 d-flex flex-column task__body`"
-				max-height="248px"
-				min-height="248px"
 				:color="getTaskColor"
 				elevation="0"
 			>
@@ -61,7 +59,6 @@
 							v-if="item.editing"
 							v-model="editingField"
 							@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
-							autofocus
 							rows="1"
 							auto-grow
 							density="compact"
@@ -237,7 +234,7 @@ export default {
 		const errorMessages = ref('')
 		const editingField = ref('')
 
-			const createTask = () => {
+		const createTask = () => {
 			if (validateField() === false) return
 			store.dispatch('tasks/createTask', {
 				text: textField[cardNumber.value],
@@ -374,8 +371,14 @@ export default {
 	overflow: hidden;
 	position: relative;
 
+	// опциональные стили
+	overflow: auto;
+	overflow-x: hidden;
+	min-height: 321px;
+	// .......................
+
 	// .task ::-webkit-scrollbar
-	& ::-webkit-scrollbar {
+	&::-webkit-scrollbar {
 		width: 2px;
 		/* ширина для вертикального скролла */
 		height: 2px;
@@ -424,9 +427,13 @@ export default {
 		overflow-x: hidden;
 		// position: relative;
 		position: static;
+		// min-height: 248px;
+		// height: 100%;
+		// height: 248px;
 
 		.v-field__input {
 			padding-top: 13px;
+			// padding-top: 7px;
 			padding-bottom: 0;
 		}
 
@@ -462,16 +469,28 @@ export default {
 	.task__editing-text-field {
 		// центрирую текст при входе в режим редактирвания
 		position: relative;
+		bottom: 10px;
 		bottom: 4px;
+		bottom: 3px;
 	}
 
 	// .task__item
 	&__item {
-		overflow: visible;
+		// overflow: visible;
+		// overflow: auto;
+		min-height: 43px;
+		// height: 43px;
+		// max-height: 43px;
+		// padding: 6px 0 6px 0;
 
 		&:hover .checkbox__delete,
 		&:hover .checkbox__pencil {
 			visibility: visible;
+
+			// & .v-text-field .v-textarea {
+			// 	padding: 4.75px 0 4.75px 0;
+			// 	padding: 0;
+			// }
 		}
 
 		.v-label {
@@ -489,7 +508,9 @@ export default {
 		}
 
 		.checkbox {
-			padding: 6px 0 6px 0;
+			padding: 6.5px 0 6.5px 0;
+			// padding: 4px 0 4px 0;
+			// padding: 0;
 
 			&__pencil {
 				margin-right: 10px;

@@ -37,11 +37,6 @@
 					>
 						reset app
 					</v-btn>
-
-
-
-
-
 					<template
 						late
 						v-slot:extension
@@ -320,6 +315,11 @@ export default {
 				case 'archive': return 'amber-darken-2'
 			}
 		})
+
+		// Перед перезагрузкой/закрытии страницы делаю нормализацию стейта
+		window.addEventListener('beforeunload', () => {
+			store.dispatch('tasks/normalizeTaskState')
+		});
 
 		const initialState = store.state
 		// Сохраняю initialState в localStorage для работы функции resetApp

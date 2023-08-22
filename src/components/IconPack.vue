@@ -54,7 +54,7 @@ export default {
 		const cbxRandonIcon = ref(false)
 		const iconToggle = ref('1')
 
-		// взято из офф документации
+		// Взято из офф документации
 		function getImageUrl(icon) {
 			return new URL(`/src/icons/viking-icons-54px/${icon}.webp`, import.meta.url).href
 		}
