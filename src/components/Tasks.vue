@@ -379,6 +379,7 @@ export default {
 	// overflow: auto;
 	// overflow-x: hidden;
 	height: 321px;
+	height: 330px;
 	// .......................
 
 	// .task ::-webkit-scrollbar
@@ -433,6 +434,7 @@ export default {
 		// height: 252px;
 		// max-height: 248px;
 		height: 248px;
+		height: 255px;
 
 		// .task__body
 		.task__body.v-card {
