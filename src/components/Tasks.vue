@@ -185,8 +185,6 @@
 					</v-card-actions>
 				</v-card>
 			</div>
-
-
 		</v-card>
 	</v-col>
 </template>
@@ -374,13 +372,7 @@ export default {
 	padding: 5px 10px 10px 10px;
 	overflow: hidden;
 	position: relative;
-
-	// опциональные стили
-	// overflow: auto;
-	// overflow-x: hidden;
-	height: 321px;
 	height: 330px;
-	// .......................
 
 	// .task ::-webkit-scrollbar
 	& ::-webkit-scrollbar {
@@ -424,16 +416,9 @@ export default {
 		}
 	}
 
-
-
 	// .task__container
 	&__container {
 		overflow: auto;
-		// min-height: 321px;
-		// height: 100%;
-		// height: 252px;
-		// max-height: 248px;
-		height: 248px;
 		height: 255px;
 
 		// .task__body
@@ -442,15 +427,10 @@ export default {
 			border-radius: 0 0 4px 4px;
 			padding-top: 2px;
 			overflow-x: hidden;
-			// position: relative;
 			position: static;
-			// min-height: 248px;
-			// height: 100%;
-			// height: 248px;
 
 			.v-field__input {
 				padding-top: 13px;
-				// padding-top: 7px;
 				padding-bottom: 0;
 			}
 
@@ -460,33 +440,6 @@ export default {
 			}
 		}
 	}
-
-
-
-
-	// // .task__body
-	// &__body.v-card {
-	// 	overflow: auto;
-	// 	border-radius: 0 0 4px 4px;
-	// 	padding-top: 2px;
-	// 	overflow-x: hidden;
-	// 	// position: relative;
-	// 	position: static;
-	// 	// min-height: 248px;
-	// 	// height: 100%;
-	// 	// height: 248px;
-
-	// 	.v-field__input {
-	// 		padding-top: 13px;
-	// 		// padding-top: 7px;
-	// 		padding-bottom: 0;
-	// 	}
-
-	// 	.v-field__outline::before {
-	// 		border-color: #1E88E5;
-	// 		opacity: 1;
-	// 	}
-	// }
 
 	// .task__add-field
 	&__add-field {
@@ -514,29 +467,15 @@ export default {
 	.task__editing-text-field {
 		// центрирую текст при входе в режим редактирвания
 		position: relative;
-		bottom: 10px;
-		bottom: 4px;
-		bottom: 2px;
 		bottom: 3px;
 	}
 
 	// .task__item
 	&__item {
-		// overflow: visible;
-		// overflow: auto;
-		// min-height: 43px;
-		// height: 43px;
-		// max-height: 43px;
-		// padding: 6px 0 6px 0;
 
 		&:hover .checkbox__delete,
 		&:hover .checkbox__pencil {
 			visibility: visible;
-
-			// & .v-text-field .v-textarea {
-			// 	padding: 4.75px 0 4.75px 0;
-			// 	padding: 0;
-			// }
 		}
 
 		.v-label {
@@ -554,20 +493,8 @@ export default {
 		}
 
 		.checkbox {
-			padding: 7px 0 7px 0;
-			padding: 8px 0 8px 0;
-			padding: 7.5px 0 7.5px 0;
-			padding: 0px 0 6.5px 0;
 			padding: 6.5px 0 6.5px 0;
-			// padding-top: ;
-			// padding: 4px 0 4px 0;
-			// padding: 0;
-			// height: 100%;
 			min-height: 43px;
-
-			// &:not(:first-child) {
-			// 	padding-top: 6.5px;
-			// }
 
 			&__pencil {
 				margin-right: 10px;
@@ -668,7 +595,6 @@ export default {
 		background: #263238;
 	}
 }
-
 
 @keyframes bounceOutRight {
 	20% {
