@@ -6,7 +6,6 @@
 		<v-card
 			:class="`task text-shadow ${getShadowType}`"
 			:color="getTaskColor"
-			max-height="321px"
 		>
 			<v-card
 				:color="getTaskColor"
@@ -37,152 +36,157 @@
 				</div>
 			</v-card>
 
-			<v-card
-				:class="`flex-grow-1 d-flex flex-column task__body`"
-				:color="getTaskColor"
-				elevation="0"
-			>
-				<transition name="task-bounce">
-					<div
-						v-if="tasks.length == 0"
-						class="d-flex justify-center task__no-task"
-					>Задач нет...
-					</div>
-				</transition>
-				<transition-group name="flip-list">
-					<div
-						v-for="item in tasks"
-						:key="item.id"
-						class="d-flex flex-grow-1 task__item"
-					>
-						<v-textarea
-							v-if="item.editing"
-							v-model="editingField"
-							@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
-							rows="1"
-							auto-grow
-							density="compact"
-							class="ml-7 task__editing-text-field pr-2 flex-grow-1"
-							variant="underlined"
-							hide-details="true"
-							color="blue-darken-1"
-						></v-textarea>
-						<v-checkbox
-							v-else
-							:model-value="item.done"
-							@change="setCheckbox(cardId, item.id, taskToggle)"
-							class="pr-2 flex-grow-1 task__checkbox checkbox"
-							hide-details="true"
-							density="compact"
-							color="info"
-							:label="item.text"
-						></v-checkbox>
-						<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
-						<transition
-							name="bounce"
-							mode="out-in"
-							:duration="50"
+			<div class="d-flex task__container">
+				<v-card
+					class="flex-grow-1 d-flex flex-column task__body"
+					:color="getTaskColor"
+					elevation="0"
+				>
+					<transition name="task-bounce">
+						<div
+							v-if="tasks.length == 0"
+							class="d-flex justify-center task__no-task"
+						>Задач нет...
+						</div>
+					</transition>
+					<transition-group name="flip-list">
+						<div
+							v-for="item in tasks"
+							:key="item.id"
+							class="d-flex flex-grow-1 task__item"
 						>
-							<div
+							<v-textarea
 								v-if="item.editing"
-								class="align-self-start checkbox__edit"
-							>
-								<button
-									@click="finishEditingTask(cardId, item.id, taskToggle)"
-									class="checkbox__button"
-								>
-									<img
-										src="../icons/ok-icons-48px/1.webp"
-										alt=""
-									/>
-								</button>
-							</div>
-							<div
+								v-model="editingField"
+								@keydown.enter="finishEditingTask(cardId, item.id, taskToggle)"
+								rows="1"
+								auto-grow
+								autofocus
+								density="compact"
+								class="ml-7 task__editing-text-field pr-2 flex-grow-1"
+								variant="underlined"
+								hide-details="true"
+								color="blue-darken-1"
+							></v-textarea>
+							<v-checkbox
 								v-else
-								class="d-flex align-self-start"
+								:model-value="item.done"
+								@change="setCheckbox(cardId, item.id, taskToggle)"
+								class="pr-2 flex-grow-1 task__checkbox checkbox"
+								hide-details="true"
+								density="compact"
+								color="info"
+								:label="item.text"
+							></v-checkbox>
+							<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
+							<transition
+								name="bounce"
+								mode="out-in"
+								:duration="50"
 							>
-								<div class="checkbox__pencil">
+								<div
+									v-if="item.editing"
+									class="align-self-start checkbox__edit"
+								>
 									<button
-										@click="editTask(cardId, item.id, item.text, taskToggle)"
+										@click="finishEditingTask(cardId, item.id, taskToggle)"
 										class="checkbox__button"
 									>
 										<img
-											src="../icons/edit-icons-48px/16.webp"
+											src="../icons/ok-icons-48px/1.webp"
 											alt=""
 										/>
 									</button>
 								</div>
-								<div class="checkbox__delete">
-									<button
-										@click="deleteTask(cardId, item.id, taskToggle)"
-										class="checkbox__button"
-									>
-										<img
-											src="../icons/delete-icons-48px/22.webp"
-											alt=""
-										/>
-									</button>
+								<div
+									v-else
+									class="d-flex align-self-start"
+								>
+									<div class="checkbox__pencil">
+										<button
+											@click="editTask(cardId, item.id, item.text, taskToggle)"
+											class="checkbox__button"
+										>
+											<img
+												src="../icons/edit-icons-48px/16.webp"
+												alt=""
+											/>
+										</button>
+									</div>
+									<div class="checkbox__delete">
+										<button
+											@click="deleteTask(cardId, item.id, taskToggle)"
+											class="checkbox__button"
+										>
+											<img
+												src="../icons/delete-icons-48px/22.webp"
+												alt=""
+											/>
+										</button>
+									</div>
 								</div>
-							</div>
-						</transition>
+							</transition>
+						</div>
+					</transition-group>
+					<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">
+						<v-text-field
+							v-model="textField[cardNumber]"
+							@keydown.enter="createTask(taskToggle)"
+							class="mr-3"
+							label="Текст"
+							variant="underlined"
+							:error-messages="errorMessages"
+						></v-text-field>
+						<v-btn
+							class="task__add-btn"
+							variant="flat"
+							icon="$plus"
+							color="light-blue-darken-3"
+							size="small"
+							@click="createTask(taskToggle)"
+						>
+						</v-btn>
 					</div>
-				</transition-group>
-				<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">
-					<v-text-field
-						v-model="textField[cardNumber]"
-						@keydown.enter="createTask(taskToggle)"
-						class="mr-3"
-						label="Текст"
-						variant="underlined"
-						:error-messages="errorMessages"
-					></v-text-field>
-					<v-btn
-						class="task__add-btn"
-						variant="flat"
-						icon="$plus"
-						color="light-blue-darken-3"
-						size="small"
-						@click="createTask(taskToggle)"
-					>
-					</v-btn>
-				</div>
-				<v-card-actions class="justify-space-between pl-1 task__actions">
-					<v-btn
-						v-if="!allDone"
-						variant="flat"
-						color="green-darken-2"
-						size="small"
-						@click="changeAllDone(cardId, taskToggle)"
-					>
-						всё сделано
-					</v-btn>
-					<v-btn
-						v-else
-						:disabled="tasks.length == 0"
-						:variant="getButtonVariant"
-						:color="getButtonColor"
-						size="small"
-						@click="changeAllDone(cardId, taskToggle)"
-					>
-						снять выделение
-					</v-btn>
-					<v-btn
-						v-if="taskToggle === 'all'"
-						:disabled="tasks.length == 0"
-						variant="plain"
-						color="amber-accent-4"
-						size="small"
-						@click="toArchive(cardId)"
-					>в архив</v-btn>
-					<v-btn
-						v-else
-						variant="plain"
-						color="blue-grey-lighten-2"
-						size="small"
-						@click="deleteTaskCard(cardId)"
-					>удалить</v-btn>
-				</v-card-actions>
-			</v-card>
+					<v-card-actions class="justify-space-between pl-1 task__actions">
+						<v-btn
+							v-if="!allDone"
+							variant="flat"
+							color="green-darken-2"
+							size="small"
+							@click="changeAllDone(cardId, taskToggle)"
+						>
+							всё сделано
+						</v-btn>
+						<v-btn
+							v-else
+							:disabled="tasks.length == 0"
+							:variant="getButtonVariant"
+							:color="getButtonColor"
+							size="small"
+							@click="changeAllDone(cardId, taskToggle)"
+						>
+							снять выделение
+						</v-btn>
+						<v-btn
+							v-if="taskToggle === 'all'"
+							:disabled="tasks.length == 0"
+							variant="plain"
+							color="amber-accent-4"
+							size="small"
+							@click="toArchive(cardId)"
+						>в архив</v-btn>
+						<v-btn
+							v-else
+							variant="plain"
+							color="blue-grey-lighten-2"
+							size="small"
+							@click="deleteTaskCard(cardId)"
+						>удалить</v-btn>
+					</v-card-actions>
+				</v-card>
+			</div>
+
+
 		</v-card>
 	</v-col>
 </template>
@@ -372,13 +376,13 @@ export default {
 	position: relative;
 
 	// опциональные стили
-	overflow: auto;
-	overflow-x: hidden;
-	min-height: 321px;
+	// overflow: auto;
+	// overflow-x: hidden;
+	height: 321px;
 	// .......................
 
 	// .task ::-webkit-scrollbar
-	&::-webkit-scrollbar {
+	& ::-webkit-scrollbar {
 		width: 2px;
 		/* ширина для вертикального скролла */
 		height: 2px;
@@ -419,29 +423,68 @@ export default {
 		}
 	}
 
-	// .task__body
-	&__body.v-card {
+
+
+	// .task__container
+	&__container {
 		overflow: auto;
-		border-radius: 0 0 4px 4px;
-		padding-top: 2px;
-		overflow-x: hidden;
-		// position: relative;
-		position: static;
-		// min-height: 248px;
+		// min-height: 321px;
 		// height: 100%;
-		// height: 248px;
+		// height: 252px;
+		// max-height: 248px;
+		height: 248px;
 
-		.v-field__input {
-			padding-top: 13px;
-			// padding-top: 7px;
-			padding-bottom: 0;
-		}
+		// .task__body
+		.task__body.v-card {
+			overflow: auto;
+			border-radius: 0 0 4px 4px;
+			padding-top: 2px;
+			overflow-x: hidden;
+			// position: relative;
+			position: static;
+			// min-height: 248px;
+			// height: 100%;
+			// height: 248px;
 
-		.v-field__outline::before {
-			border-color: #1E88E5;
-			opacity: 1;
+			.v-field__input {
+				padding-top: 13px;
+				// padding-top: 7px;
+				padding-bottom: 0;
+			}
+
+			.v-field__outline::before {
+				border-color: #1E88E5;
+				opacity: 1;
+			}
 		}
 	}
+
+
+
+
+	// // .task__body
+	// &__body.v-card {
+	// 	overflow: auto;
+	// 	border-radius: 0 0 4px 4px;
+	// 	padding-top: 2px;
+	// 	overflow-x: hidden;
+	// 	// position: relative;
+	// 	position: static;
+	// 	// min-height: 248px;
+	// 	// height: 100%;
+	// 	// height: 248px;
+
+	// 	.v-field__input {
+	// 		padding-top: 13px;
+	// 		// padding-top: 7px;
+	// 		padding-bottom: 0;
+	// 	}
+
+	// 	.v-field__outline::before {
+	// 		border-color: #1E88E5;
+	// 		opacity: 1;
+	// 	}
+	// }
 
 	// .task__add-field
 	&__add-field {
@@ -471,6 +514,7 @@ export default {
 		position: relative;
 		bottom: 10px;
 		bottom: 4px;
+		bottom: 2px;
 		bottom: 3px;
 	}
 
@@ -478,7 +522,7 @@ export default {
 	&__item {
 		// overflow: visible;
 		// overflow: auto;
-		min-height: 43px;
+		// min-height: 43px;
 		// height: 43px;
 		// max-height: 43px;
 		// padding: 6px 0 6px 0;
@@ -508,9 +552,20 @@ export default {
 		}
 
 		.checkbox {
+			padding: 7px 0 7px 0;
+			padding: 8px 0 8px 0;
+			padding: 7.5px 0 7.5px 0;
+			padding: 0px 0 6.5px 0;
 			padding: 6.5px 0 6.5px 0;
+			// padding-top: ;
 			// padding: 4px 0 4px 0;
 			// padding: 0;
+			// height: 100%;
+			min-height: 43px;
+
+			// &:not(:first-child) {
+			// 	padding-top: 6.5px;
+			// }
 
 			&__pencil {
 				margin-right: 10px;
