@@ -82,7 +82,6 @@
 							<transition
 								name="bounce"
 								mode="out-in"
-								:duration="50"
 							>
 								<div
 									v-if="item.editing"

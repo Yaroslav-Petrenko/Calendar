@@ -408,11 +408,11 @@ export default {
 
 /* // анимация для note */
 .bounce-enter-active {
-	animation: bounce-in 0.3s;
+	animation: bounce-in 30s;
 }
 
 .bounce-leave-active {
-	animation: bounce-in 0.3s reverse;
+	animation: bounce-in 30s reverse;
 }
 
 @keyframes bounce-in {
