@@ -55,6 +55,9 @@
 							:key="item.id"
 							class="d-flex flex-grow-1 task__item"
 						>
+						<!-- <transition name="bounce"
+									mode="out-in"
+									:duration="50"> -->
 							<v-textarea
 								v-if="item.editing"
 								v-model="editingField"
@@ -68,63 +71,72 @@
 								hide-details="true"
 								color="blue-darken-1"
 							></v-textarea>
-							<v-checkbox
-								v-else
-								:model-value="item.done"
-								@change="setCheckbox(cardId, item.id, taskToggle)"
-								class="pr-2 flex-grow-1 task__checkbox checkbox"
-								hide-details="true"
-								density="compact"
-								color="info"
-								:label="item.text"
-							></v-checkbox>
-							<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
-							<transition
-								name="bounce"
-								mode="out-in"
-							>
-								<div
-									v-if="item.editing"
-									class="align-self-start checkbox__edit"
-								>
-									<button
-										@click="finishEditingTask(cardId, item.id, taskToggle)"
-										class="checkbox__button"
-									>
-										<img
-											src="../icons/ok-icons-48px/1.webp"
-											alt=""
-										/>
-									</button>
-								</div>
-								<div
+							
+								<v-checkbox
 									v-else
-									class="d-flex align-self-start"
+									:model-value="item.done"
+									@change="setCheckbox(cardId, item.id, taskToggle)"
+									class="pr-2 flex-grow-1 task__checkbox checkbox"
+									hide-details="true"
+									density="compact"
+									color="info"
+									:label="item.text"
+								></v-checkbox>
+							<!-- </transition> -->
+							<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
+							<div>
+								<transition
+									name="bounce"
+									mode="out-in"
+									:duration="50"
 								>
-									<div class="checkbox__pencil">
+									<div
+										v-if="item.editing"
+										class="align-self-start checkbox__edit"
+									>
 										<button
-											@click="editTask(cardId, item.id, item.text, taskToggle)"
+											@click="finishEditingTask(cardId, item.id, taskToggle)"
 											class="checkbox__button"
 										>
 											<img
-												src="../icons/edit-icons-48px/16.webp"
+												src="../icons/ok-icons-48px/1.webp"
 												alt=""
 											/>
 										</button>
 									</div>
-									<div class="checkbox__delete">
-										<button
-											@click="deleteTask(cardId, item.id, taskToggle)"
-											class="checkbox__button"
-										>
-											<img
-												src="../icons/delete-icons-48px/22.webp"
-												alt=""
-											/>
-										</button>
+									<div
+										v-else
+										class="d-flex align-self-start"
+									>
+										<div class="checkbox__pencil">
+											<button
+												@click="editTask(cardId, item.id, item.text, taskToggle)"
+												class="checkbox__button"
+											>
+												<img
+													src="../icons/edit-icons-48px/16.webp"
+													alt=""
+												/>
+											</button>
+										</div>
+										<div class="checkbox__delete">
+											<button
+												@click="deleteTask(cardId, item.id, taskToggle)"
+												class="checkbox__button"
+											>
+												<img
+													src="../icons/delete-icons-48px/22.webp"
+													alt=""
+												/>
+											</button>
+										</div>
 									</div>
-								</div>
-							</transition>
+								</transition>
+							</div>
+
+
+
+
 						</div>
 					</transition-group>
 					<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">

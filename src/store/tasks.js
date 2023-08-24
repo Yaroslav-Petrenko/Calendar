@@ -19,7 +19,7 @@ export default {
 				allDone: false,
 				tasks: [
 					{ id: '0', text: 'Сходить на "Оппенгеймера', done: true, editing: false },
-					{ id: '1', text: 'Посетить спортивный зал вечером', done: true, editing: false },
+					{ id: '1', text: 'Посетить спортзал вечером', done: true, editing: false },
 					{ id: '2', text: 'Записаться на тверк', done: false, editing: false },
 				],
 			},
