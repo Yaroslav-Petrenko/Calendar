@@ -46,7 +46,7 @@ export default {
 					{ id: '0', text: 'Сходить на фестиваль', done: false, editing: false },
 					{ id: '1', text: 'Найти время для самообучения', done: false, editing: false },
 					{ id: '2', text: 'Запланировать отпуск', done: false, editing: false },
-					{ id: '3', text: 'Всё идеи для тасков закончились...', done: false, editing: false },
+					{ id: '3', text: 'Задуматься о бесконечно вечном', done: false, editing: false },
 				],
 			},
 		],

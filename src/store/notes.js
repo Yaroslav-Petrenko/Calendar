@@ -7,42 +7,41 @@ export default {
 				id: '100',
 				archive: false,
 				editing: false,
-				text: "Подготовить себя к марафону",
+				text: "Сходить на концерт",
 				notesType: 'text',
-				icon: '47'
+				icon: '1'
 			},
 			{
 				id: '101',
 				archive: false,
 				editing: false,
-				text: "Привет моя новая заметка",
+				text: "Подготовиться к марафону",
 				notesType: 'text',
-				icon: '26'
+				icon: '11'
 			},
 			{
 				id: '102',
 				archive: false,
 				editing: false,
 
-				text: "Привет моя новая заметка3",
+				text: "Создать свою гильдию",
 				notesType: 'text',
-				icon: '3'
+				icon: '24'
 			},
 			{
 				id: '103',
 				archive: false,
 				editing: false,
 
-				text: "Привет моя новая заметка4",
+				text: "Посадить цветы на балконе",
 				notesType: 'text',
-				icon: '12'
+				icon: '25'
 			},
 			{
 				id: '104',
 				archive: false,
 				editing: false,
-
-				text: "The Woodman set to work at once, and so sharp was his axe that the tree was. The Woodman set to work at once, and so sharp was his axe that the tree was",
+				text: "Создать плейлист для тренировок",
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -50,19 +49,18 @@ export default {
 				id: '105',
 				archive: false,
 				editing: false,
-
-				text: "Sed",
-				notesType: 'text',
-				icon: '5'
+				text: "Сделать ремонт в гостинной",
+				notesType: 'ideas',
+				icon: '51'
 			},
 			{
 				id: '106',
 				archive: false,
 				editing: false,
 
-				text: "Consectetur",
-				notesType: 'achievements',
-				icon: '52'
+				text: "Завести нового пушистого друга - котенка.",
+				notesType: 'ideas',
+				icon: '51'
 			},
 			{
 				id: '107',
@@ -70,24 +68,24 @@ export default {
 				editing: false,
 
 				text: "Lacus",
-				notesType: 'achievements',
-				icon: '52'
+				notesType: 'text',
+				icon: '33'
 			},
 			{
 				id: '108',
 				archive: false,
 				editing: false,
 
-				text: "Mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus",
-				notesType: 'text',
-				icon: '15'
+				text: "Построил птичий домик на заднем дворе",
+				notesType: 'achievements',
+				icon: '52'
 			},
 			{
 				id: '109',
 				archive: false,
 				editing: false,
 
-				text: "Sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra",
+				text: "Прошёл курс по саморазвитию",
 				notesType: 'achievements',
 				icon: '52'
 			},
@@ -96,18 +94,34 @@ export default {
 				archive: false,
 				editing: false,
 
-				text: "Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim",
-				notesType: 'ideas',
-				icon: '51'
+				text: "Вскопал огород",
+				notesType: 'achievements',
+				icon: '52'
 			},
 			{
 				id: '111',
 				archive: false,
 				editing: false,
 
-				text: "Faucibus in ornare quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet massa",
-				notesType: 'text',
-				icon: '11'
+				text: "Записался на мастер-класс по ноготочкам",
+				notesType: 'achievements',
+				icon: '52'
+			},
+			{
+				id: '112',
+				archive: false,
+				editing: false,
+				text: "Организовал поисковую экспедицию в поисках потерянного пульта от телевизора",
+				notesType: 'achievements',
+				icon: '52'
+			},
+			{
+				id: '113',
+				archive: false,
+				editing: false,
+				text: "Провёл расследование: куда исчезают носки после стирки",
+				notesType: 'achievements',
+				icon: '52'
 			},
 		]
 	},

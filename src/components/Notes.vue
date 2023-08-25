@@ -179,6 +179,7 @@ export default {
 	&__text {
 		font-family: 'Montserrat', sans-serif;
 		color: #fff;
+		word-break: break-word;
 	}
 
 	// .note_&

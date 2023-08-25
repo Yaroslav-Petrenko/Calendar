@@ -21,11 +21,11 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Сделать 200 тренировок в спортзале', done: false, size: "large", time: '' },
-					{ id: '1', text: '150 тренировок', done: true, size: "small", time: '15:23 22.08.23' },
-					{ id: '2', text: '100 тренировок', done: true, size: "small", time: '15:23 29.06.23' },
-					{ id: '3', text: '50 тренировок', done: true, size: "small", time: '15:23 29.04.23' },
-					{ id: '4', text: '25 тренировок', done: true, size: "small", time: '15:23 29.02.23' },
+					{ id: '0', text: 'Пройти 300 уроков по английскому', done: false, size: "large", time: '' },
+					{ id: '1', text: 'Прошёл 250 уроков', done: false, size: "small", time: '' },
+					{ id: '2', text: 'Прошёл 200 уроков', done: true, size: "small", time: '14:59 23.08.23' },
+					{ id: '3', text: 'Прошёл 150 уроков', done: true, size: "small", time: '15:23 22.06.23' },
+					{ id: '4', text: 'Прошёл 100 уроков', done: true, size: "small", time: '15:23 22.03.23' },
 				],
 			},
 			{
@@ -33,11 +33,11 @@ export default {
 				allDone: false,
 				archive: false,
 				tasks: [
-					{ id: '0', text: 'Пройти 300 уроков по английскому', done: false, size: "large", time: '' },
-					{ id: '1', text: 'Прошёл 250 уроков', done: false, size: "small", time: '' },
-					{ id: '2', text: 'Прошёл 200 уроков', done: true, size: "small", time: '14:59 23.08.23' },
-					{ id: '3', text: 'Прошёл 150 уроков', done: true, size: "small", time: '15:23 22.06.23' },
-					{ id: '4', text: 'Прошёл 100 уроков', done: true, size: "small", time: '15:23 22.03.23' },
+					{ id: '0', text: 'Сделать 200 тренировок в спортзале', done: false, size: "large", time: '' },
+					{ id: '1', text: '150 тренировок', done: true, size: "small", time: '15:23 22.08.23' },
+					{ id: '2', text: '100 тренировок', done: true, size: "small", time: '15:23 29.06.23' },
+					{ id: '3', text: '50 тренировок', done: true, size: "small", time: '15:23 29.04.23' },
+					{ id: '4', text: '25 тренировок', done: true, size: "small", time: '15:23 29.02.23' },
 				],
 			},
 			{
