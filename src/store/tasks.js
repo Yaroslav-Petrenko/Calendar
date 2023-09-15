@@ -33,9 +33,8 @@ export default {
 					{ id: '2', text: 'Пойти на рыбалку с друзьями', done: false, editing: false },
 					{ id: '3', text: 'Сделать список покупок', done: false, editing: false },
 					{ id: '4', text: 'Найти новую книгу для чтения', done: false, editing: false },
-					{ id: '6', text: 'Посмотреть фильм', done: false, editing: false },
-					{ id: '7', text: 'Зайти в магазин за продуктами', done: false, editing: false },
-					// { id: '8', text: 'Выпить пива, поностальгировать', done: false, editing: false },
+					{ id: '5', text: 'Посмотреть фильм', done: false, editing: false },
+					{ id: '6', text: 'Зайти в магазин за продуктами', done: false, editing: false },
 				],
 			},
 			{
@@ -53,28 +52,11 @@ export default {
 		archiveCards: []
 	},
 	getters: {
-		// tasksFindEl: state => id => {
-		// 	return state.notes.id
-		// },
 		filteredTasks: state => ({ taskToggle }) => {
 			if (taskToggle == 'all') return state.cards
 			if (taskToggle == 'archive') return state.archiveCards
 		},
-		cards: state => state.cards,
-		getDate: state => {
-			const months = [
-				"Января", "Февраля", "Марта", "Апреля",
-				"Мая", "Июня", "Июля", "Августа",
-				"Сентября", "Октября", "Ноября", "Декабря"
-			];
-
-			const currentDate = new Date();
-			const day = currentDate.getDate();
-			const month = months[currentDate.getMonth()];
-			const year = currentDate.getFullYear();
-
-			const formattedDate = `${day} ${month} ${year}`;
-		}
+		cards: state => state.cards
 	},
 	mutations: {
 		addTask({ cards, archiveCards }, { text, cardId, taskToggle }) {

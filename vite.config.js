@@ -15,7 +15,8 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
 			autoImport: true,
-			styles: { configFile: 'src/settings.scss' }
+			// Включить если нужен глобальный файл со стилями
+			// styles: { configFile: 'src/settings.scss' }
     }),
   ],
   define: { 'process.env': {} },

@@ -13,10 +13,12 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 import store from './store/index'
+import router from './router/index'
 
 const app = createApp(App)
 
 registerPlugins(app)
 
 app.use(store)
-	 .mount('#app')
+	.use(router)
+	.mount('#app')

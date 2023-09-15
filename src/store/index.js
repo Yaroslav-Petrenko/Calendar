@@ -13,5 +13,4 @@ const store = {
 	strict: process.env.NODE_ENV !== 'production'
 }
 
-
 export default createStore(store);
