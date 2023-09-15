@@ -41,7 +41,7 @@ export default {
 				id: '104',
 				archive: false,
 				editing: false,
-				text: "Создать плейлист для тренировок",
+				text: "Сделать ремонт в гостинной",
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -49,7 +49,7 @@ export default {
 				id: '105',
 				archive: false,
 				editing: false,
-				text: "Сделать ремонт в гостинной",
+				text: "Завести нового пушистого друга - котенка",
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -58,7 +58,7 @@ export default {
 				archive: false,
 				editing: false,
 
-				text: "Завести нового пушистого друга - котенка.",
+				text: "Создать плейлист для тренировок",
 				notesType: 'ideas',
 				icon: '51'
 			},
@@ -67,7 +67,7 @@ export default {
 				archive: false,
 				editing: false,
 
-				text: "Lacus",
+				text: "Приготовить домашние пельмени",
 				notesType: 'text',
 				icon: '33'
 			},

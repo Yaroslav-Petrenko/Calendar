@@ -259,7 +259,7 @@ export default {
 	setup() {
 		const store = useStore()
 
-		const tab = ref('Заметки')
+		const tab = ref('Задачи')
 		const taskToggle = ref('all')
 
 		const getNotesStatus = computed(() => {
