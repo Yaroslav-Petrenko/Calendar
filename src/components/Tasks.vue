@@ -17,7 +17,7 @@
 					<div class="task__icon icon">
 						<div class="icon__circle">
 							<img
-								src="../icons/done-icons-48px/1-check.webp"
+								src="src/icons/done-icons-48px/1-check.webp"
 								alt=""
 							/>
 						</div>
@@ -27,7 +27,7 @@
 								class="icon__check"
 							>
 								<img
-									src="../icons/done-icons-48px/2-check.webp"
+									src="src/icons/done-icons-48px/2-check.webp"
 									alt=""
 								/>
 							</div>
@@ -55,9 +55,6 @@
 							:key="item.id"
 							class="d-flex flex-grow-1 task__item"
 						>
-						<!-- <transition name="bounce"
-									mode="out-in"
-									:duration="50"> -->
 							<v-textarea
 								v-if="item.editing"
 								v-model="editingField"
@@ -71,18 +68,17 @@
 								hide-details="true"
 								color="blue-darken-1"
 							></v-textarea>
-							
-								<v-checkbox
-									v-else
-									:model-value="item.done"
-									@change="setCheckbox(cardId, item.id, taskToggle)"
-									class="pr-2 flex-grow-1 task__checkbox checkbox"
-									hide-details="true"
-									density="compact"
-									color="info"
-									:label="item.text"
-								></v-checkbox>
-							<!-- </transition> -->
+
+							<v-checkbox
+								v-else
+								:model-value="item.done"
+								@change="setCheckbox(cardId, item.id, taskToggle)"
+								class="pr-2 flex-grow-1 task__checkbox checkbox"
+								hide-details="true"
+								density="compact"
+								color="info"
+								:label="item.text"
+							></v-checkbox>
 							<!-- TODO АНИМАЦИЯ ДЛЯ ГАЛОЧКИ, КАРАНДАША, КОРЗИНЫ -->
 							<div>
 								<transition
@@ -99,7 +95,7 @@
 											class="checkbox__button"
 										>
 											<img
-												src="../icons/ok-icons-48px/1.webp"
+												src="src/icons/ok-icons-48px/check-mark.webp"
 												alt=""
 											/>
 										</button>
@@ -114,7 +110,7 @@
 												class="checkbox__button"
 											>
 												<img
-													src="../icons/edit-icons-48px/16.webp"
+													src="src/icons/edit-icons-48px/pencil.webp"
 													alt=""
 												/>
 											</button>
@@ -125,7 +121,7 @@
 												class="checkbox__button"
 											>
 												<img
-													src="../icons/delete-icons-48px/22.webp"
+													src="src/icons/delete-icons-48px/trash.webp"
 													alt=""
 												/>
 											</button>
@@ -133,10 +129,6 @@
 									</div>
 								</transition>
 							</div>
-
-
-
-
 						</div>
 					</transition-group>
 					<div class="d-flex align-end mr-2 flex-grow-1 task__add-field">
@@ -462,7 +454,6 @@ export default {
 		max-width: 395.33px;
 	}
 
-
 	// .task__no-task 
 	&__no-task {
 		// делаю position: absolute; чтобы во время анимации появления/исчезновения блока контент не прыгал 
@@ -624,8 +615,6 @@ export default {
 
 /* // анимация для task */
 .task-bounce-enter-active {
-	// animation: bounce-in-task 0.4s;
-	// animation: bounce-in-task 15s;
 	animation: bounce-in-task 0.5s;
 }
 
@@ -654,89 +643,4 @@ export default {
 .flip-list-leave-active {
 	animation: bounceOutRight 0.3s;
 }
-
-
-
-// .task ::-webkit-scrollbar {
-// 	width: 2px;
-// 	/* ширина для вертикального скролла */
-// 	height: 2px;
-// 	/* высота для горизонтального скролла */
-// 	background-color: #383B42;
-// }
-
-
-// .task__item {
-// 	overflow: visible;
-
-// 	.v-label {
-// 		align-items: start;
-// 		position: relative;
-// 		top: 3px;
-// 	}
-
-// 	.v-checkbox .v-selection-control {
-// 		min-height: 28px;
-// 	}
-
-// 	.checkbox-icons {
-// 		position: relative;
-// 	}
-
-// 	.v-selection-control {
-// 		align-items: start;
-// 	}
-
-// 	.checkbox {
-// 		padding: 6px 0 6px 0;
-// 	}
-
-// 	.сheckbox__pencil {
-// 		margin-right: 10px;
-// 	}
-
-// 	.checkbox__edit {
-// 		margin-right: 35px;
-// 	}
-
-// 	.checkbox__delete {
-// 		margin-right: 5px;
-// 	}
-
-// 	.checkbox__pencil,
-// 	.checkbox__delete {
-// 		visibility: hidden;
-// 	}
-
-// 	&:hover .checkbox__delete,
-// 	&:hover .checkbox__pencil {
-// 		visibility: visible;
-// 	}
-
-// 	.checkbox__delete {}
-
-// 	.checkbox__button img {
-// 		max-height: 20px;
-// 		max-width: 20px;
-// 	}
-
-// 	.checkbox__button:hover {
-// 		transform: scale(1.15);
-// 	}
-
-// 	.checkbox__button {
-// 		position: relative;
-// 		top: 6px;
-// 	}
-// }
-
-// .task__add-btn {
-// 	position: relative;
-// 	bottom: 19px;
-// }
-
-// .task-text.v-card-text {
-// 	padding: 0;
-// 	font-size: 18px;
-// }
 </style>

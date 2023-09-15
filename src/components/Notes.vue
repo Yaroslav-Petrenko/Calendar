@@ -114,11 +114,6 @@ export default {
 				case 'achievements': return '#1A321B'
 			}
 		})
-		const getRandomIco = computed(() => {
-			const randomNumber = Math.floor(Math.random() * 10 + 1)
-			// const res = `../icons/webp/${("0" + randomNumber).slice(-2)}.webp`;
-			// return "09.webp";
-		})
 
 		const dispArchive = (noteId) => {
 			store.dispatch('notes/toArchive', { noteId })
@@ -137,7 +132,7 @@ export default {
 
 			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
 
-			// после dispatch возвращаю исходные transition стили DOM узла
+			// после dispatch возвращаю исходные transition стили
 			setTimeout(() => {
 				elems.forEach(item => item.style.transition = 'all 0.5s ease')
 			}, 0)
@@ -148,7 +143,6 @@ export default {
 		}
 
 		return {
-			getRandomIco,
 			getNoteColor,
 			dispArchive,
 			deleteNote,
@@ -207,8 +201,6 @@ export default {
 		grid-area: field;
 		position: relative;
 		align-items: flex-start;
-		// display: grid;
-		// max-height: 50% !important;
 	}
 
 	.v-field__field .v-field__input {
@@ -237,41 +229,5 @@ export default {
 	.v-card-actions.note__actions {
 		min-height: 28px;
 	}
-
 }
-
-
-// .note__item.v-card-item {
-// 	padding: 0 0 15px 0;
-// 	min-height: 78px;
-// }
-
-// .note-title-text {
-// 	font-weight: 500;
-// 	font-size: 1.44rem;
-// 	line-height: 1.3;
-// }
-
-// .note__text {
-// 	font-family: 'Montserrat', sans-serif;
-// 	color: #fff;
-// }
-
-// .note__icon {
-// 	padding: 2px;
-// 	position: relative;
-// 	left: 0px;
-// 	top: 0px;
-// 	margin-left: 15px;
-// 	cursor: pointer;
-
-// 	img {
-// 		width: 48px;
-// 		height: 48px;
-
-// 		&:hover {
-// 			transform: scale(1.1);
-// 		}
-// 	}
-// }
 </style>

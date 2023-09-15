@@ -87,11 +87,6 @@ export default {
 .icon-pack {
 	overflow: hidden;
 
-	// .icon-pack__body 
-	&__body {
-		// border-radius: 3px;
-	}
-
 	// .icon-pack__title
 	&__title {
 		margin-bottom: 11px;
@@ -99,23 +94,9 @@ export default {
 
 	// .icon-pack__selected-item
 	&__selected-item {
-		// color: #FAFAFA;
-		// border-radius: 13px;
-		// --v-activated-opacity: 0.15;
-		// // border: 1px solid black;
-		// border: 3px dotted transparent;
-		// /* Устанавливаем ширину границы и делаем её прозрачной */
-		// border-image: linear-gradient(to right, #9B8BFD, #00B3FE);
-		// /* Линейный градиентный border */
-		// border-image-slice: 1;
-		// // border-style: dotted;
-		// /* Устанавливаем значение для разделения изображения границы */
-
-
+		/* Устанавливаем значение для разделения изображения границы */
 		--border-size: 1px;
 		--border-angle: 0turn;
-		// width: 60vmin;
-		// height: 50vmin;
 		background-image: conic-gradient(from var(--border-angle),
 				#213,
 				#112 50%,
@@ -133,7 +114,6 @@ export default {
 				--border-angle: 1turn;
 			}
 		}
-
 	}
 
 	// .icon-pack__button.v-btn
@@ -155,38 +135,6 @@ export default {
 		height: 100%;
 	}
 }
-
-// .icon-pack__button-togle.v-btn-group {
-// 	height: 100%;
-// }
-
-
-// .icon-pack__body {
-// 	border-radius: 3px;
-// }
-
-// .icon-pack__title {
-// 	margin-bottom: 15px;
-// }
-
-// .icon-pack__button.v-btn {
-// 	min-height: 48px;
-// 	min-width: 48px;
-// 	height: 60px;
-// 	padding: 6px;
-// }
-
-// .icon-pack__selected-item {
-// 	color: #FAFAFA;
-// 	--v-activated-opacity: 0.2;
-// 	// border: 1px solid black;
-// }
-
-// .icon-pack__img {
-// 	height: 48px;
-// 	width: 48px;
-// }
-
 
 //------------------------------АНИМАЦИИ----------------------------------------
 // анимация для checkbox

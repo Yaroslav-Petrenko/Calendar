@@ -19,7 +19,6 @@
 	</v-card>
 </template>
 
-
 <script>
 import { ref, computed, toRefs, watch } from 'vue'
 import { useStore } from 'vuex'
