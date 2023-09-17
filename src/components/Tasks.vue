@@ -17,7 +17,7 @@
 					<div class="task__icon icon">
 						<div class="icon__circle">
 							<img
-								src="src/icons/done-icons-48px/1-check.webp"
+								src="@/icons/done-icons-48px/1-check.webp"
 								alt=""
 							/>
 						</div>
@@ -27,7 +27,7 @@
 								class="icon__check"
 							>
 								<img
-									src="src/icons/done-icons-48px/2-check.webp"
+									src="@/icons/done-icons-48px/2-check.webp"
 									alt=""
 								/>
 							</div>
@@ -95,7 +95,7 @@
 											class="checkbox__button"
 										>
 											<img
-												src="src/icons/ok-icons-48px/check-mark.webp"
+												src="@/icons/ok-icons-48px/check-mark.webp"
 												alt=""
 											/>
 										</button>
@@ -110,7 +110,7 @@
 												class="checkbox__button"
 											>
 												<img
-													src="src/icons/edit-icons-48px/pencil.webp"
+													src="@/icons/edit-icons-48px/pencil.webp"
 													alt=""
 												/>
 											</button>
@@ -121,7 +121,7 @@
 												class="checkbox__button"
 											>
 												<img
-													src="src/icons/delete-icons-48px/trash.webp"
+													src="@/icons/delete-icons-48px/trash.webp"
 													alt=""
 												/>
 											</button>

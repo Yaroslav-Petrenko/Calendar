@@ -16,7 +16,7 @@
 			></v-textarea>
 			<div class="note-form__icon">
 				<img
-					src="src/icons/modal-icons-64px/social-engagement.webp"
+					src="@/icons/modal-icons-64px/social-engagement.webp"
 					alt=""
 				/>
 			</div>
@@ -41,7 +41,7 @@
 						value="text"
 					>
 						<img
-							src="src/icons/viking-icons-54px/53.webp"
+							src="@/icons/viking-icons-54px/53.webp"
 							alt=""
 						/>
 						Текст
@@ -51,7 +51,7 @@
 						value="ideas"
 					>
 						<img
-							src="src/icons/viking-icons-54px/51.webp"
+							src="@/icons/viking-icons-54px/51.webp"
 							alt=""
 							class="note-form__button"
 						/>
@@ -63,7 +63,7 @@
 						class="pe-2"
 					>
 						<img
-							src="src/icons/viking-icons-54px/52.webp"
+							src="@/icons/viking-icons-54px/52.webp"
 							alt=""
 							class="note-form__button"
 						/>

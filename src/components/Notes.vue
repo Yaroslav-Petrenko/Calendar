@@ -127,7 +127,6 @@ export default {
 			// в момент превращения checkbox в textarea происходит баг - нижестоящая строка подпрыгивает из-за присваивания класса .tasks-fade-move 
 			// На время превращения я обнуляю transition стили этого DOM узла
 			const elems = document.querySelectorAll('.main-note')
-			console.log('elems', elems)
 			elems.forEach(item => item.style.transition = 'none')
 
 			store.dispatch('notes/editNote', { noteId, newText: editingField.value })
