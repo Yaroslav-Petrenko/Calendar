@@ -257,7 +257,7 @@ export default {
 	setup() {
 		const store = useStore()
 
-		const tab = ref('Задачи')
+		const tab = ref('Заметки')
 		const taskToggle = ref('all')
 
 		const getNotesStatus = computed(() => {
@@ -400,6 +400,142 @@ export default {
 		height: 30px;
 		margin-right: 10px;
 	}
+
+	// .v-field .v-field--focused {
+	// 	border-width: 1px !important;
+	// 	color: #000;
+	// }
+
+	input {
+		// border-width: 1px !important;
+	}
+
+	// стили начальные
+	.v-field__outline {
+		// --v-field-border-width: 2px;
+		// --v-field-border-opacity: 0.3;
+		// --v-field-border-opacity: 0.38;
+		// color: rgb(115,115,119);
+		// --v-field-border-opacity: 0.98;
+	}
+
+	// начальный цвет поля поиска
+	.v-field__outline__start,
+	.v-field__outline__end {
+		// color: #42A5F5;
+		// color: rgb(66,165,245, 0.8);
+		// color: rgb(30,136,229, 0.8);
+		// color: rgb(25,118,210, 1);
+		// color: rgb(66,165,245, 1);
+		color: #737377;
+		// color: rgb(30,136,229, 0.8);
+		--v-field-border-width: 2px;
+		// opacity: 1;
+		// opacity: 0.7;
+		--v-field-border-opacity: 0.75;
+	}
+
+
+
+	// стили при hover
+	.v-field:hover .v-field__outline__start,
+	.v-field:hover .v-field__outline__end {
+		// --v-field-border-opacity: var(--v-high-emphasis-opacity);
+		// color: rgb(66, 165, 245, 1);
+		// border: 1px solid rgb(66,165,245, 1);
+		// color: rgb(30,136,229, 0.8);
+		--v-field-border-opacity: 1;
+		// --v-border-color: grey;
+		// opacity: 1;
+	}
+
+	// стили при hover
+	// .v-field:hover .v-field__outline {
+	// 	// --v-field-border-opacity: var(--v-high-emphasis-opacity);
+	// 	color: rgb(66, 165, 245, 1);
+	// 	// border: 1px solid rgb(66,165,245, 1);
+	// 	--v-field-border-opacity: 1;
+	// 	// --v-border-color: grey;
+	// 	opacity: 1;
+	// }
+
+
+
+	// стили при focus
+	.v-field--variant-outlined.v-field--focused .v-field__outline {
+		// --v-field-border-width: 2px;
+		// --v-field-border-width: 2px;
+		// border: 1px solid rgb(66,165,245, 1);
+		// border: 1px solid rgb(66,165,245, 1);
+		// --v-field-border-opacity: 1;
+	}
+
+	.v-field.v-field--focused.v-field--variant-outlined .v-field__outline__end,
+	.v-field.v-field--focused.v-field--variant-outlined .v-field__outline__start {
+		// color: #42A5F5;
+		// color: rgb(66,165,245, 0.8);
+		// color: rgb(30,136,229, 0.8);
+		// color: rgb(25,118,210, 1);
+		// color: rgb(66,165,245, 1);
+		// 	--v-field-border-width: 2px;
+		// 	opacity: 1;
+		// 	opacity: 0.7;
+		// border: 2px solid rgb(66,165,245, 1);
+		--v-field-border-opacity: 1;
+		// color: #BDBDBD;
+		// color: #546E7A;
+		// color: rgb(30,136,229, 1);
+	}
+
+	// opacity при focus
+	// .v-field.v-field--focused .v-field__outline,
+	// .v-input.v-input--error .v-field__outline {
+	// 	--v-field-border-opacity: 1;
+	// }
+
+	// 	.v-field--variant-outlined .v-field__outline__start, .v-field--variant-outlined .v-field__outline__notch::before, .v-field--variant-outlined .v-field__outline__notch::after, .v-field--variant-outlined .v-field__outline__end {
+	//     border: 0px solid rgb(66, 165, 245, 1);
+	//     opacity: var(--v-field-border-opacity);
+	//     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	// }
+
+
+
+
+
+
+
+
+
+
+
+	// .v-field--variant-outlined.v-field--focused .v-field__outline {
+	// 	--v-field-border-width: 1px;
+	// 	// --v-field-border-color: #df0d0d;
+	// 	--v-border-color: #df0d0d;
+	// 	--v-theme-on-surface: #df0d0d;
+	// }
+
+	// .v-field__outline__start,
+	// .v-field__outline__end {
+	// 	color: rgb(66,165,245, 0.8);
+	// 	color: rgb(30,136,229, 0.8);
+	// 	color: rgb(25,118,210, 1);
+	// 	// color: #42A5F5;
+	// 	--v-field-border-width: 2px;
+	// 	opacity: 1;
+	// 	opacity: 0.7;
+	// }
+
+	// .v-field.v-field--focused	.v-field__outline__start,
+	// .v-field__outline__end {
+	// 	color: rgb(66,165,245, 0.8);
+	// 	color: rgb(30,136,229, 0.8);
+	// 	color: rgb(25,118,210, 1);
+	// 	// color: #42A5F5;
+	// 	--v-field-border-width: 2px;
+	// 	opacity: 1;
+	// }
 }
 
 //------------------------------АНИМАЦИИ----------------------------------------
